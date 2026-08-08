@@ -3,7 +3,7 @@
 **Document ID:** opportunity_register.md  
 **Project:** P-001 Atlas Operating System  
 **Status:** Active  
-**Version:** 1.0  
+**Version:** 2.0  
 **Owner:** Антон  
 **Purpose:** Identify, compare, validate and scale low-capital digital opportunities.
 
@@ -13,43 +13,196 @@
 
 Atlas does not search for one perfect business.
 
-Atlas builds a portfolio of experiments.
+Atlas builds a portfolio of experiments and gradually allocates capital toward the opportunities that demonstrate the strongest evidence.
 
 Capital should move according to evidence:
 
 **Research → Validation → Active → Scaling → Portfolio Asset**
 
-No significant capital is committed before evidence exists.
-
 A project may remain unprofitable during an initial development period if leading indicators demonstrate improving economics.
+
+The absence of early revenue is not automatically a reason to kill a project.
+
+However, continued investment requires measurable evidence of progress.
 
 ---
 
-## 2. Capital Allocation Principle
+## 2. Atlas Objective
 
-Initial allocation during the experimental phase:
+The long-term objective of Atlas is to build a portfolio of digital businesses and income-producing systems that:
 
-- 60–80% — reinvestment into proven winners
-- 10–25% — new experiments
-- 5–15% — strategic reserve
-- small percentage — owner dividends
+- generate recurring cash flow;
+- can be automated;
+- can scale without proportional increases in owner time;
+- can be improved through reinvestment;
+- can operate as independent assets;
+- diversify the overall Atlas portfolio;
+- eventually provide sustainable owner dividends.
+
+Atlas should gradually evolve from:
+
+**Owner-dependent work → systems → automated businesses → portfolio of digital assets**
+
+---
+
+## 3. Capital Allocation Principle
+
+During the experimental phase, capital allocation should remain conservative.
+
+Initial target allocation:
+
+- **60–80%** — reinvestment into proven winners;
+- **10–25%** — new experiments;
+- **5–15%** — strategic reserve;
+- **small percentage** — owner dividends.
 
 These percentages are targets, not fixed rules.
 
-Atlas should increase capital allocation toward opportunities with demonstrated:
+Capital allocation must change according to actual portfolio performance.
 
-- demand;
-- positive unit economics;
-- scalability;
-- repeatability;
-- automation potential;
-- defensibility.
+No large capital commitment should be made before evidence exists.
 
 ---
 
-## 3. Opportunity Lifecycle
+## 4. Opportunity Pipeline
 
-Every opportunity must have one state:
+Every opportunity moves through the following stages:
+
+**Idea → Research → Triage → Validation Candidate → Validation → Active Project → Scale / Hold / Kill / Exit → Portfolio Asset**
+
+An opportunity is not considered an active business until it has passed validation.
+
+---
+
+## 5. Opportunity Categories
+
+Atlas should consider opportunities across multiple categories.
+
+### A. Content Systems
+
+- YouTube channels
+- TikTok channels
+- short-form content systems
+- faceless content
+- educational content
+- entertainment content
+- niche media
+- content repurposing
+- affiliate content
+
+### B. AI and Automation
+
+- AI automation services
+- AI agents
+- automated research systems
+- automated content production
+- AI-assisted businesses
+- workflow automation
+- internal automation products
+- AI micro-SaaS
+
+### C. Digital Products
+
+- templates
+- databases
+- guides
+- digital tools
+- educational products
+- paid communities
+- subscriptions
+- information products
+
+### D. SaaS / Micro-SaaS
+
+- small software products
+- niche SaaS
+- API-based products
+- productivity tools
+- business tools
+- automation tools
+- vertical software
+
+### E. Crypto
+
+- crypto infrastructure
+- blockchain products
+- analytics
+- automated strategies
+- market-neutral opportunities
+- crypto services
+- data products
+- research products
+
+Crypto opportunities must be evaluated separately for technical, liquidity, regulatory and market risks.
+
+### F. Services
+
+- productized services
+- automation services
+- content services
+- research services
+- lead generation
+- specialized digital services
+
+### G. Other Low-Capital Digital Ventures
+
+Atlas should remain open to other opportunities if they satisfy the capital and risk constraints.
+
+---
+
+## 6. Opportunity Evaluation
+
+Every opportunity must answer:
+
+- What is the customer?
+- What problem is being solved?
+- How does the business make money?
+- What is the initial investment?
+- What are the recurring monthly costs?
+- How much owner time is required?
+- How quickly can revenue appear?
+- What are the expected margins?
+- What are the unit economics?
+- Can the process be automated?
+- Can it scale?
+- Can it operate without the owner?
+- What are the major risks?
+- What is the cheapest credible validation test?
+- What evidence would prove the opportunity works?
+- What evidence would prove the opportunity does not work?
+- What is the realistic upside?
+- What is the realistic downside?
+- What is the next action?
+
+---
+
+## 7. Opportunity Scoring
+
+Each opportunity receives a score from 1 to 10 for:
+
+| Metric | Score |
+|---|---:|
+| Market demand | 1–10 |
+| Revenue potential | 1–10 |
+| Margin potential | 1–10 |
+| Scalability | 1–10 |
+| Automation potential | 1–10 |
+| Low initial capital requirement | 1–10 |
+| Speed to validation | 1–10 |
+| Recurring revenue potential | 1–10 |
+| Competitive advantage potential | 1–10 |
+| Owner independence | 1–10 |
+| Risk-adjusted attractiveness | 1–10 |
+
+Atlas should not select opportunities based only on the highest theoretical profit.
+
+The objective is **risk-adjusted return on capital and time**.
+
+---
+
+## 8. Opportunity States
+
+Every opportunity must have exactly one state:
 
 - Research
 - Validation Candidate
@@ -61,373 +214,357 @@ Every opportunity must have one state:
 - Exit
 - Archived
 
-### State definitions
-
-**Research**
-Opportunity is being investigated.
-
-**Validation Candidate**
-A concrete experiment has been designed.
-
-**Validating**
-The experiment is currently running.
-
-**Active**
-The model has demonstrated real demand and economics.
-
-**Scaling**
-Additional capital is being deployed because evidence supports expansion.
-
-**Hold**
-The opportunity is not currently receiving significant capital but remains strategically interesting.
-
-**Kill**
-The validation failed or economics became unattractive.
-
-**Exit**
-The opportunity generated value but Atlas is deliberately leaving the position.
-
-**Archived**
-Historical record only.
+State changes must be supported by evidence.
 
 ---
 
-# 4. Scoring Model
+## 9. Validation Principle
 
-Each opportunity receives two separate scores.
+Validation should be as cheap as reasonably possible.
 
-## Potential Score
+Before committing meaningful capital, Atlas should attempt to prove:
 
-Long-term potential from 1–10.
+1. There is demand.
+2. Customers will take the desired action.
+3. Revenue is possible.
+4. Acquisition is economically viable.
+5. Delivery is technically possible.
+6. The process can eventually scale.
 
-Consider:
-
-- market size;
-- scalability;
-- margins;
-- automation;
-- recurring revenue;
-- defensibility;
-- international potential;
-- capital efficiency.
-
-## Evidence Score
-
-Current evidence from 1–10.
-
-Consider:
-
-- real customers;
-- real revenue;
-- repeatability;
-- conversion;
-- retention;
-- measurable demand;
-- proven unit economics.
-
-### Important
-
-High Potential + Low Evidence = experiment.
-
-Low Potential + High Evidence = possible cash-flow asset.
-
-High Potential + High Evidence = priority candidate for scaling.
+The first validation experiment should minimize irreversible spending.
 
 ---
 
-# 5. Opportunity Register
+## 10. Early-Stage Projects
 
-| ID | Opportunity | Category | State | Initial Cost | Monthly Cost | Time to Signal | Potential | Evidence | Automation | Risk | Next Action |
-|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---|
-| O-001 | AI Automation Service | AI / B2B | Research | $50–200 | $0–100 | 14–30d | 9 | 1 | 9 | Medium | Research niches |
-| O-002 | AI Lead Generation | AI / B2B | Research | $50–200 | $50–150 | 14–30d | 9 | 1 | 8 | Medium | Find target niche |
-| O-003 | YouTube Shorts Engine | Content | Research | $50–200 | $50–300 | 30–90d | 9 | 1 | 8 | Medium | Select content niches |
-| O-004 | TikTok Content Engine | Content | Research | $50–200 | $50–300 | 30–90d | 8 | 1 | 8 | Medium | Select niches |
-| O-005 | Content + Digital Product | Content / Product | Research | $50–300 | $0–100 | 30–120d | 9 | 1 | 9 | Medium | Find audience/product pair |
-| O-006 | Digital Product Factory | Digital Product | Research | $20–150 | $0–50 | 14–60d | 8 | 1 | 10 | Low | Identify products |
-| O-007 | Micro-SaaS | Software | Research | $100–500 | $20–150 | 30–120d | 9 | 1 | 9 | Medium | Find painful niche |
-| O-008 | Productized AI Service | AI / Service | Research | $50–200 | $20–100 | 14–30d | 9 | 1 | 9 | Medium | Find repeatable service |
-| O-009 | Crypto Analytics Tool | Crypto / Software | Research | $50–300 | $20–100 | 30–90d | 8 | 1 | 9 | High | Research data opportunities |
-| O-010 | Crypto Arbitrage System | Crypto | Research | $100–500 | $20–150 | 30–90d | 8 | 1 | 8 | Very High | Model net economics |
-| O-011 | Crypto Market-Neutral System | Crypto | Research | $100–500 | $20–150 | 30–90d | 8 | 1 | 8 | Very High | Research strategies |
-| O-012 | Affiliate Content Engine | Content / Affiliate | Research | $50–200 | $0–100 | 30–120d | 8 | 1 | 9 | Medium | Find high-value niches |
-| O-013 | B2B Research/Data Product | Data | Research | $50–300 | $0–100 | 30–90d | 8 | 1 | 9 | Low | Find valuable datasets |
-| O-014 | Lead Marketplace | B2B | Research | $100–500 | $50–200 | 30–120d | 9 | 1 | 8 | Medium | Research fragmented markets |
-| O-015 | AI-Assisted Agency → SaaS | AI / Software | Research | $100–500 | $20–150 | 60–180d | 10 | 1 | 10 | Medium | Find service-to-software path |
+A project does not need to generate immediate profit to remain active.
+
+Atlas may continue funding a project when:
+
+- audience is growing;
+- demand indicators are improving;
+- conversion is improving;
+- customer acquisition is improving;
+- retention is improving;
+- production costs are falling;
+- automation is increasing;
+- unit economics are moving toward profitability;
+- a clear monetization path exists.
+
+A project should be reconsidered when progress is not measurable.
 
 ---
 
-# 6. Validation Rules
+## 11. Kill Criteria
 
-Atlas should validate opportunities using small experiments.
+An opportunity should normally be killed or paused when:
 
-### Validation Round 1
+- the core demand hypothesis is disproven;
+- customers consistently refuse the offer;
+- acquisition costs are structurally uneconomic;
+- margins cannot support the model;
+- the opportunity requires excessive owner time;
+- the required capital becomes disproportionate to potential return;
+- legal or regulatory risk becomes unacceptable;
+- no meaningful progress is observed after a reasonable validation period.
 
-Budget:
+Killing a project is not considered failure.
 
-**$50–200 maximum**
-
-Objective:
-
-Determine whether there is measurable demand.
-
-Possible evidence:
-
-- customer response;
-- leads;
-- sales;
-- subscriptions;
-- views;
-- conversion;
-- recurring usage;
-- willingness to pay.
-
-No scaling during Round 1.
+It is capital preservation.
 
 ---
 
-### Validation Round 2
+## 12. Portfolio Allocation
 
-Only after positive evidence.
+Atlas should eventually allocate capital according to demonstrated performance.
 
-Budget:
+Illustrative structure:
 
-**$200–500**
+- **Core winners** — majority of reinvestment;
+- **Promising experiments** — controlled additional capital;
+- **New experiments** — small capital;
+- **Reserve** — liquidity and unexpected opportunities;
+- **Owner dividends** — limited distributions.
 
-Objective:
-
-Determine whether the result is repeatable.
-
-Measure:
-
-- acquisition cost;
-- revenue;
-- gross margin;
-- retention;
-- conversion;
-- time required;
-- automation percentage.
+A winning project may receive additional capital only after evidence supports the decision.
 
 ---
 
-### Scaling Round
+## 13. Opportunity Register
 
-Only after repeatable economics.
+### Opportunity Template
 
-Budget:
+#### Opportunity ID
 
-**$500–2,000+**
+`OP-XXX`
 
-Capital allocation depends on measured ROI.
+#### Name
 
----
+`[Opportunity name]`
 
-# 7. Time Horizon
+#### Category
 
-Atlas must not judge every project using the same time horizon.
+`[YouTube / TikTok / AI / SaaS / Crypto / Digital Product / Service / Other]`
 
-### Fast opportunities
+#### Status
 
-Expected signal:
+`Research`
 
-**7–30 days**
+#### Business Model
 
-Examples:
+`[How the opportunity makes money]`
 
-- services;
-- lead generation;
-- digital products.
+#### Target Customer
 
-### Medium opportunities
+`[Customer]`
 
-Expected signal:
+#### Problem
 
-**1–6 months**
+`[Problem being solved]`
 
-Examples:
+#### Initial Investment
 
-- AI automation;
-- micro-SaaS;
-- affiliate systems.
+`$[amount]`
 
-### Long opportunities
+#### Monthly Operating Cost
 
-Expected signal:
+`$[amount]`
 
-**6–18+ months**
+#### Expected Time Requirement
 
-Examples:
+`[hours/week]`
 
-- YouTube;
-- TikTok;
-- media brands;
-- large software products.
+#### Revenue Model
 
-A project may remain unprofitable during its development period if leading indicators improve.
+`[Subscription / Advertising / Affiliate / Product sales / Service / Trading / Other]`
 
----
+#### Time to First Revenue
 
-# 8. Leading Indicators
+`[estimate]`
 
-Revenue is not the only signal.
+#### Expected Margin
 
-Atlas should track:
+`[estimate]`
 
-- audience growth;
-- leads;
-- conversion;
-- retention;
-- engagement;
-- cost per acquisition;
-- production cost;
-- automation percentage;
-- gross margin;
-- repeat purchases;
-- customer lifetime value;
-- revenue growth;
-- time required from owner.
+#### Scalability
 
-A project with zero revenue but rapidly improving leading indicators may remain active.
+`1–10`
 
-A project with revenue but deteriorating economics may be killed.
+#### Automation Potential
 
----
+`1–10`
 
-# 9. Kill Criteria
+#### Recurring Revenue Potential
 
-Atlas should stop an experiment when:
+`1–10`
 
-- demand cannot be demonstrated;
-- unit economics remain structurally negative;
-- acquisition cost is too high;
-- automation potential is poor;
-- opportunity cost becomes excessive;
-- better opportunities emerge;
-- validation milestones repeatedly fail.
+#### Owner Independence
 
-Stopping a project is not failure.
+`1–10`
 
-The objective is to preserve capital and reallocate it toward better opportunities.
+#### Market Demand
 
----
+`1–10`
 
-# 10. Scaling Criteria
+#### Risk
 
-An opportunity becomes a scaling candidate when:
+`1–10`
 
-1. Demand is demonstrated.
-2. Customers/users repeatedly engage.
-3. Unit economics are understood.
-4. Acquisition is repeatable.
-5. Delivery can be standardized.
-6. Automation is increasing.
-7. Additional capital has a measurable expected return.
+#### Cheapest Validation Test
 
----
+`[test]`
 
-# 11. Atlas Portfolio Objective
+#### Success Criteria
 
-The long-term objective is to build a portfolio of digital assets.
+`[measurable result]`
 
-Target structure:
+#### Failure Criteria
 
-**Experiments**
-↓
-**Validated Projects**
-↓
-**Cash-Flow Projects**
-↓
-**Scalable Assets**
-↓
-**Portfolio**
-↓
-**Reinvestment**
-↓
-**More Assets**
+`[measurable result]`
 
-Atlas should gradually reduce dependence on the owner's direct time.
+#### Current Evidence
+
+`[evidence]`
+
+#### Next Action
+
+`[next action]`
+
+#### Capital Committed
+
+`$0`
+
+#### Revenue Generated
+
+`$0`
+
+#### Profit Generated
+
+`$0`
 
 ---
 
-# 12. First Research Cycle
+## 14. Initial Research Portfolio
 
-The first research cycle should investigate at least:
+The first Atlas research cycle should identify at least:
 
-### AI / Automation
-- 5 opportunities
+- **5 YouTube / TikTok opportunities**
+- **5 AI / automation opportunities**
+- **5 digital product / SaaS opportunities**
+- **5 crypto opportunities**
+- **5 other low-capital digital opportunities**
 
-### YouTube / TikTok
-- 5 opportunities
-
-### Digital Products / SaaS
-- 5 opportunities
-
-### Crypto
-- 5 opportunities
-
-### Other Low-Capital Businesses
-- 5 opportunities
-
-Total:
+Total initial research target:
 
 **25 opportunities**
 
-Each opportunity must receive:
+No opportunity receives significant capital merely because it appears attractive during research.
 
-- business model;
-- target customer;
-- initial capital;
-- monthly operating cost;
-- expected revenue model;
-- expected margin;
-- time to first signal;
-- time to profitability;
-- scalability;
-- automation potential;
-- risks;
-- validation experiment;
-- success criteria;
-- failure criteria;
-- Potential Score;
-- Evidence Score;
-- recommended next action.
+All 25 opportunities must pass through the same evaluation framework.
 
 ---
 
-# 13. Current Portfolio
+## 15. Initial Portfolio Rules
 
-No validated projects yet.
+During the first research cycle:
 
-Current capital deployment:
+- keep experiments small;
+- avoid unnecessary fixed costs;
+- avoid large upfront investments;
+- prefer reversible decisions;
+- measure results;
+- document experiments;
+- compare opportunities objectively;
+- preserve capital;
+- reinvest only where evidence improves;
+- do not confuse activity with progress.
 
-**$0**
-
-Current monthly revenue:
-
-**$0**
-
-Current owner dividends:
-
-**$0**
-
-Current reinvestment:
-
-**$0**
+Atlas should prefer opportunities where the first credible experiment can be performed with limited capital.
 
 ---
 
-# 14. Immediate Next Action
+## 16. Portfolio Learning
 
-Complete the first Atlas Research Cycle.
+Every experiment must produce knowledge even if it fails.
 
-Identify 25 real opportunities.
+For each completed experiment record:
 
-Do not invest meaningful capital yet.
+- hypothesis;
+- investment;
+- actions taken;
+- results;
+- revenue;
+- costs;
+- lessons;
+- failure reasons;
+- unexpected findings;
+- next decision.
 
-Compare opportunities using the Atlas scoring model.
+Failed experiments should improve future opportunity selection.
 
-Select the strongest candidates for small validation experiments.
+---
 
-The objective is not to predict winners.
+## 17. Atlas Economic Flywheel
 
-The objective is to **discover winners with controlled downside.**
+The desired long-term cycle is:
+
+**Research**
+
+↓
+
+**Low-cost validation**
+
+↓
+
+**First revenue**
+
+↓
+
+**Proof of economics**
+
+↓
+
+**Reinvestment**
+
+↓
+
+**Automation**
+
+↓
+
+**Scale**
+
+↓
+
+**Recurring cash flow**
+
+↓
+
+**Portfolio asset**
+
+↓
+
+**Reinvestment into additional opportunities**
+
+↓
+
+**Small owner dividends**
+
+↓
+
+**Larger Atlas capital base**
+
+The goal is to create a self-reinforcing portfolio rather than repeatedly starting from zero.
+
+---
+
+## 18. Decision Principle
+
+Atlas should optimize for:
+
+**Long-term portfolio value + recurring cash flow + capital efficiency + automation**
+
+rather than:
+
+**maximum short-term profit from a single project.**
+
+---
+
+## 19. Immediate Next Action
+
+Populate this register with the first research portfolio.
+
+Initial target:
+
+- 5 YouTube / TikTok opportunities
+- 5 AI / automation opportunities
+- 5 digital product / SaaS opportunities
+- 5 crypto opportunities
+- 5 other low-capital opportunities
+
+For each opportunity:
+
+1. Research the market.
+2. Estimate economics.
+3. Score the opportunity.
+4. Identify the cheapest validation experiment.
+5. Estimate the required capital.
+6. Identify the main risks.
+7. Assign a current state.
+8. Recommend the next action.
+
+Only after comparison should Atlas select opportunities for real-world validation.
+
+---
+
+## 20. Core Rule
+
+**No significant capital without evidence.**
+
+Atlas does not need to find the perfect business.
+
+Atlas needs to build a system capable of repeatedly finding, testing, improving, scaling and replacing businesses.
+
+The portfolio should become stronger over time through:
+
+**Evidence → Capital allocation → Reinvestment → Automation → Scale → Cash flow → New opportunities.**
