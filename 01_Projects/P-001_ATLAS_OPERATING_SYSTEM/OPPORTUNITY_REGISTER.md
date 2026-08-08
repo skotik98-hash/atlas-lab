@@ -173,7 +173,133 @@ Every opportunity must answer:
 - What is the realistic upside?
 - What is the realistic downside?
 - What is the next action?
+## Customer Acquisition Feasibility
 
+Atlas must evaluate not only whether customers exist, but whether they can be systematically identified, reached, converted, and retained.
+
+### Customer Availability
+
+- Who are the most likely customers?
+- Where can these customers be found?
+- Can Atlas identify them programmatically or semi-automatically?
+- Is there enough reachable customer volume?
+- Can customer lists be refreshed continuously?
+
+### Acquisition Channels
+
+Atlas should evaluate all realistic acquisition channels:
+
+- Search
+- Marketplaces
+- Business directories
+- Social platforms
+- Communities
+- Email
+- Partnerships
+- Referrals
+- Paid acquisition
+- Outbound sales
+- Inbound demand
+
+For each channel Atlas should estimate:
+
+- Reachability
+- Cost
+- Scalability
+- Expected response rate
+- Expected conversion rate
+- Automation potential
+- Platform or policy risk
+
+### Contactability
+
+Atlas should determine:
+
+- Can the customer be contacted legally and appropriately?
+- Is there a usable communication channel?
+- Can the first contact be personalized?
+- Can follow-ups be automated?
+- Can responses be classified automatically?
+- Can qualified leads be routed to the next stage?
+
+### Acquisition Funnel
+
+Every opportunity should have an explicit acquisition funnel:
+
+Discovery → Contact → Response → Qualification → Trial/Pilot → Payment → Retention
+
+Atlas should estimate the expected conversion rate between each stage.
+
+### Acquisition Economics
+
+Atlas must estimate:
+
+- Cost per qualified lead
+- Cost per customer
+- Expected conversion rate
+- Expected customer value
+- Payback period
+- Gross margin after acquisition cost
+- Scalability of acquisition
+- Human involvement required
+
+### Acquisition Automation Score
+
+Atlas should assign an acquisition automation score based on:
+
+- Customer discovery automation
+- Lead collection automation
+- Lead qualification automation
+- Personalization automation
+- Outreach automation
+- Follow-up automation
+- Response classification
+- CRM/state management
+- Payment automation
+- Retention automation
+
+### Acquisition Readiness
+
+An opportunity should receive a higher score when:
+
+Current Demand
++
+Reachable Customers
++
+High-Intent Buying Signals
++
+Low-Friction Contact
++
+Repeatable Acquisition Channel
++
+Attractive Acquisition Economics
++
+High Automation Potential
+
+create a credible path to customer acquisition.
+
+### Acquisition Kill Rule
+
+Atlas should downgrade or reject an opportunity when:
+
+- Customers are difficult to identify
+- Customers cannot be reached economically
+- Acquisition depends primarily on manual sales
+- Outreach cannot scale
+- Customer acquisition cost is likely to exceed customer value
+- Conversion evidence is weak
+- Acquisition depends on a single fragile platform
+- The opportunity requires large-scale paid advertising before validation
+
+### Core Acquisition Principle
+
+A market is not sufficiently attractive merely because customers exist.
+
+Atlas should prefer opportunities where customers can be:
+
+identified → reached → qualified → converted → retained
+
+through a repeatable and increasingly automated acquisition system.
 ---
 
 ## 7. Opportunity Scoring
