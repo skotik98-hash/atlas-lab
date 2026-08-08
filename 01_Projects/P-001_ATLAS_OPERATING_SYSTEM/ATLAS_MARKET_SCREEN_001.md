@@ -490,3 +490,324 @@ For each candidate evaluate:
 12. Recommended Atlas allocation.
 
 No capital should be committed solely because the nominal staking APY is attractive.
+---
+
+# 15. Customer Discovery & Acquisition Engine
+
+Atlas must not stop at market analysis.
+
+A market may appear attractive on paper while real customers are unwilling to buy.
+
+Therefore every serious opportunity must eventually be tested against real potential customers.
+
+The Atlas process should evolve from:
+
+Market Research → Opportunity Evaluation
+
+into:
+
+Market Research → Customer Identification → Customer Outreach → Validation → Revenue Evidence → Scaling
+
+---
+
+## 15.1 Customer Reality Principle
+
+Atlas must distinguish between:
+
+- people who could theoretically use the product;
+- people who show interest;
+- people who agree to a conversation;
+- people who request a demo;
+- people who agree to a pilot;
+- people who pay.
+
+Actual customer behavior should carry the highest weight.
+
+A large market does not validate a business.
+
+A large number of potential customers does not validate a business.
+
+A real customer paying for the solution is significantly stronger evidence.
+
+---
+
+## 15.2 Customer Identification
+
+For every selected opportunity Atlas should attempt to identify a sufficiently large pool of potential customers.
+
+Atlas should determine:
+
+- ideal customer profile;
+- industry;
+- company size;
+- geography;
+- estimated ability to pay;
+- current problem;
+- existing solution;
+- likely decision maker;
+- contact channel;
+- buying trigger;
+- estimated urgency.
+
+Atlas should build a structured prospect list rather than relying only on generalized market statistics.
+
+---
+
+## 15.3 Customer Acquisition Research
+
+Atlas should research where potential customers can realistically be reached.
+
+Potential channels include:
+
+- company websites;
+- public business directories;
+- professional networks;
+- marketplaces;
+- industry directories;
+- public social profiles;
+- communities;
+- public company contact pages;
+- relevant events and associations;
+- inbound search demand;
+- other legally accessible public sources.
+
+The goal is not to collect as many contacts as possible.
+
+The goal is to identify the highest-probability customers for a specific opportunity.
+
+---
+
+## 15.4 Customer Scoring
+
+Each prospect should receive a customer-fit score.
+
+Example factors:
+
+- ICP fit;
+- problem severity;
+- estimated budget;
+- urgency;
+- existing spending;
+- company size;
+- relevance of the proposed solution;
+- likelihood of reaching the decision maker;
+- likelihood of conversion.
+
+Atlas should prioritize prospects with the highest expected probability of becoming customers.
+
+---
+
+## 15.5 Outreach Experiment
+
+Before significant product development, Atlas should determine whether potential customers respond to the proposed value proposition.
+
+For each opportunity Atlas should define:
+
+- target customer segment;
+- value proposition;
+- outreach message;
+- acquisition channel;
+- number of prospects;
+- response rate;
+- positive response rate;
+- meeting rate;
+- pilot rate;
+- conversion rate;
+- acquisition cost;
+- revenue generated.
+
+Outreach should begin with small controlled experiments.
+
+Atlas should not scale acquisition before the message demonstrates evidence of demand.
+
+---
+
+## 15.6 Automated Customer Discovery
+
+Where technically and legally appropriate, Atlas should automate:
+
+1. prospect discovery;
+2. prospect enrichment;
+3. ICP scoring;
+4. prioritization;
+5. message personalization;
+6. outreach preparation;
+7. follow-up scheduling;
+8. response classification;
+9. CRM updates;
+10. conversion tracking;
+11. feedback extraction;
+12. opportunity score updates.
+
+Human approval should remain available for sensitive actions and high-impact decisions.
+
+Atlas should never optimize purely for outreach volume.
+
+It should optimize for qualified conversations, pilots, customers and revenue.
+
+---
+
+## 15.7 Feedback Loop
+
+Customer acquisition data must feed back into the Opportunity Register.
+
+Atlas should continuously learn:
+
+- which customer segments respond;
+- which problems generate interest;
+- which value propositions work;
+- which objections appear repeatedly;
+- which pricing levels are accepted;
+- which channels produce customers;
+- which segments should be abandoned;
+- which features customers actually request.
+
+This creates a closed-loop system:
+
+Research → Prospect Discovery → Outreach → Response → Customer Evidence → Opportunity Score → Product Adjustment → New Outreach
+
+---
+
+## 15.8 Validation Thresholds
+
+An opportunity should progress only when customer evidence improves.
+
+Possible validation stages:
+
+### Stage 0 — Market hypothesis
+
+No direct customer evidence.
+
+### Stage 1 — Prospect evidence
+
+A credible pool of potential customers has been identified.
+
+### Stage 2 — Interest evidence
+
+Potential customers respond positively or agree to conversations.
+
+### Stage 3 — Pilot evidence
+
+Customers agree to test the solution.
+
+### Stage 4 — Payment evidence
+
+Customers pay.
+
+### Stage 5 — Repeatability
+
+Multiple customers demonstrate repeatable demand.
+
+### Stage 6 — Scalable acquisition
+
+Customer acquisition can be repeated at economically attractive cost.
+
+Atlas should allocate increasing capital as an opportunity moves through these stages.
+
+---
+
+## 15.9 Customer Acquisition Economics
+
+Atlas must evaluate customer acquisition economics before scaling.
+
+For each opportunity estimate:
+
+- CAC;
+- average contract value;
+- gross margin;
+- payback period;
+- retention;
+- churn;
+- LTV;
+- LTV/CAC;
+- sales cycle;
+- implementation cost;
+- support cost.
+
+A large number of leads is not sufficient.
+
+The acquisition process must have a credible path toward attractive unit economics.
+
+---
+
+## 15.10 No Blind Automation Rule
+
+Atlas should not automatically contact large numbers of prospects merely because an opportunity appears attractive.
+
+Automation should follow evidence.
+
+Initial process:
+
+Research → Small Prospect Batch → Outreach Experiment → Measure → Improve → Expand
+
+not:
+
+Research → Mass Outreach
+
+This protects capital, reputation and acquisition economics.
+
+---
+
+## 15.11 Atlas Full-Cycle Business Engine
+
+The long-term Atlas architecture should support:
+
+IDEA
+↓
+MARKET RESEARCH
+↓
+DEMAND ANALYSIS
+↓
+CUSTOMER IDENTIFICATION
+↓
+PROSPECT SCORING
+↓
+OUTREACH EXPERIMENT
+↓
+CUSTOMER CONVERSATIONS
+↓
+PILOT
+↓
+PAYMENT
+↓
+REPEATABILITY
+↓
+AUTOMATION
+↓
+SCALING
+↓
+PROFIT
+↓
+REINVESTMENT
+↓
+NEW OPPORTUNITIES
+
+The objective is not to build businesses based on assumptions.
+
+The objective is to build a system that repeatedly converts market opportunities into validated customers and eventually profitable assets.
+
+---
+
+## 15.12 Core Atlas Principle
+
+Atlas should not ask only:
+
+"Is there a market?"
+
+Atlas should also ask:
+
+"Can we identify the customers?"
+
+"Can we reach them?"
+
+"Will they respond?"
+
+"Will they try the product?"
+
+"Will they pay?"
+
+"Can we acquire more customers economically?"
+
+If these questions cannot be answered, the opportunity remains unvalidated.
+
+---
