@@ -1687,9 +1687,156 @@ The table below is the actual, current Register. New entries are appended chrono
 
 | ID | Date | Title | Type | Level | Door | Owner | Status | Review date | Link |
 |---|---|---|---|---|---|---|---|---|---|
-| _(no entries yet)_ | — | — | — | — | — | — | — | — | — |
+| DR-2026-001 | 2026-08-08 | Build full Brain governance set before operating activity | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-001-build-full-brain-governance-set-before-operating-activity) |
+| DR-2026-002 | 2026-08-08 | Approve Phase P0→P1 transition (Operating Kernel entry) | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
 
-**Current entry count: 0.** This is a mechanical fact about this table, not an assessment of Atlas's decision-making maturity — for the narrative interpretation of that fact (why it's zero, what's overdue for retroactive logging, and what the nearest thing to an actual decision has been), see [Current Decision System](05_CURRENT_STATE.md#current-decision-system) and [Appendix E — Decision Record Backlog](05_CURRENT_STATE.md#appendix-e--decision-record-backlog) in Current State.
+**Current entry count: 2.**
+
+### DR-2026-001: Build full Brain governance set before operating activity
+
+**Date:** 2026-08-08
+**Owner:** Анатолий (Brain Lead)
+**Status:** Approved
+**Type:** Strategic
+**Sub-class:** Holding OS / governance substrate
+**Level:** DL-4
+**Door type:** One-way
+**AI-assistance flag:** Drafting (Brain document set drafted with AI assistance under human review)
+**Escalation approval:** N/A — within Brain band; self-approved at Stage 0
+
+**Logged retroactively on 2026-08-08; decided in substance during August 2026.**
+
+### Context
+
+Should Atlas invest its first months in writing the full governance document set (Brain, Principles, Organization, Roadmap, Current State, Decisions framework, Glossary) before acquiring or building any revenue-generating asset? Deadline: soft — driven by founder bandwidth, not an external date. Do-nothing cost: begin sourcing deals/building immediately with no documented operating system.
+
+### Evidence
+
+- **Financial:** Opportunity cost of delayed deal sourcing — bounded by founder time; zero capital deployed.
+- **Principle alignment:** Directly supported by [Documentation before execution](00_ATLAS_BRAIN.md#documentation-before-execution) and [Why Documentation Is Infrastructure](01_WHY_ATLAS_EXISTS.md#why-documentation-is-infrastructure).
+- **Precedent:** Register search performed: no — this is the first entry.
+- **Operational feasibility:** Single operator (Stage 0); all seven department hats worn by Brain lead.
+
+### Options considered
+
+1. **Full Brain set first, then source deals** — Encode identity, principles, organization, and roadmap before any operating activity.
+2. **Source deals immediately, backfill documentation later** — Maximize speed to first asset; accept governance debt.
+3. **Hybrid — minimum viable Brain set (Brain + Principles only), then parallelize** — Partial substrate with continued documentation.
+
+### Risk score
+
+| Category | Likelihood (1-5) | Impact (1-5) | Mitigation if Medium+ |
+|---|---|---|---|
+| Strategic | 2 | 2 | Monitor — delay to first asset is acceptable at zero capital |
+| Financial | 3 | 2 | Monitor — time cost only, no capital at risk |
+| Operational | 2 | 1 | Accept |
+| Technical | 1 | 1 | Accept |
+| Compliance/legal | 1 | 1 | Accept |
+| Reputational | 1 | 1 | Accept |
+
+**Worst-realistic-case narrative:** Months spent on documentation with no asset closed; mission drift into "docs as theater." Mitigated by explicit P0 exit criteria and Current State honesty discipline.
+
+### Opportunity score
+
+| Criterion | Score (1-5) | Justification |
+|---|---|---|
+| Return potential | 3 | Long-horizon holding OS compounding; no near-term revenue |
+| Operational leverage | 5 | Entire document set becomes reusable infrastructure |
+| Time to impact | 2 | Slow to first revenue |
+| Knowledge contribution | 5 | This document set *is* the reusable system |
+| Optionality created | 4 | Enables disciplined Build/Acquire/Operate decisions later |
+
+**Opportunity cost named:** Founder time not spent on deal sourcing or venture building during the documentation period.
+
+### Decision
+
+**Option 1 chosen** — full Brain set first, then source deals. At zero capital deployed and zero portfolio companies, the cost of delay is time, not capital. [Founding Principles](02_FOUNDING_PRINCIPLES.md) rank documentation before execution when both compete for scarce founder attention at Stage 0.
+
+### Success metrics
+
+- P0.1–P0.9 exit criteria met by 2026-11-08 review date
+- Brain document set 8/8 Active (`00`–`07`)
+- ≥1 Decision Record logged in Register
+
+### Review date
+
+2026-11-08
+
+### Related documents / precedent
+
+- [Phase 0 — Brain Substrate](04_ROADMAP.md#phase-0--brain-substrate)
+- [Current Strategic Position](05_CURRENT_STATE.md#current-strategic-position)
+- Example walkthrough: [EX-1](#example-ex-1--strategic-dl-4-build-the-full-brain-document-set-before-any-operating-activity) (superseded by this entry for authoritative status)
+
+### DR-2026-002: Approve Phase P0→P1 transition (Operating Kernel entry)
+
+**Date:** 2026-08-08
+**Owner:** Анатолий (Brain Lead)
+**Status:** Approved
+**Type:** Strategic
+**Sub-class:** Governance / phase gate
+**Level:** DL-4
+**Door type:** One-way
+**AI-assistance flag:** None
+**Escalation approval:** N/A — Brain band; self-approved at Stage 0
+
+### Context
+
+P0 exit criteria are met or acceptably partial. Request formal approval to enter [Phase P1 — Operating Kernel](04_ROADMAP.md#phase-1--operating-kernel) per [Phase transition protocol](04_ROADMAP.md#phase-transition-protocol). Milestone M-G-007.
+
+### Evidence — P0 exit criteria
+
+| # | Criterion | Verdict | Evidence |
+|---|---|---|---|
+| P0.1–P0.6 | Brain docs 00–05 Active | ✅ Met | All Active |
+| P0.7 | Decision log initialized | ✅ Met | DR-2026-001 logged |
+| P0.8 | Glossary initialized | ✅ Met | v1.0, ~150 terms |
+| P0.9 | Seven departments labeled | 🟡 Accepted partial | Dual-hat labeling in Current State; dept tracker deferred to P1 |
+
+**CM-1 gate interpretation:** **Narrow reading adopted** — aggregate governance documentation is real and in active use (CM-1 "Docs real"); strict per-dimension CM-1 across all ten dimensions deferred — seven dimensions remain at CM-0 because underlying activity has not started, which is expected at Stage 0.
+
+### Options considered
+
+1. **Approve unconditional P1 entry** — Begin Operating Kernel work (playbooks, registry, project lifecycle).
+2. **Stay in P0** — Require dept tracker and strict CM-1 before transition.
+3. **Conditional approve** — P1 entry with mandatory playbook skeleton within 30 days.
+
+### Risk score
+
+| Category | Likelihood (1-5) | Impact (1-5) | Mitigation |
+|---|---|---|---|
+| Strategic | 2 | 3 | P1 exit criteria gate further work; quarterly review |
+| Operational | 2 | 2 | Playbook skeleton ×7 is P1.1 exit criterion |
+
+### Opportunity score
+
+| Criterion | Score (1-5) | Justification |
+|---|---|---|
+| Operational leverage | 5 | Converts governance substrate into executable playbooks |
+| Knowledge contribution | 4 | Phase transition sets precedent for future gates |
+| Time to impact | 4 | P1 work can begin immediately |
+
+### Decision
+
+**Option 1 chosen** — approve unconditional P1 entry. P0.9 partial acceptance is explicit and documented; dept tagging tracker is first P1 deliverable, not a P0 blocker at Stage 0.
+
+### Success metrics
+
+- P1.1 (playbook skeleton ×7) started within 90 days
+- M-G-007 marked Met in Current State
+- Phase field updated to P1 in [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md)
+
+### Review date
+
+2026-11-08
+
+### Related documents / precedent
+
+- DR-2026-001
+- [Phase 1 — Operating Kernel](04_ROADMAP.md#phase-1--operating-kernel)
+- M-G-007
+
+---
 
 ### How to add an entry
 
@@ -1719,17 +1866,6 @@ The Register is designed to answer specific recurring questions. Even before it 
 | Which decisions has Brain personally approved? | Filter `Level` in {DL-3, DL-4} |
 | What's the reversal rate for Investment-class decisions? | Filter `Type = Investment`, compute (`Status = Reopened`) ÷ (`Status = Implemented` or later) |
 | Has anything like this been decided before? (precedent search) | Text search `Title` and `Type`/sub-class combination, then read the linked DR's Evidence/Decision sections |
-
-### Illustrative future Register state (not real data)
-
-Purely to show what a populated Register will look like — this is a mockup, explicitly not real entries, and must never be mistaken for actual logged decisions:
-
-| ID | Date | Title | Type | Level | Door | Owner | Status | Review date | Link |
-|---|---|---|---|---|---|---|---|---|---|
-| *(mockup)* DR-2026-001 | 2026-08-08 | Build full Brain document set before operating activity | Strategic | DL-4 | One-way | Brain | Approved | 2026-11-08 | See EX-1 |
-| *(mockup)* DR-2026-002 | 2026-08-15 | Register AI-drafting pattern as automation | Technical | DL-2 | Two-way | AI head | Approved | 2026-11-15 | See EX-2 |
-
-These two rows are struck through in spirit by the word "(mockup)" and must be deleted, not extended, once real entries begin — they exist only to demonstrate the schema's shape.
 
 ### Register as AI retrieval corpus
 
