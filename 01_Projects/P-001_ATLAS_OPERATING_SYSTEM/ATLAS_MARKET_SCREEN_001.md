@@ -260,7 +260,102 @@ For each niche Atlas must evaluate:
 - automation potential;
 - expected gross margin;
 - cheapest validation experiment.
+## 11.5 Market Reality & Current Demand
 
+Atlas must evaluate not only whether an opportunity can work economically, but whether the market is currently ready to adopt and pay for it.
+
+An attractive business model is insufficient if current demand, urgency, adoption or willingness to pay is weak.
+
+For every opportunity, Atlas should evaluate two separate dimensions:
+
+### A. Business Feasibility
+
+- unit economics;
+- gross margin;
+- customer acquisition cost;
+- customer lifetime value;
+- capital requirements;
+- scalability;
+- repeatability;
+- automation potential;
+- operational complexity;
+- competitive defensibility.
+
+### B. Market Reality
+
+- current market demand;
+- demand growth;
+- search and discovery signals;
+- customer pain intensity;
+- frequency of the problem;
+- existing customer spending;
+- willingness to pay;
+- current adoption of competing solutions;
+- competitor pricing;
+- customer reviews and complaints;
+- switching behavior;
+- market saturation;
+- emerging competitors;
+- recent product launches;
+- funding and investment activity where relevant;
+- hiring and job-market signals where relevant;
+- regulatory or platform changes;
+- technological changes;
+- evidence that customers are actively buying rather than merely expressing interest.
+
+### Market Readiness Score
+
+Each opportunity should receive a Market Readiness assessment:
+
+1. Demand strength
+2. Demand growth
+3. Pain intensity
+4. Existing spending
+5. Willingness to pay
+6. Current adoption
+7. Competitive intensity
+8. Market saturation
+9. Timing
+10. Evidence quality
+
+Atlas should distinguish between:
+
+- stated interest;
+- search interest;
+- free usage;
+- trial usage;
+- actual purchases;
+- recurring payments;
+- repeat purchases;
+- long-term retention.
+
+Actual customer behavior should be weighted more heavily than opinions, surveys or social-media hype.
+
+### Timing Rule
+
+Atlas should ask:
+
+"Why would a customer buy this now?"
+
+If there is no strong current reason to adopt the product, the opportunity should receive a lower score even if the long-term theoretical market is large.
+
+### Market Status
+
+Each opportunity should be classified as:
+
+- BUILD — strong current demand and credible willingness to pay;
+- WATCH — promising signals but insufficient evidence;
+- AVOID — weak demand, weak willingness to pay, excessive saturation, or poor timing.
+
+### Core Principle
+
+Atlas does not invest in ideas simply because they are technically possible or economically attractive on paper.
+
+Atlas invests in opportunities where:
+
+Current demand + customer willingness to pay + attractive economics + timing
+
+create a credible path to validation and scale.
 ---
 
 ## 12. Current Decision
