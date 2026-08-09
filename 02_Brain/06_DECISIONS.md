@@ -1689,8 +1689,9 @@ The table below is the actual, current Register. New entries are appended chrono
 |---|---|---|---|---|---|---|---|---|---|
 | DR-2026-001 | 2026-08-08 | Build full Brain governance set before operating activity | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-001-build-full-brain-governance-set-before-operating-activity) |
 | DR-2026-002 | 2026-08-08 | Approve Phase P0→P1 transition (Operating Kernel entry) | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
+| DR-2026-003 | 2026-08-09 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | DL-1 | Two-way | Анатолий (Finance hat) | Approved | 2027-02-09 | [Full DR below](#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) |
 
-**Current entry count: 2.**
+**Current entry count: 3.**
 
 ### DR-2026-001: Build full Brain governance set before operating activity
 
@@ -1835,6 +1836,39 @@ P0 exit criteria are met or acceptably partial. Request formal approval to enter
 - DR-2026-001
 - [Phase 1 — Operating Kernel](04_ROADMAP.md#phase-1--operating-kernel)
 - M-G-007
+
+---
+
+### DR-2026-003: Adopt Brain-default "Irreversible commitment" escalation threshold for Finance
+
+**Date:** 2026-08-09
+**Owner:** Анатолий (Finance hat)
+**Status:** Approved
+**Type:** Operational
+**Level:** DL-1 — Routine
+**Door:** Two-way
+
+**Summary:**
+Formally adopt, without modification, the existing Brain-default "Irreversible commitment" escalation trigger — "Contract > 12 months, exclusivity, IP transfer → Brain" ([`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation)) — as Finance's live threshold value in [`05_CURRENT_STATE.md` § Current Governance](05_CURRENT_STATE.md#current-governance), replacing the current "TBD — no contracts exist" placeholder. No new numeric value is introduced; this decision only confirms Finance has not customized the default and will use it as-is, per Brain's own instruction to "customize per department" (or retain the default if no customization is made).
+
+**Options considered:**
+1. Leave the row TBD until a real contract exists to test it against.
+2. Adopt the Brain-default threshold as-is now, without waiting for a real contract.
+3. Set a Finance-specific customized threshold different from the Brain default (e.g., a shorter contract-length trigger).
+
+**Decision:**
+Option 2 — adopt the Brain-default as-is. Option 1 leaves this row unnecessarily unpublished despite the answer already existing canonically. Option 3 would require inventing a new number with no evidence basis to justify deviating from the default, contradicting [Truth over comfort](02_FOUNDING_PRINCIPLES.md#truth-over-comfort).
+
+**Success metric:**
+`05_CURRENT_STATE.md` § Current Governance's "Irreversible commitment" row shows a live, non-TBD value citing this DR; any future real contract review can be checked against it without further decision-making.
+
+**Review date:** 2027-02-09 (aligned to the quarterly "Escalation threshold freshness" KPI, [`03_ORGANIZATION.md` § Department: Finance § KPIs](03_ORGANIZATION.md#department-finance)).
+
+### Related documents / precedent
+
+- [`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) — canonical default this decision adopts
+- [Phase 1 exit criterion P1.7](04_ROADMAP.md#phase-1--operating-kernel) — this decision advances, but does not by itself satisfy, since Current State is not yet updated to reflect it
+- `finance_playbook.md` § Execution guidance — the escalation threshold update procedure this decision is the first exercise of
 
 ---
 
