@@ -1690,8 +1690,9 @@ The table below is the actual, current Register. New entries are appended chrono
 | DR-2026-001 | 2026-08-08 | Build full Brain governance set before operating activity | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-001-build-full-brain-governance-set-before-operating-activity) |
 | DR-2026-002 | 2026-08-08 | Approve Phase P0→P1 transition (Operating Kernel entry) | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
 | DR-2026-003 | 2026-08-09 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | DL-1 | Two-way | Анатолий (Finance hat) | Approved | 2027-02-09 | [Full DR below](#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) |
+| DR-2026-004 | 2026-08-09 | Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital | Operational | DL-2 | Two-way | Анатолий (Brain + Finance hats) | Approved | 2026-11-09 | [Full DR below](#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital) |
 
-**Current entry count: 3.**
+**Current entry count: 4.**
 
 ### DR-2026-001: Build full Brain governance set before operating activity
 
@@ -1869,6 +1870,71 @@ Option 2 — adopt the Brain-default as-is. Option 1 leaves this row unnecessari
 - [`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) — canonical default this decision adopts
 - [Phase 1 exit criterion P1.7](04_ROADMAP.md#phase-1--operating-kernel) — this decision advances, but does not by itself satisfy, since Current State is not yet updated to reflect it
 - `finance_playbook.md` § Execution guidance — the escalation threshold update procedure this decision is the first exercise of
+
+---
+
+### DR-2026-004: Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital
+
+**Date:** 2026-08-09
+**Owner:** Анатолий (Brain + Finance hats)
+**Status:** Approved
+**Type:** Operational
+**Sub-class:** Governance / escalation threshold
+**Level:** DL-2 — Significant
+**Door type:** Two-way
+**AI-assistance flag:** Yes — AI drafted the candidate options and comparative analysis; the numeric choice and approval are the human owner's
+**Escalation approval:** N/A — Brain band; self-approved at Stage 0
+
+### Context
+
+[`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) defines the "Capital commitment" trigger as "> defined % of available deployable capital" but deliberately leaves the number unset (unlike the Irreversible commitment row, which had a concrete Brain default already adopted via `DR-2026-003`). This is the last unresolved row in [`05_CURRENT_STATE.md` § Current Governance § Escalation thresholds — live values](05_CURRENT_STATE.md#current-governance), and the sole remaining gap in [Phase 1 exit criterion P1.7](04_ROADMAP.md#phase-1--operating-kernel).
+
+### Evidence
+
+No real deployable-capital figure, revenue, or transaction history exists yet (per [`05_CURRENT_STATE.md` § Current Finance](05_CURRENT_STATE.md#current-finance)) — this decision is necessarily made from general capital-allocation and decision-governance principles already in canon ([Capital Efficiency](02_FOUNDING_PRINCIPLES.md#capital-efficiency), [Risk Management](00_ATLAS_BRAIN.md#risk-management), [Decision Levels sizing test](06_DECISIONS.md#decision-levels)), not from Atlas-specific financial data.
+
+### Options considered
+
+1. **5% of deployable capital** — most conservative; highest escalation frequency, lowest single-commitment exposure.
+2. **10% of deployable capital** — low-moderate exposure; small experiments stay delegated; larger commitments still escalate.
+3. **15% of deployable capital** — moderate autonomy; meaningfully larger single commitments could clear without Brain review.
+4. **20% of deployable capital** — substantial autonomy; elevated single-commitment exposure.
+5. **25% of deployable capital** — highest autonomy; highest single-commitment exposure before mandatory review.
+
+### Risk score
+
+| Category | Likelihood (1–5) | Impact (1–5) | Mitigation |
+|---|---|---|---|
+| Financial | 2 | 3 | Independent [Irreversible commitment rule](06_DECISIONS.md#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) (`DR-2026-003`) still catches long-duration/exclusive/IP-transfer risk regardless of size; quarterly re-review cadence |
+| Strategic | 2 | 2 | Explicitly temporary — see Review date; does not lock in a permanent policy without real evidence |
+
+### Opportunity score
+
+| Criterion | Score (1–5) | Justification |
+|---|---|---|
+| Operational leverage | 4 | Closes the last open row of P1.7 without waiting on real capital data |
+| Knowledge contribution | 3 | Establishes a reusable, documented pattern for future threshold-setting decisions |
+| Time to impact | 5 | Immediate — no dependency on any other unresolved Phase 1 item |
+
+### Decision
+
+**10% of deployable capital**, chosen over the more conservative 5% (which risks escalation fatigue on routine, well-understood small commitments) and the more permissive 15–25% options (which expose a materially larger share of capital to a single unreviewed judgment before any second review is forced) — appropriate specifically because, at [Org Stage 0](03_ORGANIZATION.md#stage-0-one-operator), escalating to Brain costs no real coordination friction (same person), so there is little reason not to lean conservative while zero track record exists.
+
+**Explicitly a temporary Phase 1 default, not a permanent threshold.** It does not redefine "deployable capital" (still the capital-not-already-committed-or-reserved reading implicit in [`05_CURRENT_STATE.md` § Current Finance](05_CURRENT_STATE.md#current-finance)), and it does not modify, override, or interact conditionally with the Irreversible commitment rule — the two triggers remain fully independent; either can fire on its own.
+
+### Success metrics
+
+`05_CURRENT_STATE.md` § Current Governance's "Capital commitment" row shows a live 10% value citing this DR; [Phase 1 exit criterion P1.7](04_ROADMAP.md#phase-1--operating-kernel) evidence reaches 5 of 5 rows.
+
+### Review date
+
+2026-11-09 (aligned to the quarterly "Escalation threshold freshness" KPI), or sooner, at the first point a real deployable-capital figure exists — whichever comes first.
+
+### Related documents / precedent
+
+- `DR-2026-003` — the sibling decision this completes the escalation-threshold table alongside; kept fully independent per its own terms
+- [`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) — canonical trigger type this decision sets a value for
+- [Phase 1 exit criterion P1.7](04_ROADMAP.md#phase-1--operating-kernel) — the criterion this decision, once reflected in Current State, would fully satisfy
 
 ---
 

@@ -888,13 +888,13 @@ No decision has yet been explicitly classified as a [one-way or two-way door](00
 
 ### Governance boundary status
 
-[Governance Boundaries](03_ORGANIZATION.md#governance-boundaries) and the [Decision Framework escalation table](00_ATLAS_BRAIN.md#escalation) define triggers and thresholds. Live numeric values for those thresholds are supposed to live in this document. **Most do not yet exist; one (Irreversible commitment) has been formally adopted — see the table below.**
+[Governance Boundaries](03_ORGANIZATION.md#governance-boundaries) and the [Decision Framework escalation table](00_ATLAS_BRAIN.md#escalation) define triggers and thresholds. Live numeric values for those thresholds are supposed to live in this document. **All five now carry live values — three by explicit N/A/count, two by formal decision (Irreversible commitment, Capital commitment) — see the table below.**
 
 ### Escalation thresholds — live values
 
 | Trigger category | Defined threshold type | Current numeric value |
 |---|---|---|
-| Capital commitment | % of deployable capital | **TBD** — no deployable capital figure exists |
+| Capital commitment | % of deployable capital | **10%** (temporary Phase 1 default) — see [DR-2026-004](06_DECISIONS.md#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital). No real deployable-capital figure exists yet, so this threshold has not been exercised against a real commitment. |
 | New portfolio asset | Any acquisition or venture launch | N/A — escalates to self at Stage 0; will require real process at Stage 1 |
 | Holding-wide standard change | Affects 2+ departments | N/A — all departments are the same person today |
 | Irreversible commitment | Contract > 12 months, exclusivity, IP transfer | **Adopted as-is** (Brain default, unmodified) — see [DR-2026-003](06_DECISIONS.md#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance). No contract has triggered it to date. |
@@ -1701,7 +1701,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 | M-G-001 | Brain OS document set Active | P0 | 🟡 8 of 8 Active; 2 Register entries |
 | M-G-002 | Current State v1 published | P0 | ✅ Met |
 | M-G-003 | Decision log operational | P0 | ✅ Met — DR-2026-001 logged |
-| M-G-004 | Escalation thresholds live | P1 | 🔴 Not met |
+| M-G-004 | Escalation thresholds live | P1 | ✅ Met — all 5 of 5 rows carry live values; Capital commitment and Irreversible commitment are explicitly temporary/unexercised defaults (DR-2026-004, DR-2026-003) |
 | M-G-005 | Quarterly Brain review running | P1 | 🔴 Not met — 0 reviews held |
 | M-G-006 | Annual planning model executed once | P1 | 🔴 Not met |
 | M-G-007 | Phase gate P0→P1 passed | P0/P1 | ✅ Met — DR-2026-002, 2026-08-08 |
