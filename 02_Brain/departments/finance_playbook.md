@@ -26,7 +26,7 @@ A scope note: [Phase 1 exit criterion P1.5](04_ROADMAP.md#phase-1--operating-ker
 
 - **Monthly/quarterly close checklist skeleton** — A defined day-of-month close cadence, with actuals recorded against target in [`05_CURRENT_STATE.md` § Current Finance](05_CURRENT_STATE.md#current-finance). The full close SOP (T4) is a distinct, not-yet-written deliverable — this playbook only commits to the cadence and the destination for the output.
 - **Capital bucket reporting cadence** — Ties to [`00_ATLAS_BRAIN.md` § Capital buckets](00_ATLAS_BRAIN.md#capital-buckets); live percentages are owed to [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md), currently marked TBD. This playbook is where the quarterly refresh procedure for those percentages should be defined once Finance + Brain sets them.
-- **Escalation threshold update procedure** — A quarterly refresh of the numeric threshold values currently marked TBD in Current State, feeding [`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) and [`03_ORGANIZATION.md` § Escalation Authority](03_ORGANIZATION.md#escalation-authority).
+- **Escalation threshold update procedure** — A quarterly refresh of the numeric threshold values recorded in Current State, feeding [`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) and [`03_ORGANIZATION.md` § Escalation Authority](03_ORGANIZATION.md#escalation-authority).
 - **AI participation to specify** — Per [AI Participation Inside Departments, Finance row](03_ORGANIZATION.md#ai-participation-inside-departments): reconciliation, variance analysis, forecast drafts, and anomaly detection. None are live.
 
 ## Minimum executable step / checklist
@@ -35,7 +35,7 @@ A scope note: [Phase 1 exit criterion P1.5](04_ROADMAP.md#phase-1--operating-ker
 - [ ] Confirm capital bucket allocation percentages with Brain and record them in Current State once set (currently TBD).
 - [ ] Refresh escalation threshold values quarterly and log the update date here.
 
-This checklist is a **proposed procedure**; no financial close process, capital bucket allocation, or escalation threshold value exists yet — see [`05_CURRENT_STATE.md` § Current Finance](05_CURRENT_STATE.md#current-finance) and [§ Current Governance](05_CURRENT_STATE.md#current-governance).
+This checklist is a **proposed procedure**; no financial close process or capital bucket allocation exists yet — see [`05_CURRENT_STATE.md` § Current Finance](05_CURRENT_STATE.md#current-finance) and [§ Current Governance](05_CURRENT_STATE.md#current-governance).
 
 ## Status of this playbook
 
