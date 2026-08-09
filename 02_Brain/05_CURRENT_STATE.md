@@ -888,7 +888,7 @@ No decision has yet been explicitly classified as a [one-way or two-way door](00
 
 ### Governance boundary status
 
-[Governance Boundaries](03_ORGANIZATION.md#governance-boundaries) and the [Decision Framework escalation table](00_ATLAS_BRAIN.md#escalation) define triggers and thresholds. Live numeric values for those thresholds are supposed to live in this document. **They do not yet exist.**
+[Governance Boundaries](03_ORGANIZATION.md#governance-boundaries) and the [Decision Framework escalation table](00_ATLAS_BRAIN.md#escalation) define triggers and thresholds. Live numeric values for those thresholds are supposed to live in this document. **Most do not yet exist; one (Irreversible commitment) has been formally adopted — see the table below.**
 
 ### Escalation thresholds — live values
 
@@ -897,7 +897,7 @@ No decision has yet been explicitly classified as a [one-way or two-way door](00
 | Capital commitment | % of deployable capital | **TBD** — no deployable capital figure exists |
 | New portfolio asset | Any acquisition or venture launch | N/A — escalates to self at Stage 0; will require real process at Stage 1 |
 | Holding-wide standard change | Affects 2+ departments | N/A — all departments are the same person today |
-| Irreversible commitment | Contract > 12 months, exclusivity, IP transfer | **TBD** — no contracts exist |
+| Irreversible commitment | Contract > 12 months, exclusivity, IP transfer | **Adopted as-is** (Brain default, unmodified) — see [DR-2026-003](06_DECISIONS.md#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance). No contract has triggered it to date. |
 | Principle exception | Any deviation from Core Principles | 0 exceptions granted to date |
 
 ### Governance council / advisory bodies
