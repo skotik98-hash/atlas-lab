@@ -142,9 +142,9 @@ Every candidate below is sourced from an existing canonical reference — either
 |---|---|
 | Frequency ≥3×/month | 🔴 Not met — zero staleness events to date |
 | Clear definition | ✅ Met — comparing a date field against today's date is fully specified |
-| Documentation | 🔴 Not met — no SOP exists |
+| Documentation | 🟡 Partial — Automation Spec exists ([`ar003_staleness_flagging_spec.md`](ar003_staleness_flagging_spec.md)); provisional playbook pointer only — no dedicated T4 SOP yet |
 | Baseline metrics | 🔴 Not met |
-| Named human owner | 🟡 Partial — Knowledge hat named; no per-agent owner record yet |
+| Named human owner | ✅ Met — Анатолий (Knowledge hat), formally recorded in [`ar003_staleness_flagging_spec.md`](ar003_staleness_flagging_spec.md) Owner field |
 
 **Verdict:** Not eligible; correctly tracked as proposed-only.
 
