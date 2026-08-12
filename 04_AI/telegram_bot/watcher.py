@@ -42,6 +42,7 @@ def snapshot():
     return {
         "commit_hash": data["commit_hash"],
         "commit_message": data["commit_message"],
+        "commit_files": data.get("commit_files", []),
         "working_tree_clean": data["working_tree_clean"],
         "ahead": data["ahead"],
         "behind": data["behind"],
@@ -85,6 +86,7 @@ async def process_changes(previous, current):
             {
                 "commit_hash": current["commit_hash"],
                 "commit_message": current["commit_message"],
+                "files": current.get("commit_files", []),
             },
         )
 

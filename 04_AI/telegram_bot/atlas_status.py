@@ -37,6 +37,19 @@ def get_atlas_status():
         commit_hash = "UNKNOWN"
         commit_message = "Недоступно"
 
+    commit_files_raw = git(
+        "show",
+        "--pretty=format:",
+        "--name-only",
+        "HEAD",
+    ) or ""
+
+    commit_files = [
+        line.strip()
+        for line in commit_files_raw.splitlines()
+        if line.strip()
+    ]
+
     working_tree = git("status", "--porcelain")
 
     is_clean = working_tree == ""
@@ -65,6 +78,7 @@ def get_atlas_status():
         "branch": branch,
         "commit_hash": commit_hash,
         "commit_message": commit_message,
+        "commit_files": commit_files,
         "working_tree_clean": is_clean,
         "ahead": ahead,
         "behind": behind,

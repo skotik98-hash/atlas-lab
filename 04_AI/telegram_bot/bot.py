@@ -407,6 +407,7 @@ async def activity_command(
                 commit_message = metadata.get(
                     "commit_message"
                 )
+                commit_files = metadata.get("files") or []
 
                 if commit_hash:
                     parts.append(
@@ -418,6 +419,26 @@ async def activity_command(
                         html.escape(str(commit_message))
                     )
 
+                if commit_files:
+                    parts.append("")
+                    parts.append("📁 <b>Изменено:</b>")
+
+                    shown_files = commit_files[:8]
+
+                    for file_name in shown_files:
+                        parts.append(
+                            "• <code>"
+                            + html.escape(str(file_name))
+                            + "</code>"
+                        )
+
+                    remaining = len(commit_files) - len(shown_files)
+
+                    if remaining > 0:
+                        parts.append(
+                            f"• … ещё {remaining}"
+                        )
+
             parts.append("")
 
     parts.extend([
@@ -427,7 +448,7 @@ async def activity_command(
         "📊 /status — состояние системы",
         "⚠️ /approvals — история решений",
         "",
-        "<i>Atlas Activity Feed · v0.2</i>",
+        "<i>Atlas Activity Feed · v0.3</i>",
     ])
 
     await update.effective_message.reply_text(
