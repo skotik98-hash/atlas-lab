@@ -26,8 +26,20 @@ from telegram.ext import (
     CallbackQueryHandler,
     ContextTypes,
 )
-from task_store import list_tasks, count_tasks, update_task_status
+from task_store import (
+    list_tasks,
+    count_tasks,
+    get_task,
+    update_task_status,
+)
 from telegram.ext import MessageHandler, filters
+import datetime as dt
+
+# Task statuses that may be owner-completed via /tasks.
+# First version: only IN_PROGRESS -> DONE.
+TASK_COMPLETABLE_STATUSES = {
+    "IN_PROGRESS",
+}
 
 # ─────────────────────────────────────────────
 # ЛОГИ
@@ -612,6 +624,8 @@ async def tasks_command(
         "",
     ]
 
+    keyboard = []
+
     if not tasks:
         parts.extend([
             "📭 Задач пока нет.",
@@ -657,14 +671,214 @@ async def tasks_command(
 
             parts.append("")
 
+            if task["status"] in TASK_COMPLETABLE_STATUSES:
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "✅ Завершить "
+                                f"{task['task_id']}"
+                            ),
+                            callback_data=(
+                                "task:complete:"
+                                f"{task['task_id']}"
+                            ),
+                        )
+                    ]
+                )
+
     parts.extend([
         "━━━━━━━━━━━━━━━━━━",
         "🧠 Work Engine · v0.1",
     ])
 
+    reply_markup = (
+        InlineKeyboardMarkup(keyboard)
+        if keyboard
+        else None
+    )
+
     await update.effective_message.reply_text(
         "\n".join(parts),
         parse_mode=ParseMode.HTML,
+        reply_markup=reply_markup,
+    )
+
+
+# ============================================================
+# TASK CALLBACK — OWNER COMPLETE (CONFIRMATION REQUIRED)
+# ============================================================
+
+
+async def task_callback(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    query = update.callback_query
+
+    if not query:
+        return
+
+    if not authorized(update):
+        await query.answer(
+            "⛔ Нет доступа",
+            show_alert=True,
+        )
+        return
+
+    data = query.data or ""
+    parts = data.split(":", 2)
+
+    if len(parts) != 3:
+        await query.answer(
+            "❌ Некорректная команда",
+            show_alert=True,
+        )
+        return
+
+    _, action, task_id = parts
+
+    task = get_task(task_id)
+
+    if not task:
+        await query.answer(
+            "❌ Задача не найдена",
+            show_alert=True,
+        )
+        return
+
+    # Step 1: ask for explicit confirmation (no state change)
+    if action == "complete":
+        if task["status"] not in TASK_COMPLETABLE_STATUSES:
+            await query.answer(
+                (
+                    "Задача уже в статусе "
+                    f"{task['status']}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        await query.answer()
+
+        confirm_markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "✅ Да, завершить",
+                        callback_data=(
+                            "task:confirm_done:"
+                            f"{task_id}"
+                        ),
+                    ),
+                    InlineKeyboardButton(
+                        "❌ Отмена",
+                        callback_data=(
+                            "task:cancel_done:"
+                            f"{task_id}"
+                        ),
+                    ),
+                ]
+            ]
+        )
+
+        await query.message.reply_text(
+            (
+                "⚠️ <b>ATLAS · ПОДТВЕРЖДЕНИЕ "
+                "ЗАВЕРШЕНИЯ</b>\n\n"
+                "━━━━━━━━━━━━━━━━━━\n\n"
+                "🆔 "
+                f"<code>{html.escape(task_id)}</code>"
+                "\n"
+                "📌 "
+                f"{html.escape(task['title'])}"
+                "\n"
+                "Статус сейчас: "
+                f"<b>{html.escape(task['status'])}</b>"
+                "\n\n"
+                "Завершить эту задачу?\n"
+                "Статус станет "
+                "✅ <b>DONE</b> / ВЫПОЛНЕНО.\n\n"
+                "⚠️ Это не меняет Sales Pipeline "
+                "и не отправляет внешних сообщений.\n\n"
+                "━━━━━━━━━━━━━━━━━━\n"
+                "<i>Atlas Work Engine · v0.1</i>"
+            ),
+            parse_mode=ParseMode.HTML,
+            reply_markup=confirm_markup,
+        )
+        return
+
+    # Step 2a: cancel confirmation
+    if action == "cancel_done":
+        await query.answer("Отменено")
+        await query.edit_message_reply_markup(
+            reply_markup=None
+        )
+        await query.message.reply_text(
+            (
+                "↩️ Завершение "
+                f"<code>{html.escape(task_id)}</code> "
+                "отменено.\n"
+                "Статус задачи не изменён."
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    # Step 2b: confirmed → persist DONE only
+    if action == "confirm_done":
+        if task["status"] not in TASK_COMPLETABLE_STATUSES:
+            await query.answer(
+                (
+                    "Задача уже в статусе "
+                    f"{task['status']}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        updated = update_task_status(
+            task_id,
+            "DONE",
+        )
+
+        if not updated:
+            await query.answer(
+                "❌ Не удалось сохранить DONE",
+                show_alert=True,
+            )
+            return
+
+        await query.answer("✅ Задача завершена")
+        await query.edit_message_reply_markup(
+            reply_markup=None
+        )
+
+        await query.message.reply_text(
+            (
+                "✅ <b>ATLAS · ЗАДАЧА "
+                "ЗАВЕРШЕНА</b>\n\n"
+                "━━━━━━━━━━━━━━━━━━\n\n"
+                "🆔 "
+                f"<code>{html.escape(task_id)}</code>"
+                "\n"
+                "📌 "
+                f"{html.escape(updated['title'])}"
+                "\n"
+                "Статус: ✅ <b>ВЫПОЛНЕНО</b> "
+                "(DONE)\n\n"
+                "Обнови список: /tasks\n\n"
+                "━━━━━━━━━━━━━━━━━━\n"
+                "<i>Atlas Work Engine · v0.1</i>"
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    await query.answer(
+        "Неизвестное действие.",
+        show_alert=True,
     )
 
 
@@ -676,9 +890,77 @@ async def tasks_command(
 # /PIPELINE — ATLAS SALES PIPELINE
 # ============================================================
 
+
+FOLLOWUP_WORKDAYS = 4
+
+
+def followup_wait_info(item):
+    """
+    Return:
+        (business_days_waiting, followup_due)
+
+    Send day itself is day 0.
+    Saturday and Sunday are ignored.
+    """
+
+    sent_at = item.get("sent_at")
+
+    if not sent_at:
+        return 0, False
+
+    try:
+        sent_dt = dt.datetime.fromisoformat(
+            str(sent_at)
+        )
+
+        if sent_dt.tzinfo is None:
+            sent_dt = sent_dt.replace(
+                tzinfo=dt.timezone.utc
+            )
+
+        sent_date = sent_dt.astimezone().date()
+        today = (
+            dt.datetime.now()
+            .astimezone()
+            .date()
+        )
+
+    except Exception:
+        return 0, False
+
+    if today <= sent_date:
+        return 0, False
+
+    business_days = 0
+    cursor = sent_date
+
+    while cursor < today:
+        cursor += dt.timedelta(days=1)
+
+        if cursor.weekday() < 5:
+            business_days += 1
+
+    return (
+        business_days,
+        business_days >= FOLLOWUP_WORKDAYS,
+    )
+
+
 def build_pipeline_view():
     counts = count_stages()
-    items = list_outreach(8)
+
+    all_items = list_outreach(50)
+    items = all_items[:8]
+
+    followup_due_count = sum(
+        1
+        for item in all_items
+        if (
+            str(item.get("stage") or "")
+            == "WAITING_REPLY"
+            and followup_wait_info(item)[1]
+        )
+    )
 
     stage_map = {
         "READY_TO_SEND": (
@@ -732,6 +1014,10 @@ def build_pipeline_view():
         (
             "🟡 Ждут ответа: "
             f"<b>{counts['WAITING_REPLY']}</b>"
+        ),
+        (
+            "⏰ Follow-up пора: "
+            f"<b>{followup_due_count}</b>"
         ),
         (
             "💬 Ответили: "
@@ -856,6 +1142,38 @@ def build_pipeline_view():
                 ]
             )
 
+            if stage == "WAITING_REPLY":
+                wait_days, followup_due = (
+                    followup_wait_info(item)
+                )
+
+                if followup_due:
+                    parts.extend(
+                        [
+                            (
+                                "⏰ <b>FOLLOW-UP ПОРА</b>"
+                            ),
+                            (
+                                "Ожидание: "
+                                f"<b>{wait_days}</b> "
+                                "рабочих дней"
+                            ),
+                            "",
+                        ]
+                    )
+                else:
+                    parts.extend(
+                        [
+                            (
+                                "⏳ Ожидание: "
+                                f"<b>{wait_days}/"
+                                f"{FOLLOWUP_WORKDAYS}</b> "
+                                "рабочих дней"
+                            ),
+                            "",
+                        ]
+                    )
+
             # ---------------------------------------------
             # READY TO SEND
             # ---------------------------------------------
@@ -914,6 +1232,28 @@ def build_pipeline_view():
                     ]
                 )
 
+            if stage == "WAITING_REPLY":
+                _, followup_due = (
+                    followup_wait_info(item)
+                )
+
+                if followup_due:
+                    keyboard.append(
+                        [
+                            InlineKeyboardButton(
+                                (
+                                    "📝 "
+                                    f"{raw_outreach_id} · "
+                                    "Подготовить follow-up"
+                                ),
+                                callback_data=(
+                                    "pipeline:followup:"
+                                    f"{raw_outreach_id}"
+                                ),
+                            ),
+                        ]
+                    )
+
             # ---------------------------------------------
             # REPLIED
             # ---------------------------------------------
@@ -935,6 +1275,96 @@ def build_pipeline_view():
                     ]
                 )
 
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "📅 "
+                                f"{raw_outreach_id} · "
+                                "Встреча назначена"
+                            ),
+                            callback_data=(
+                                "pipeline:meeting:"
+                                f"{raw_outreach_id}"
+                            ),
+                        ),
+                    ]
+                )
+
+            # ---------------------------------------------
+            # MEETING
+            # ---------------------------------------------
+
+            if stage == "MEETING":
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "📄 "
+                                f"{raw_outreach_id} · "
+                                "Предложение отправлено"
+                            ),
+                            callback_data=(
+                                "pipeline:proposal:"
+                                f"{raw_outreach_id}"
+                            ),
+                        ),
+                    ]
+                )
+
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "❌ "
+                                f"{raw_outreach_id} · "
+                                "Потеряно"
+                            ),
+                            callback_data=(
+                                "pipeline:lost:"
+                                f"{raw_outreach_id}"
+                            ),
+                        ),
+                    ]
+                )
+
+            # ---------------------------------------------
+            # PROPOSAL
+            # ---------------------------------------------
+
+            if stage == "PROPOSAL":
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "✅ "
+                                f"{raw_outreach_id} · "
+                                "Выиграно"
+                            ),
+                            callback_data=(
+                                "pipeline:won:"
+                                f"{raw_outreach_id}"
+                            ),
+                        ),
+                    ]
+                )
+
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "❌ "
+                                f"{raw_outreach_id} · "
+                                "Потеряно"
+                            ),
+                            callback_data=(
+                                "pipeline:lost:"
+                                f"{raw_outreach_id}"
+                            ),
+                        ),
+                    ]
+                )
+
     parts.extend(
         [
             "━━━━━━━━━━━━━━━━━━",
@@ -948,7 +1378,7 @@ def build_pipeline_view():
                 "фиксируются владельцем по факту."
             ),
             "",
-            "<i>Atlas Sales Pipeline · v0.3</i>",
+            "<i>Atlas Sales Pipeline · v0.4</i>",
         ]
     )
 
@@ -1049,7 +1479,7 @@ async def pipeline_callback(
                 "━━━━━━━━━━━━━━━━━━\n\n"
                 "🔐 Просмотр текста ничего "
                 "компании не отправляет.\n\n"
-                "<i>Atlas Sales Pipeline · v0.3</i>"
+                "<i>Atlas Sales Pipeline · v0.4</i>"
             ),
             parse_mode=ParseMode.HTML,
         )
@@ -1242,6 +1672,98 @@ async def pipeline_callback(
         return
 
     # ====================================================
+    # PREPARE FOLLOW-UP DRAFT
+    # ====================================================
+
+    if action == "followup":
+        current_stage = str(
+            item.get("stage") or ""
+        )
+
+        if current_stage != "WAITING_REPLY":
+            await query.answer(
+                (
+                    "Текущая стадия: "
+                    f"{current_stage}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        wait_days, followup_due = (
+            followup_wait_info(item)
+        )
+
+        if not followup_due:
+            await query.answer(
+                (
+                    "⏳ Follow-up ещё рано: "
+                    f"{wait_days}/"
+                    f"{FOLLOWUP_WORKDAYS} "
+                    "рабочих дней"
+                ),
+                show_alert=True,
+            )
+            return
+
+        company = str(
+            item.get("company")
+            or "the team"
+        )
+
+        draft = (
+            f"Hello {company} team,\n\n"
+            "I’m following up on my previous "
+            "message from Atlas Lab regarding "
+            "AI-assisted automation for "
+            "recruitment operations.\n\n"
+            "If this is relevant to your "
+            "operations team, we’d be happy "
+            "to prepare a small prototype "
+            "around one repetitive workflow "
+            "and show it in a short "
+            "15-minute call.\n\n"
+            "If there is someone else "
+            "responsible for recruitment "
+            "operations or process "
+            "improvement, I’d appreciate it "
+            "if you could forward this "
+            "message to them.\n\n"
+            "Best regards,\n"
+            "Atlas Lab"
+        )
+
+        await query.answer()
+
+        await query.message.reply_text(
+            (
+                "📝 <b>ATLAS · "
+                "FOLLOW-UP DRAFT</b>\n\n"
+                "🆔 "
+                f"<code>{html.escape(outreach_id)}</code>"
+                "\n"
+                "🏢 "
+                f"<b>{html.escape(company)}</b>\n"
+                "⏰ Ожидание: "
+                f"<b>{wait_days}</b> "
+                "рабочих дней\n\n"
+                "━━━━━━━━━━━━━━━━━━\n\n"
+                f"{html.escape(draft)}"
+                "\n\n"
+                "━━━━━━━━━━━━━━━━━━\n\n"
+                "🔐 Это только черновик.\n"
+                "Atlas ничего компании "
+                "не отправил.\n"
+                "Для реальной отправки будет "
+                "нужно отдельное разрешение "
+                "владельца."
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+
+        return
+
+    # ====================================================
     # CANCEL REPLY CAPTURE
     # ====================================================
 
@@ -1312,7 +1834,372 @@ async def pipeline_callback(
                 f"{html.escape(display_reply)}"
                 "\n\n"
                 "━━━━━━━━━━━━━━━━━━\n\n"
-                "<i>Atlas Sales Pipeline · v0.3</i>"
+                "<i>Atlas Sales Pipeline · v0.4</i>"
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+
+        return
+
+    # ====================================================
+    # MEETING SCHEDULED (REPLIED -> MEETING)
+    # ====================================================
+
+    if action == "meeting":
+        current_stage = str(
+            item.get("stage") or ""
+        )
+
+        if current_stage == "MEETING":
+            await query.answer(
+                "🟡 Уже отмечено как MEETING",
+                show_alert=True,
+            )
+            return
+
+        if current_stage != "REPLIED":
+            await query.answer(
+                (
+                    "Текущая стадия: "
+                    f"{current_stage}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        if not update_stage(
+            outreach_id,
+            "MEETING",
+        ):
+            await query.answer(
+                "❌ Не удалось сохранить MEETING",
+                show_alert=True,
+            )
+            return
+
+        log_event(
+            event_type="OUTREACH_MEETING_SCHEDULED",
+            source="Atlas Sales Engine",
+            title="Встреча назначена",
+            details=(
+                f"{outreach_id} · "
+                f"{item.get('company') or '—'} · "
+                "Владелец подтвердил назначение "
+                "встречи вручную. Контакт "
+                "переведён в MEETING."
+            ),
+            metadata={
+                "outreach_id": outreach_id,
+                "task_id": item.get("task_id"),
+                "company": item.get("company"),
+                "stage": "MEETING",
+                "external_action": True,
+                "atlas_executed": False,
+                "execution_mode": (
+                    "manual_owner_confirmation"
+                ),
+            },
+        )
+
+        await query.answer(
+            "✅ Встреча зафиксирована"
+        )
+
+        text, markup = build_pipeline_view()
+
+        await query.edit_message_text(
+            text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=markup,
+        )
+
+        await query.message.reply_text(
+            (
+                "📅 <b>ATLAS · "
+                "ВСТРЕЧА НАЗНАЧЕНА</b>"
+                "\n\n"
+                "🆔 "
+                f"<code>{html.escape(outreach_id)}</code>"
+                "\n"
+                "✅ Владелец подтвердил "
+                "назначение встречи.\n\n"
+                "🔐 Atlas ничего компании "
+                "не отправлял."
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+
+        return
+
+    # ====================================================
+    # PROPOSAL SENT (MEETING -> PROPOSAL)
+    # ====================================================
+
+    if action == "proposal":
+        current_stage = str(
+            item.get("stage") or ""
+        )
+
+        if current_stage == "PROPOSAL":
+            await query.answer(
+                "🟡 Уже отмечено как PROPOSAL",
+                show_alert=True,
+            )
+            return
+
+        if current_stage != "MEETING":
+            await query.answer(
+                (
+                    "Текущая стадия: "
+                    f"{current_stage}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        if not update_stage(
+            outreach_id,
+            "PROPOSAL",
+        ):
+            await query.answer(
+                "❌ Не удалось сохранить PROPOSAL",
+                show_alert=True,
+            )
+            return
+
+        log_event(
+            event_type="OUTREACH_PROPOSAL_SENT",
+            source="Atlas Sales Engine",
+            title="Предложение отправлено",
+            details=(
+                f"{outreach_id} · "
+                f"{item.get('company') or '—'} · "
+                "Владелец подтвердил отправку "
+                "предложения вручную. Atlas "
+                "технически ничего не отправлял. "
+                "Контакт переведён в PROPOSAL."
+            ),
+            metadata={
+                "outreach_id": outreach_id,
+                "task_id": item.get("task_id"),
+                "company": item.get("company"),
+                "stage": "PROPOSAL",
+                "external_action": True,
+                "atlas_executed": False,
+                "execution_mode": (
+                    "manual_owner_confirmation"
+                ),
+            },
+        )
+
+        await query.answer(
+            "✅ Предложение зафиксировано"
+        )
+
+        text, markup = build_pipeline_view()
+
+        await query.edit_message_text(
+            text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=markup,
+        )
+
+        await query.message.reply_text(
+            (
+                "📄 <b>ATLAS · "
+                "ПРЕДЛОЖЕНИЕ ОТПРАВЛЕНО</b>"
+                "\n\n"
+                "🆔 "
+                f"<code>{html.escape(outreach_id)}</code>"
+                "\n"
+                "✅ Фактическая отправка "
+                "предложения подтверждена "
+                "владельцем.\n\n"
+                "🔐 Atlas сам ничего "
+                "не отправлял."
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+
+        return
+
+    # ====================================================
+    # WON (PROPOSAL -> WON)
+    # ====================================================
+
+    if action == "won":
+        current_stage = str(
+            item.get("stage") or ""
+        )
+
+        if current_stage == "WON":
+            await query.answer(
+                "🟡 Уже отмечено как WON",
+                show_alert=True,
+            )
+            return
+
+        if current_stage != "PROPOSAL":
+            await query.answer(
+                (
+                    "Текущая стадия: "
+                    f"{current_stage}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        if not update_stage(
+            outreach_id,
+            "WON",
+        ):
+            await query.answer(
+                "❌ Не удалось сохранить WON",
+                show_alert=True,
+            )
+            return
+
+        log_event(
+            event_type="OUTREACH_WON",
+            source="Atlas Sales Engine",
+            title="Сделка выиграна",
+            details=(
+                f"{outreach_id} · "
+                f"{item.get('company') or '—'} · "
+                "Владелец подтвердил победу "
+                "вручную. Контакт переведён "
+                "в WON."
+            ),
+            metadata={
+                "outreach_id": outreach_id,
+                "task_id": item.get("task_id"),
+                "company": item.get("company"),
+                "stage": "WON",
+                "external_action": True,
+                "atlas_executed": False,
+                "execution_mode": (
+                    "manual_owner_confirmation"
+                ),
+            },
+        )
+
+        await query.answer(
+            "🏆 Победа зафиксирована"
+        )
+
+        text, markup = build_pipeline_view()
+
+        await query.edit_message_text(
+            text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=markup,
+        )
+
+        await query.message.reply_text(
+            (
+                "✅ <b>ATLAS · "
+                "СДЕЛКА ВЫИГРАНА</b>"
+                "\n\n"
+                "🆔 "
+                f"<code>{html.escape(outreach_id)}</code>"
+                "\n"
+                "🏆 Владелец подтвердил "
+                "выигрыш сделки вручную.\n\n"
+                "🔐 Atlas ничего компании "
+                "не отправлял."
+            ),
+            parse_mode=ParseMode.HTML,
+        )
+
+        return
+
+    # ====================================================
+    # LOST (MEETING or PROPOSAL -> LOST)
+    # ====================================================
+
+    if action == "lost":
+        current_stage = str(
+            item.get("stage") or ""
+        )
+
+        if current_stage == "LOST":
+            await query.answer(
+                "🟡 Уже отмечено как LOST",
+                show_alert=True,
+            )
+            return
+
+        if current_stage not in (
+            "MEETING",
+            "PROPOSAL",
+        ):
+            await query.answer(
+                (
+                    "Текущая стадия: "
+                    f"{current_stage}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        if not update_stage(
+            outreach_id,
+            "LOST",
+        ):
+            await query.answer(
+                "❌ Не удалось сохранить LOST",
+                show_alert=True,
+            )
+            return
+
+        log_event(
+            event_type="OUTREACH_LOST",
+            source="Atlas Sales Engine",
+            title="Сделка потеряна",
+            details=(
+                f"{outreach_id} · "
+                f"{item.get('company') or '—'} · "
+                "Владелец отметил сделку как "
+                "потерянную вручную. Контакт "
+                "переведён в LOST."
+            ),
+            metadata={
+                "outreach_id": outreach_id,
+                "task_id": item.get("task_id"),
+                "company": item.get("company"),
+                "stage": "LOST",
+                "external_action": True,
+                "atlas_executed": False,
+                "execution_mode": (
+                    "manual_owner_confirmation"
+                ),
+            },
+        )
+
+        await query.answer(
+            "📉 Потеря зафиксирована"
+        )
+
+        text, markup = build_pipeline_view()
+
+        await query.edit_message_text(
+            text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=markup,
+        )
+
+        await query.message.reply_text(
+            (
+                "❌ <b>ATLAS · "
+                "СДЕЛКА ПОТЕРЯНА</b>"
+                "\n\n"
+                "🆔 "
+                f"<code>{html.escape(outreach_id)}</code>"
+                "\n"
+                "📉 Владелец отметил сделку "
+                "как потерянную вручную.\n\n"
+                "🔐 Atlas ничего компании "
+                "не отправлял."
             ),
             parse_mode=ParseMode.HTML,
         )
@@ -1826,6 +2713,12 @@ def main():
         CallbackQueryHandler(
             pipeline_callback,
             pattern=r"^pipeline:",
+        )
+    )
+    application.add_handler(
+        CallbackQueryHandler(
+            task_callback,
+            pattern=r"^task:",
         )
     )
     application.add_handler(
