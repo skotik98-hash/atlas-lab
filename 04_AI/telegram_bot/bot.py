@@ -5,6 +5,8 @@ from datetime import datetime
 
 from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
+from atlas_status import get_atlas_status
+
 from approval_store import (
     get_approval,
     decide_approval,
@@ -135,34 +137,66 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # /STATUS
 # ─────────────────────────────────────────────
 
-async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def status(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
     if not authorized(update):
         await deny_access(update)
         return
+
+    data = get_atlas_status()
+
+    branch = html.escape(data["branch"])
+    commit_hash = html.escape(data["commit_hash"])
+    commit_message = html.escape(data["commit_message"])
+
+    if data["working_tree_clean"]:
+        tree_status = "🟢 ЧИСТО"
+    else:
+        tree_status = "🟡 ЕСТЬ ИЗМЕНЕНИЯ"
+
+    if data["ahead"] == 0 and data["behind"] == 0:
+        sync_status = "🟢 СИНХРОНИЗИРОВАНО"
+    else:
+        sync_status = "🟡 ТРЕБУЕТ СИНХРОНИЗАЦИИ"
 
     now = datetime.now().strftime("%H:%M:%S")
 
     text = (
         "🟢 <b>ATLAS LAB · СОСТОЯНИЕ СИСТЕМЫ</b>\n\n"
         "━━━━━━━━━━━━━━━━━━\n\n"
-        "🧠 <b>Система</b>\n"
+
+        "🧠 <b>Atlas Core</b>\n"
         "Статус: 🟢 РАБОТАЕТ\n"
         "Режим: 👤 КОНТРОЛЬ ВЛАДЕЛЬЦА\n\n"
-        "🤖 <b>AI Operations</b>\n"
-        "Telegram Gateway: 🟢 В СЕТИ\n"
-        "Atlas Control Bot: 🟢 АКТИВЕН\n"
-        "Notification Engine: 🟢 АКТИВЕН\n"
-        "Approval Inbox: 🟢 MVP\n\n"
-        "🔐 <b>Безопасность</b>\n"
-        "Авторизация владельца: ✅ АКТИВНА\n"
-        "Политика доступа: 🔒 ТОЛЬКО ВЛАДЕЛЬЦЫ\n\n"
-        "📡 <b>Инфраструктура</b>\n"
-        "Python: 🟢 3.13\n"
-        "Интерфейс: 🟢 Telegram\n"
-        "Среда: 💻 Локальный Atlas Lab\n\n"
+
+        "📦 <b>Репозиторий</b>\n"
+        f"Ветка: <code>{branch}</code>\n"
+        f"Рабочее дерево: {tree_status}\n"
+        f"Git Sync: {sync_status}\n"
+        f"Ahead: <b>{data['ahead']}</b> · "
+        f"Behind: <b>{data['behind']}</b>\n\n"
+
+        "🧾 <b>Последний commit</b>\n"
+        f"<code>{commit_hash}</code>\n"
+        f"{commit_message}\n\n"
+
+        "⚠️ <b>Approval Inbox</b>\n"
+        f"🟡 Ожидают решения: <b>{data['pending']}</b>\n"
+        f"🟢 Подтверждено: <b>{data['approved']}</b>\n"
+        f"🔴 Отклонено: <b>{data['rejected']}</b>\n\n"
+
+        "🤖 <b>Telegram Control</b>\n"
+        "Gateway: 🟢 ONLINE\n"
+        "Notification Engine: 🟢 READY\n"
+        "Approval Engine: 🟢 READY\n"
+        "Owner Authentication: 🔐 ACTIVE\n\n"
+
         "━━━━━━━━━━━━━━━━━━\n"
         f"🕐 Обновлено: {now}\n\n"
-        "<i>Atlas Control · v0.2</i>"
+
+        "<i>Atlas Control · Live Status v0.5</i>"
     )
 
     await update.effective_message.reply_text(
