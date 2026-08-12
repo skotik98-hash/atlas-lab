@@ -10,6 +10,7 @@ from telegram.constants import ParseMode
 from atlas_status import get_atlas_status
 from activity_store import list_events
 from owner_report import render_owner_report_html
+from sales_outreach_store import list_outreach, count_stages
 
 from approval_store import (
     get_approval,
@@ -669,6 +670,111 @@ async def tasks_command(
 # /APPROVALS
 # ─────────────────────────────────────────────
 
+
+# ============================================================
+# /PIPELINE — ATLAS SALES PIPELINE
+# ============================================================
+
+async def pipeline_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    counts = count_stages()
+    items = list_outreach(8)
+
+    stage_map = {
+        "READY_TO_SEND": ("🟣", "ГОТОВО К ОТПРАВКЕ"),
+        "SENT": ("📤", "ОТПРАВЛЕНО"),
+        "WAITING_REPLY": ("🟡", "ЖДЁТ ОТВЕТА"),
+        "REPLIED": ("💬", "ПОЛУЧЕН ОТВЕТ"),
+        "MEETING": ("📅", "ВСТРЕЧА"),
+        "PROPOSAL": ("📄", "ПРЕДЛОЖЕНИЕ"),
+        "WON": ("🏆", "ВЫИГРАНО"),
+        "LOST": ("❌", "ПОТЕРЯНО"),
+    }
+
+    parts = [
+        "💼 <b>ATLAS · SALES PIPELINE</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "📊 <b>Сводка</b>",
+        f"🟣 Готово к отправке: <b>{counts['READY_TO_SEND']}</b>",
+        f"📤 Отправлено: <b>{counts['SENT']}</b>",
+        f"🟡 Ждут ответа: <b>{counts['WAITING_REPLY']}</b>",
+        f"💬 Ответили: <b>{counts['REPLIED']}</b>",
+        f"📅 Встречи: <b>{counts['MEETING']}</b>",
+        f"📄 Предложения: <b>{counts['PROPOSAL']}</b>",
+        f"🏆 Выиграно: <b>{counts['WON']}</b>",
+        f"❌ Потеряно: <b>{counts['LOST']}</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "🏢 <b>Контакты</b>",
+        "",
+    ]
+
+    if not items:
+        parts.append("Пока нет компаний в Sales Pipeline.")
+    else:
+        for item in items:
+            stage = item.get("stage", "")
+            emoji, label = stage_map.get(
+                stage,
+                ("⚪", stage or "НЕИЗВЕСТНО"),
+            )
+
+            company = html.escape(
+                str(item.get("company") or "—")
+            )
+            contact = html.escape(
+                str(item.get("contact_name") or "—")
+            )
+            role = html.escape(
+                str(item.get("contact_role") or "—")
+            )
+            channel = html.escape(
+                str(item.get("channel") or "—")
+            )
+            solution = html.escape(
+                str(item.get("solution") or "—")
+            )
+            outreach_id = html.escape(
+                str(item.get("outreach_id") or "—")
+            )
+            task_id = html.escape(
+                str(item.get("task_id") or "—")
+            )
+
+            parts.extend([
+                f"{emoji} <b>{outreach_id} · {company}</b>",
+                f"Статус: {emoji} <b>{label}</b>",
+                f"👤 {contact} · {role}",
+                f"💡 {solution}",
+                f"🌐 {channel}",
+                f"🎯 <code>{task_id}</code>",
+                "",
+            ])
+
+    parts.extend([
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "🔐 Внешние действия выполняются только "
+        "после разрешения владельца.",
+        "",
+        "<i>Atlas Sales Pipeline · v0.1</i>",
+    ])
+
+    await update.effective_message.reply_text(
+        "\n".join(parts),
+        parse_mode=ParseMode.HTML,
+    )
+
+
 async def approvals_command(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE,
@@ -1003,6 +1109,7 @@ async def post_init(application: Application):
             BotCommand("activity", "🧠 Журнал активности"),
             BotCommand("report", "📊 Отчёт владельцу"),
             BotCommand("tasks", "🎯 Задачи Atlas"),
+            BotCommand("pipeline", "💼 Sales Pipeline"),
             BotCommand("approvals", "⚠️ Approval Inbox"),
             BotCommand("pending", "🟡 Ожидают решения"),
             BotCommand("help", "❓ Команды"),
@@ -1028,6 +1135,7 @@ def main():
     application.add_handler(CommandHandler("report", report_command))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("tasks", tasks_command))
+    application.add_handler(CommandHandler("pipeline", pipeline_command))
     application.add_handler(CommandHandler("approvals", approvals_command))
     application.add_handler(CommandHandler("pending", pending_command))
 

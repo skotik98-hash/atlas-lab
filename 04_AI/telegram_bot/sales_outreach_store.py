@@ -1,0 +1,270 @@
+import json
+import os
+import sqlite3
+from datetime import datetime, timezone
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DB_PATH = os.path.join(DATA_DIR, "sales_outreach.db")
+
+VALID_STAGES = {
+    "READY_TO_SEND",
+    "SENT",
+    "WAITING_REPLY",
+    "REPLIED",
+    "MEETING",
+    "PROPOSAL",
+    "WON",
+    "LOST",
+}
+
+
+def utc_now():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def connect():
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    db = sqlite3.connect(DB_PATH)
+    db.row_factory = sqlite3.Row
+    return db
+
+
+def initialize():
+    with connect() as db:
+        db.execute(
+            """
+            CREATE TABLE IF NOT EXISTS sales_outreach (
+                outreach_id TEXT PRIMARY KEY,
+                task_id TEXT NOT NULL,
+                company TEXT NOT NULL,
+                contact_name TEXT,
+                contact_role TEXT,
+                channel TEXT NOT NULL,
+                stage TEXT NOT NULL,
+                solution TEXT,
+                message TEXT,
+                approval_id TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                sent_at TEXT,
+                replied_at TEXT,
+                metadata_json TEXT
+            )
+            """
+        )
+
+        db.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_sales_outreach_task
+            ON sales_outreach(task_id)
+            """
+        )
+
+        db.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_sales_outreach_stage
+            ON sales_outreach(stage)
+            """
+        )
+
+        db.commit()
+
+
+def create_outreach(
+    outreach_id,
+    task_id,
+    company,
+    contact_name,
+    contact_role,
+    channel,
+    stage,
+    solution,
+    message,
+    approval_id=None,
+    metadata=None,
+):
+    initialize()
+
+    if stage not in VALID_STAGES:
+        raise ValueError(f"Invalid stage: {stage}")
+
+    now = utc_now()
+
+    with connect() as db:
+        try:
+            db.execute(
+                """
+                INSERT INTO sales_outreach (
+                    outreach_id,
+                    task_id,
+                    company,
+                    contact_name,
+                    contact_role,
+                    channel,
+                    stage,
+                    solution,
+                    message,
+                    approval_id,
+                    created_at,
+                    updated_at,
+                    metadata_json
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    outreach_id,
+                    task_id,
+                    company,
+                    contact_name,
+                    contact_role,
+                    channel,
+                    stage,
+                    solution,
+                    message,
+                    approval_id,
+                    now,
+                    now,
+                    json.dumps(
+                        metadata or {},
+                        ensure_ascii=False,
+                    ),
+                ),
+            )
+
+            db.commit()
+            return True
+
+        except sqlite3.IntegrityError:
+            return False
+
+
+def get_outreach(outreach_id):
+    initialize()
+
+    with connect() as db:
+        row = db.execute(
+            """
+            SELECT *
+            FROM sales_outreach
+            WHERE outreach_id = ?
+            """,
+            (outreach_id,),
+        ).fetchone()
+
+    if not row:
+        return None
+
+    item = dict(row)
+
+    try:
+        item["metadata"] = json.loads(
+            item.pop("metadata_json") or "{}"
+        )
+    except Exception:
+        item["metadata"] = {}
+
+    return item
+
+
+def list_outreach(limit=50):
+    initialize()
+
+    with connect() as db:
+        rows = db.execute(
+            """
+            SELECT *
+            FROM sales_outreach
+            ORDER BY created_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+
+    result = []
+
+    for row in rows:
+        item = dict(row)
+
+        try:
+            item["metadata"] = json.loads(
+                item.pop("metadata_json") or "{}"
+            )
+        except Exception:
+            item["metadata"] = {}
+
+        result.append(item)
+
+    return result
+
+
+def count_stages():
+    initialize()
+
+    counts = {
+        stage: 0
+        for stage in VALID_STAGES
+    }
+
+    with connect() as db:
+        rows = db.execute(
+            """
+            SELECT stage, COUNT(*) AS total
+            FROM sales_outreach
+            GROUP BY stage
+            """
+        ).fetchall()
+
+    for row in rows:
+        counts[row["stage"]] = row["total"]
+
+    return counts
+
+
+def update_stage(outreach_id, stage):
+    initialize()
+
+    if stage not in VALID_STAGES:
+        raise ValueError(f"Invalid stage: {stage}")
+
+    now = utc_now()
+
+    sent_at_sql = ""
+    replied_at_sql = ""
+    params = [stage, now]
+
+    if stage == "SENT":
+        sent_at_sql = ", sent_at = COALESCE(sent_at, ?)"
+        params.append(now)
+
+    if stage == "REPLIED":
+        replied_at_sql = ", replied_at = COALESCE(replied_at, ?)"
+        params.append(now)
+
+    params.append(outreach_id)
+
+    with connect() as db:
+        result = db.execute(
+            f"""
+            UPDATE sales_outreach
+            SET stage = ?,
+                updated_at = ?
+                {sent_at_sql}
+                {replied_at_sql}
+            WHERE outreach_id = ?
+            """,
+            params,
+        )
+
+        db.commit()
+
+        return result.rowcount > 0
+
+
+if __name__ == "__main__":
+    initialize()
+    print("✅ Atlas Sales Outreach Store инициализирован")
+    print(f"🗄 Database: {DB_PATH}")
+    print("🔐 Runtime database хранится локально")
