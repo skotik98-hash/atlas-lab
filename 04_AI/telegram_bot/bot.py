@@ -8,9 +8,9 @@ from datetime import datetime
 from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 from atlas_status import get_atlas_status
-from activity_store import list_events
+from activity_store import list_events, log_event
 from owner_report import render_owner_report_html
-from sales_outreach_store import list_outreach, count_stages
+from sales_outreach_store import list_outreach, count_stages, get_outreach, update_stage
 
 from approval_store import (
     get_approval,
@@ -675,14 +675,7 @@ async def tasks_command(
 # /PIPELINE — ATLAS SALES PIPELINE
 # ============================================================
 
-async def pipeline_command(
-    update: Update,
-    context: ContextTypes.DEFAULT_TYPE,
-):
-    if not authorized(update):
-        await deny_access(update)
-        return
-
+def build_pipeline_view():
     counts = count_stages()
     items = list_outreach(8)
 
@@ -718,16 +711,24 @@ async def pipeline_command(
         "",
     ]
 
+    keyboard = []
+
     if not items:
         parts.append("Пока нет компаний в Sales Pipeline.")
+
     else:
         for item in items:
-            stage = item.get("stage", "")
+            stage = str(item.get("stage") or "")
             emoji, label = stage_map.get(
                 stage,
                 ("⚪", stage or "НЕИЗВЕСТНО"),
             )
 
+            raw_outreach_id = str(
+                item.get("outreach_id") or "—"
+            )
+
+            outreach_id = html.escape(raw_outreach_id)
             company = html.escape(
                 str(item.get("company") or "—")
             )
@@ -743,9 +744,6 @@ async def pipeline_command(
             solution = html.escape(
                 str(item.get("solution") or "—")
             )
-            outreach_id = html.escape(
-                str(item.get("outreach_id") or "—")
-            )
             task_id = html.escape(
                 str(item.get("task_id") or "—")
             )
@@ -760,18 +758,223 @@ async def pipeline_command(
                 "",
             ])
 
+            if stage == "READY_TO_SEND":
+                keyboard.append([
+                    InlineKeyboardButton(
+                        "📄 Текст обращения",
+                        callback_data=(
+                            f"pipeline:text:{raw_outreach_id}"
+                        ),
+                    ),
+                ])
+
+                keyboard.append([
+                    InlineKeyboardButton(
+                        "📤 Я отправил",
+                        callback_data=(
+                            f"pipeline:sent:{raw_outreach_id}"
+                        ),
+                    ),
+                ])
+
     parts.extend([
         "━━━━━━━━━━━━━━━━━━",
         "",
-        "🔐 Внешние действия выполняются только "
-        "после разрешения владельца.",
+        "🔐 Atlas не выполняет внешнюю отправку "
+        "этой кнопкой.",
+        "📤 «Я отправил» только фиксирует уже "
+        "выполненное владельцем действие.",
         "",
-        "<i>Atlas Sales Pipeline · v0.1</i>",
+        "<i>Atlas Sales Pipeline · v0.2</i>",
     ])
 
+    markup = (
+        InlineKeyboardMarkup(keyboard)
+        if keyboard
+        else None
+    )
+
+    return "\n".join(parts), markup
+
+
+async def pipeline_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    text, markup = build_pipeline_view()
+
     await update.effective_message.reply_text(
-        "\n".join(parts),
+        text,
         parse_mode=ParseMode.HTML,
+        reply_markup=markup,
+    )
+
+
+async def pipeline_callback(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    query = update.callback_query
+
+    if not query:
+        return
+
+    if not authorized(update):
+        await query.answer(
+            "⛔ Нет доступа",
+            show_alert=True,
+        )
+        return
+
+    data = query.data or ""
+    parts = data.split(":", 2)
+
+    if len(parts) != 3:
+        await query.answer(
+            "❌ Некорректная команда",
+            show_alert=True,
+        )
+        return
+
+    _, action, outreach_id = parts
+
+    item = get_outreach(outreach_id)
+
+    if not item:
+        await query.answer(
+            "❌ Контакт не найден",
+            show_alert=True,
+        )
+        return
+
+    # --------------------------------------------------------
+    # SHOW APPROVED MESSAGE
+    # --------------------------------------------------------
+
+    if action == "text":
+        await query.answer()
+
+        company = html.escape(
+            str(item.get("company") or "—")
+        )
+        message = html.escape(
+            str(item.get("message") or "—")
+        )
+
+        await query.message.reply_text(
+            "📄 <b>ATLAS · ТЕКСТ ОБРАЩЕНИЯ</b>\n\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            f"🏢 <b>{company}</b>\n"
+            f"🆔 <code>{html.escape(outreach_id)}</code>\n\n"
+            f"{message}\n\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            "🔐 Просмотр текста ничего компании "
+            "не отправляет.\n\n"
+            "<i>Atlas Sales Pipeline · v0.2</i>",
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    # --------------------------------------------------------
+    # OWNER CONFIRMS MANUAL SEND
+    # --------------------------------------------------------
+
+    if action == "sent":
+        current_stage = str(
+            item.get("stage") or ""
+        )
+
+        if current_stage == "WAITING_REPLY":
+            await query.answer(
+                "🟡 Уже отмечено как отправленное",
+                show_alert=True,
+            )
+            return
+
+        if current_stage != "READY_TO_SEND":
+            await query.answer(
+                f"Текущая стадия: {current_stage}",
+                show_alert=True,
+            )
+            return
+
+        # Сначала фиксируем SENT, чтобы Sales Store
+        # сохранил фактическое время отправки.
+        if not update_stage(outreach_id, "SENT"):
+            await query.answer(
+                "❌ Не удалось сохранить SENT",
+                show_alert=True,
+            )
+            return
+
+        # После фактической отправки логичный рабочий
+        # статус — ожидание ответа.
+        if not update_stage(
+            outreach_id,
+            "WAITING_REPLY",
+        ):
+            await query.answer(
+                "⚠️ SENT сохранён, но не удалось "
+                "перейти в WAITING_REPLY",
+                show_alert=True,
+            )
+            return
+
+        log_event(
+            event_type="OUTREACH_SENT",
+            source="Atlas Sales Engine",
+            title=(
+                "Первое обращение отмечено отправленным"
+            ),
+            details=(
+                f"{outreach_id} · "
+                f"{item.get('company') or '—'} · "
+                "Владелец подтвердил ручную отправку. "
+                "Atlas технически сообщение не отправлял. "
+                "Контакт переведён в WAITING_REPLY."
+            ),
+            metadata={
+                "outreach_id": outreach_id,
+                "task_id": item.get("task_id"),
+                "company": item.get("company"),
+                "stage": "WAITING_REPLY",
+                "external_action": True,
+                "atlas_executed": False,
+                "execution_mode": (
+                    "manual_owner_confirmation"
+                ),
+            },
+        )
+
+        await query.answer("✅ Отправка зафиксирована")
+
+        text, markup = build_pipeline_view()
+
+        await query.edit_message_text(
+            text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=markup,
+        )
+
+        await query.message.reply_text(
+            "📤 <b>ATLAS · ОТПРАВКА ЗАФИКСИРОВАНА</b>"
+            "\n\n"
+            f"🆔 <code>{html.escape(outreach_id)}</code>\n"
+            "✅ Фактическая отправка подтверждена "
+            "владельцем.\n"
+            "🟡 Теперь Atlas ожидает ответ компании.\n\n"
+            "🔐 Atlas сам сообщение не отправлял.",
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    await query.answer(
+        "❌ Неизвестное действие",
+        show_alert=True,
     )
 
 
@@ -1138,6 +1341,12 @@ def main():
     application.add_handler(CommandHandler("pipeline", pipeline_command))
     application.add_handler(CommandHandler("approvals", approvals_command))
     application.add_handler(CommandHandler("pending", pending_command))
+    application.add_handler(
+        CallbackQueryHandler(
+            pipeline_callback,
+            pattern=r"^pipeline:",
+        )
+    )
 
     application.add_handler(
         CallbackQueryHandler(
