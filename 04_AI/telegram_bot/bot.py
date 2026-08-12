@@ -25,6 +25,7 @@ from telegram.ext import (
     CallbackQueryHandler,
     ContextTypes,
 )
+from task_store import list_tasks, count_tasks
 
 # ─────────────────────────────────────────────
 # ЛОГИ
@@ -306,6 +307,11 @@ async def help_command(
 
         "━━━━━━━━━━━━━━━━━━\n\n"
 
+        "🎯 <b>Работа Atlas</b>\n\n"
+        "🎯 /tasks\n"
+        "Показать текущие задачи Atlas, их статусы, "
+        "приоритеты и очередь выполнения.\n\n"
+        "──────────────────\n\n"
         "⚠️ <b>Решения владельца</b>\n\n"
 
         "⚠️ /approvals\n"
@@ -547,6 +553,119 @@ async def activity_command(
 
 
 # ─────────────────────────────────────────────
+
+# ============================================================
+# /TASKS — ATLAS WORK CENTER
+# ============================================================
+
+async def tasks_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    counts = count_tasks()
+    tasks = list_tasks(10)
+
+    status_map = {
+        "NEW": ("🆕", "НОВАЯ"),
+        "IN_PROGRESS": ("🔵", "В РАБОТЕ"),
+        "WAITING_APPROVAL": ("🟡", "ЖДЁТ РЕШЕНИЯ"),
+        "BLOCKED": ("🔴", "ЗАБЛОКИРОВАНА"),
+        "DONE": ("✅", "ВЫПОЛНЕНО"),
+        "CANCELLED": ("⚫️", "ОТМЕНЕНА"),
+    }
+
+    priority_map = {
+        "LOW": "⚪️ LOW",
+        "NORMAL": "🟢 NORMAL",
+        "HIGH": "🔥 HIGH",
+        "CRITICAL": "🚨 CRITICAL",
+    }
+
+    source_map = {
+        "OWNER": "ВЛАДЕЛЕЦ",
+        "ATLAS": "ATLAS",
+        "SYSTEM": "СИСТЕМА",
+    }
+
+    parts = [
+        "🎯 <b>ATLAS · ЦЕНТР ЗАДАЧ</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "📊 <b>Сводка</b>",
+        f"🆕 Новые: <b>{counts.get('NEW', 0)}</b>",
+        f"🔵 В работе: <b>{counts.get('IN_PROGRESS', 0)}</b>",
+        (
+            "🟡 Ждут решения: "
+            f"<b>{counts.get('WAITING_APPROVAL', 0)}</b>"
+        ),
+        f"🔴 Заблокировано: <b>{counts.get('BLOCKED', 0)}</b>",
+        f"✅ Выполнено: <b>{counts.get('DONE', 0)}</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+    ]
+
+    if not tasks:
+        parts.extend([
+            "📭 Задач пока нет.",
+            "",
+        ])
+    else:
+        for task in tasks:
+            emoji, status_text = status_map.get(
+                task["status"],
+                ("⚪️", task["status"]),
+            )
+
+            priority = priority_map.get(
+                task["priority"],
+                task["priority"],
+            )
+
+            source = source_map.get(
+                task["source"],
+                task["source"],
+            )
+
+            parts.extend([
+                (
+                    f"{emoji} <b>{html.escape(task['task_id'])}</b>"
+                    f" · {priority}"
+                ),
+                html.escape(task["title"]),
+                f"Статус: {emoji} {status_text}",
+                f"Источник: {html.escape(source)}",
+            ])
+
+            if task.get("description"):
+                description = task["description"]
+
+                if len(description) > 180:
+                    description = description[:177] + "..."
+
+                parts.append(
+                    "📝 "
+                    + html.escape(description)
+                )
+
+            parts.append("")
+
+    parts.extend([
+        "━━━━━━━━━━━━━━━━━━",
+        "🧠 Work Engine · v0.1",
+    ])
+
+    await update.effective_message.reply_text(
+        "\n".join(parts),
+        parse_mode=ParseMode.HTML,
+    )
+
+
 # /APPROVALS
 # ─────────────────────────────────────────────
 
@@ -856,6 +975,7 @@ async def post_init(application: Application):
             BotCommand("status", "📊 Состояние Atlas"),
             BotCommand("activity", "🧠 Журнал активности"),
             BotCommand("report", "📊 Отчёт владельцу"),
+            BotCommand("tasks", "🎯 Задачи Atlas"),
             BotCommand("approvals", "⚠️ Approval Inbox"),
             BotCommand("pending", "🟡 Ожидают решения"),
             BotCommand("help", "❓ Команды"),
@@ -880,6 +1000,7 @@ def main():
     application.add_handler(CommandHandler("activity", activity_command))
     application.add_handler(CommandHandler("report", report_command))
     application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("tasks", tasks_command))
     application.add_handler(CommandHandler("approvals", approvals_command))
     application.add_handler(CommandHandler("pending", pending_command))
 
