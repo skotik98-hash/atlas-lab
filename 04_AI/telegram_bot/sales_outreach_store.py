@@ -263,6 +263,78 @@ def update_stage(outreach_id, stage):
         return result.rowcount > 0
 
 
+def record_inbound_reply(outreach_id, reply_text):
+    """
+    Save a real inbound company reply and move the outreach
+    to REPLIED.
+
+    The full reply is stored locally inside metadata_json.
+    """
+
+    initialize()
+
+    reply_text = str(reply_text or "").strip()
+
+    if not reply_text:
+        return False
+
+    item = get_outreach(outreach_id)
+
+    if not item:
+        return False
+
+    now = utc_now()
+
+    metadata = item.get("metadata") or {}
+
+    if not isinstance(metadata, dict):
+        metadata = {}
+
+    history = metadata.get("reply_history") or []
+
+    if not isinstance(history, list):
+        history = []
+
+    history.append(
+        {
+            "received_at": now,
+            "text": reply_text,
+        }
+    )
+
+    # Keep a reasonable local history.
+    metadata["reply_history"] = history[-20:]
+    metadata["last_reply_text"] = reply_text
+    metadata["last_reply_at"] = now
+
+    with connect() as db:
+        result = db.execute(
+            """
+            UPDATE sales_outreach
+            SET
+                stage = ?,
+                updated_at = ?,
+                replied_at = COALESCE(replied_at, ?),
+                metadata_json = ?
+            WHERE outreach_id = ?
+            """,
+            (
+                "REPLIED",
+                now,
+                now,
+                json.dumps(
+                    metadata,
+                    ensure_ascii=False,
+                ),
+                outreach_id,
+            ),
+        )
+
+        db.commit()
+
+        return result.rowcount > 0
+
+
 if __name__ == "__main__":
     initialize()
     print("✅ Atlas Sales Outreach Store инициализирован")
