@@ -5,10 +5,10 @@
 **Document ID:** `06_DECISIONS.md`
 **Location:** `02_Brain/`
 **Status:** Active
-**Version:** 1.0
+**Version:** 1.1
 **Owner:** Brain
 **Classification:** Governance — decision framework
-**Last updated:** 2026-08-08
+**Last updated:** 2026-08-12
 **Review date:** 2026-11-08
 **Supersedes:** — (first populated version; document previously existed as an empty placeholder)
 **Authority:** This document is the authoritative source for *how Atlas makes decisions* — authority bands applied to decisions, decision classes, the decision pipeline, gates, evidence requirements, risk and opportunity scoring, AI participation rules, escalation mechanics, reversibility doctrine, delegation and ownership rules, logging mechanics, the live Decision Register, quality metrics, bias controls, postmortem and audit cadences, and anti-patterns. It does not hold philosophy ([`01_WHY_ATLAS_EXISTS.md`](01_WHY_ATLAS_EXISTS.md)), principles rationale ([`02_FOUNDING_PRINCIPLES.md`](02_FOUNDING_PRINCIPLES.md)), organizational structure ([`03_ORGANIZATION.md`](03_ORGANIZATION.md)), strategic sequencing ([`04_ROADMAP.md`](04_ROADMAP.md)), or instance facts about what has actually happened ([`05_CURRENT_STATE.md`](05_CURRENT_STATE.md)). Where this document and a sibling appear to disagree, the sibling wins on *type* (mission, principles, structure, roadmap) and this document wins on *decision mechanics* — see [Relationship to Other Brain Documents](#relationship-to-other-brain-documents).
@@ -1691,8 +1691,9 @@ The table below is the actual, current Register. New entries are appended chrono
 | DR-2026-002 | 2026-08-08 | Approve Phase P0→P1 transition (Operating Kernel entry) | Strategic | DL-4 | One-way | Антон (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
 | DR-2026-003 | 2026-08-09 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | DL-1 | Two-way | Антон (Finance hat) | Approved | 2027-02-09 | [Full DR below](#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) |
 | DR-2026-004 | 2026-08-09 | Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital | Operational | DL-2 | Two-way | Антон (Brain + Finance hats) | Approved | 2026-11-09 | [Full DR below](#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital) |
+| DR-2026-010 | 2026-08-12 | Atlas Capital Engine + Atlas Foundry direction | Strategic | DL-4 | One-way | Антон (Brain) | Approved (provisional) | 2026-11-12 | [Full DR below](#dr-2026-010-atlas-capital-engine--atlas-foundry-direction) |
 
-**Current entry count: 4.**
+**Current entry count: 5.**
 
 ### DR-2026-001: Build full Brain governance set before operating activity
 
@@ -1935,6 +1936,166 @@ No real deployable-capital figure, revenue, or transaction history exists yet (p
 - `DR-2026-003` — the sibling decision this completes the escalation-threshold table alongside; kept fully independent per its own terms
 - [`00_ATLAS_BRAIN.md` § Escalation](00_ATLAS_BRAIN.md#escalation) — canonical trigger type this decision sets a value for
 - [Phase 1 exit criterion P1.7](04_ROADMAP.md#phase-1--operating-kernel) — the criterion this decision, once reflected in Current State, would fully satisfy
+
+---
+
+### DR-2026-010: Atlas Capital Engine + Atlas Foundry direction
+
+**Date:** 2026-08-12
+**Owner:** Антон (Brain Lead)
+**Status:** Approved (provisional)
+**Type:** Strategic
+**Sub-class:** Holding direction / commercial sequencing / capability charter
+**Level:** DL-4
+**Door type:** One-way
+**AI-assistance flag:** Yes — AI assisted drafting under Founder review; substance and approval are the Founder's
+**Escalation approval:** N/A — Brain band; self-approved at Stage 0
+
+### Context
+
+Atlas has exited P0 and is in Phase P1 with governance substrate, Draft playbooks, an automation registry, and early project evidence — but still without external revenue, customers, production L2 automations, or a completed operating cycle. The Founder needs a clear near-term commercial direction that:
+
+1. Prefers generating external capital through digital-first, remotely deliverable work before materially expanding compute or organizational complexity.
+2. Names **Atlas Foundry** as a capability (not a new department) for converting validated problems into reusable AI-enabled products and delivery systems.
+3. Keeps Founder personal capital conceptually distinct from Atlas-generated capital.
+4. Avoids overbuilding departments, speculative infrastructure, or automation ahead of real workflow evidence.
+
+This decision records strategic direction only. It does **not** complete P1.2 / P1.4 / P1.5, exit Phase 1, promote any automation maturity, create revenue, claim Foundry is already operational, or approve any listed AI Office as a shipped product.
+
+### Evidence
+
+- **Operating constraint:** Founder operates from Ukraine; early revenue strategy should avoid unnecessary dependency on local offline market structure, local relationship networks, or geography-bound operations when stronger international / digital opportunities are available. (Operating preference only — not a factual claim about Ukrainian businesses.)
+- **Current State:** No customers, no revenue, no production L2 automations; Phase 1 exit = No; P1.2 / P1.4 / P1.5 remain Not Met.
+- **Principle alignment:** [Simple before complex](02_FOUNDING_PRINCIPLES.md#simple-before-complex), [Capital efficiency](02_FOUNDING_PRINCIPLES.md#capital-efficiency), [Action over perfection](02_FOUNDING_PRINCIPLES.md#action-over-perfection), [Human accountability](02_FOUNDING_PRINCIPLES.md#human-accountability), [Evidence over opinion](02_FOUNDING_PRINCIPLES.md#evidence-over-opinion). (DL-4 Principle category — present; still subject to Brain re-confirmation at unconditional promotion.)
+- **Precedent:** DR-2026-001 (governance before premature operating scale); DR-2026-002 (P1 entry without inventing maturity). Register search: no prior live DR defines Capital Engine / Foundry direction. (DL-4 Precedent category — present and cited.)
+- **Risk / Opportunity:** Scored tables in this DR. (DL-4 Risk/Opportunity category — present as scored; still subject to re-confirmation when Financial/Market/Operational evidence is attached.)
+- **Pending for unconditional Approved (mandatory DL-4 categories still unmet):** Per the [Evidence requirement matrix](#evidence-requirement-matrix-by-level), the following required DL-4 evidence categories remain **pending** and must be attached or validly resolved under existing governance rules before this DR may move from **Approved (provisional)** to unconditional **Approved**: **Financial**; **Market / competitive**; **Operational feasibility**; **Stakeholder input** (affected-department / Brain review input with any dissent logged). No Financial, Market, Operational, or Stakeholder evidence is invented here.
+
+### Options considered
+
+1. **Digital-first Capital Engine + Foundry-as-capability (chosen)** — Prefer remotely deliverable opportunities; earn reusable modules from real delivery; defer material compute/org expansion until economics justify it.
+2. **Local / geography-bound first** — Prioritize nearby offline markets and relationship-heavy delivery before digital packaging.
+3. **Infrastructure-first** — Expand servers / AI workstations / NAS / compute now so the architecture is “ready,” then find demand.
+4. **Foundry-as-department now** — Create a new department and governance surface for Foundry before any paid external result.
+
+### Risk score
+
+| Category | Likelihood (1–5) | Impact (1–5) | Mitigation |
+|---|---|---|---|
+| Strategic | 3 | 3 | Explicit anti-overbuild rule; Foundry earned by real projects; review in ~90 days |
+| Financial | 2 | 3 | Revenue-before-compute; distinguish Founder vs Atlas capital conceptually; no new legal/accounting rules invented here |
+| Operational | 3 | 2 | Commercial sequencing loop; no major automation before understanding the real workflow |
+| Technical | 2 | 2 | Human-control boundaries for high-stakes actions; AI Office examples are not products yet |
+| Compliance/legal | 2 | 3 | Legal/Document AI Office must not claim independent final legal judgment or replace required professional responsibility |
+| Reputational | 2 | 2 | Do not claim revenue, operational Foundry, or shipped AI Offices that do not exist |
+
+### Opportunity score
+
+| Criterion | Score (1–5) | Justification |
+|---|---|---|
+| Return potential | 4 | Path to external paid results and reusable product leverage |
+| Operational leverage | 5 | ~80% reusable / ~20% customization design target compounds delivery speed |
+| Time to impact | 3 | Requires real demand validation; not instant |
+| Knowledge contribution | 4 | Creates a reusable commercial sequencing doctrine |
+| Optionality created | 5 | Keeps digital/international paths open; avoids premature geography lock-in |
+
+### Decision
+
+**Option 1 chosen.** Atlas Lab’s near-term priority is to become capable of generating **external capital** through **digital-first, remotely deliverable** opportunities before materially expanding compute infrastructure or organizational complexity.
+
+#### Atlas Foundry (capability, not department)
+
+**Atlas Foundry** is established as a **capability**, not yet a standalone department. Its purpose is to convert validated opportunities and customer problems into reusable AI-enabled products and delivery systems.
+
+Illustrative domains (examples only — not approved products):
+
+- AI managers
+- AI mini-offices
+- research and analytics systems
+- document-processing systems
+- verification / review systems
+- sales and lead-support systems
+- workflow automation
+- bots
+- internal business tools
+- small software products
+- design/content production systems
+- local/private AI deployments where appropriate
+
+**Productization principle (design target, not a rigid formula):** approximately **80% reusable core** / **20% customer or domain customization**. The Foundry should progressively accumulate reusable modules so later client projects can be delivered faster, cheaper, and with more predictable quality.
+
+#### First-wave strategy
+
+Prefer digital-first and geographically flexible opportunities that can be developed and delivered remotely. Given the Founder’s Ukraine operating base, early revenue strategy should avoid unnecessary dependency on local offline market structure, local relationship networks, or geography-bound operations when stronger international / digital opportunities are available.
+
+#### Revenue before compute
+
+Do **not** materially expand into servers, AI workstations, NAS infrastructure, or other significant compute spending merely because the architecture could use it. Infrastructure expansion should follow demonstrated economic need, preferably funded from Atlas-generated revenue.
+
+#### Commercial sequencing loop
+
+1. Find an opportunity or painful workflow.
+2. Research the market / user / company.
+3. Define a measurable desired result.
+4. Validate real demand.
+5. Build the smallest useful prototype.
+6. Seek a paid pilot or paid implementation.
+7. Deliver initially manually or semi-manually where useful.
+8. Measure customer value and economics.
+9. Convert repeated delivery components into reusable Foundry modules.
+10. Improve and scale only with evidence.
+
+Do not build major automation before understanding the real workflow.
+
+#### Capital distinction
+
+Founder personal capital and Atlas-generated capital must remain **conceptually distinguishable**. Founder capital may fund carefully selected experiments. Revenue generated by Atlas becomes evidence of economic capability and may then be reinvested into further Atlas development. This decision does **not** create accounting rules or legal structures.
+
+#### AI Office concept
+
+Atlas intends to develop reusable **AI Office** foundations: configurable packages of AI roles, workflows, knowledge access, tools, controls, logging, and human approval boundaries designed around a real job or business function.
+
+Potential examples (not approved products): Legal / Document AI Office; Research & Intelligence Office; Analytics Office; Sales / Lead Office; Operations Office; Content / Design Office.
+
+A Legal / Document AI Office may assist with document review, transcription, audio analysis, information extraction, comparison, classification, summarization, and draft preparation. It must **not** be described as independently making final legal judgments or replacing required professional responsibility.
+
+#### Human control (explicit)
+
+Keep explicit human approval for:
+
+- contracts
+- pricing commitments
+- payments and movement of capital
+- external customer commitments
+- legally consequential decisions
+- access to sensitive customer data
+- credentials / permissions
+- irreversible actions
+- production deployment where risk is material
+
+Low-risk internal research, drafting, classification, testing, and analysis may progressively become more autonomous once controls are proven.
+
+#### Anti-overbuild rule
+
+This decision is **not** permission to create many new departments, governance frameworks, or speculative infrastructure. Atlas Foundry should be earned through real projects. Reusable components should normally be created because they were needed in a real experiment or delivery, not merely because they might become useful someday.
+
+### Success metrics
+
+- **Economic validation signal:** at least one external paid result generated through the commercial sequencing loop above.
+- **Long-term goal (directional):** Atlas learns to discover opportunities, build digital assets/products, operate them, and compound the resulting capital — broader than client services alone.
+- **Non-claims preserved:** does not by itself complete P1.2 / P1.4 / P1.5, exit Phase 1, promote automation maturity, invent revenue, declare Foundry operational, or ship any listed AI Office.
+
+### Review date
+
+2026-11-12 (≈90 days), or sooner upon first external paid result or any proposed material compute expansion.
+
+### Related documents / precedent
+
+- DR-2026-001 — governance substrate before premature operating scale
+- DR-2026-002 — Phase P1 entry
+- [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md) — live Phase 1 / automation / project facts this direction must not contradict
+- [`04_ROADMAP.md` § Phase 1](04_ROADMAP.md#phase-1--operating-kernel) — Phase 1 exit criteria remain independently evidenced
+- P-001 / Market Screen artifacts — early opportunity screening context; do not treat as completed Capital Engine proof
 
 ---
 
@@ -3197,6 +3358,7 @@ Some terms used loosely throughout this document await formal Glossary treatment
 | Version | Date | Changes |
 |---|---|---|
 | 1.0 | 2026-08-08 | Initial release — full decision framework: authority mapping, decision levels and classes, eleven-stage pipeline, gates, templates, evidence requirements, risk/opportunity scoring, capital allocation process, AI participation rules, human override rules, escalation mechanics, reversibility doctrine, delegation and ownership rules, logging mechanics and live Register, quality metrics, bias detection, failure analysis, postmortem process, quarterly review and annual audit cadences, anti-patterns, worked examples, and appendices |
+| 1.1 | 2026-08-12 | Added live Register entry **DR-2026-010** (Atlas Capital Engine + Atlas Foundry direction; Strategic / DL-4 / One-way; **Approved (provisional)** pending unmet mandatory DL-4 Financial, Market, Operational, and Stakeholder evidence). Current State instance-count sync is handled separately in `05_CURRENT_STATE.md`. |
 
 ### This document versus a decision itself
 
@@ -3216,7 +3378,7 @@ Stated plainly, so a future amendment has a documented starting point rather tha
 
 ### Amendment proposals in flight
 
-None as of version 1.0. Future amendment proposals should be listed here with a status (Proposed / Under review / Merged / Declined) until they are either merged into a version bump (and removed from this list, replaced by a changelog entry) or formally declined (and removed, with the decision to decline itself logged as a Governance-class DR).
+None as of version 1.1. Future amendment proposals should be listed here with a status (Proposed / Under review / Merged / Declined) until they are either merged into a version bump (and removed from this list, replaced by a changelog entry) or formally declined (and removed, with the decision to decline itself logged as a Governance-class DR).
 
 ### A final orientation note
 
