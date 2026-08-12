@@ -7,6 +7,7 @@ from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMar
 from telegram.constants import ParseMode
 from atlas_status import get_atlas_status
 from activity_store import list_events
+from owner_report import render_owner_report_html
 
 from approval_store import (
     get_approval,
@@ -236,6 +237,10 @@ async def help_command(
         "🧠 /activity\n"
         "Открыть журнал последних действий и событий Atlas.\n\n"
 
+        "📊 /report\n"
+        "Сформировать сводный отчёт владельцу: результаты, "
+        "commit, решения и текущее состояние Atlas.\n\n"
+
         "━━━━━━━━━━━━━━━━━━\n\n"
 
         "⚠️ <b>Решения владельца</b>\n\n"
@@ -271,6 +276,27 @@ async def help_command(
 
         "<i>Atlas Control · Command Center v0.5</i>"
     )
+
+    await update.effective_message.reply_text(
+        text,
+        parse_mode=ParseMode.HTML,
+    )
+
+
+
+# ─────────────────────────────────────────────
+# /REPORT
+# ─────────────────────────────────────────────
+
+async def report_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    text = render_owner_report_html()
 
     await update.effective_message.reply_text(
         text,
@@ -766,6 +792,7 @@ async def post_init(application: Application):
             BotCommand("start", "🏠 Центр управления"),
             BotCommand("status", "📊 Состояние Atlas"),
             BotCommand("activity", "🧠 Журнал активности"),
+            BotCommand("report", "📊 Отчёт владельцу"),
             BotCommand("approvals", "⚠️ Approval Inbox"),
             BotCommand("pending", "🟡 Ожидают решения"),
             BotCommand("help", "❓ Команды"),
@@ -788,6 +815,7 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("status", status))
     application.add_handler(CommandHandler("activity", activity_command))
+    application.add_handler(CommandHandler("report", report_command))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("approvals", approvals_command))
     application.add_handler(CommandHandler("pending", pending_command))
