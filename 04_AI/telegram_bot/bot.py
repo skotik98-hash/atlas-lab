@@ -3,8 +3,16 @@ import html
 import logging
 from datetime import datetime
 
-from telegram import Update, BotCommand
+from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
+from approval_store import (
+    get_approval,
+    decide_approval,
+    list_approvals,
+    count_approvals,
+    list_pending,
+)
+
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -111,6 +119,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Доступ: ✅ АВТОРИЗОВАН\n\n"
         "━━━━━━━━━━━━━━━━━━\n\n"
         "📊 /status — состояние Atlas\n"
+        "⚠️ /approvals — журнал решений\n"
+        "🟡 /pending — ожидают решения\n"
         "❓ /help — команды управления\n\n"
         "<i>Atlas Control · v0.2</i>"
     )
@@ -195,6 +205,173 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
+
+# ─────────────────────────────────────────────
+# /APPROVALS
+# ─────────────────────────────────────────────
+
+async def approvals_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    counts = count_approvals()
+    items = list_approvals(5)
+
+    status_map = {
+        "PENDING": ("🟡", "ОЖИДАЕТ РЕШЕНИЯ"),
+        "APPROVED": ("🟢", "ПОДТВЕРЖДЕНО"),
+        "REJECTED": ("🔴", "ОТКЛОНЕНО"),
+    }
+
+    def format_time(value):
+        if not value:
+            return "—"
+
+        try:
+            dt = datetime.fromisoformat(value)
+            return dt.astimezone().strftime("%d.%m · %H:%M")
+        except Exception:
+            return "—"
+
+    parts = [
+        "⚠️ <b>ATLAS · APPROVAL INBOX</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "📊 <b>Сводка</b>",
+        "",
+        f"🟡 Ожидают решения: <b>{counts['PENDING']}</b>",
+        f"🟢 Подтверждено: <b>{counts['APPROVED']}</b>",
+        f"🔴 Отклонено: <b>{counts['REJECTED']}</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "🕘 <b>Последние запросы</b>",
+        "",
+    ]
+
+    if not items:
+        parts.append("Запросов пока нет.")
+    else:
+        for item in items:
+            emoji, label = status_map.get(
+                item["status"],
+                ("⚪️", item["status"]),
+            )
+
+            event_time = format_time(
+                item["decided_at"] or item["created_at"]
+            )
+
+            parts.extend([
+                f"{emoji} <code>{html.escape(item['approval_id'])}</code>",
+                f"<b>{html.escape(item['title'])}</b>",
+                f"{label} · {event_time}",
+                "",
+            ])
+
+    parts.extend([
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "<i>Atlas Approval Inbox · v0.3</i>",
+    ])
+
+    await update.effective_message.reply_text(
+        "\n".join(parts),
+        parse_mode=ParseMode.HTML,
+    )
+
+
+
+# ─────────────────────────────────────────────
+# /PENDING
+# ─────────────────────────────────────────────
+
+async def pending_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    items = list_pending(10)
+
+    if not items:
+        await update.effective_message.reply_text(
+            "✅ <b>ATLAS · APPROVAL INBOX</b>\n\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            "🟢 Активных запросов нет.\n\n"
+            "Все решения обработаны.\n\n"
+            "━━━━━━━━━━━━━━━━━━\n"
+            "<i>Atlas Approval Inbox · v0.4</i>",
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    await update.effective_message.reply_text(
+        "⚠️ <b>ATLAS · ОЖИДАЮТ РЕШЕНИЯ</b>\n\n"
+        "━━━━━━━━━━━━━━━━━━\n\n"
+        f"🟡 Активных запросов: <b>{len(items)}</b>\n\n"
+        "Ниже находятся действия, которые Atlas "
+        "не выполнит без решения владельца.\n\n"
+        "━━━━━━━━━━━━━━━━━━",
+        parse_mode=ParseMode.HTML,
+    )
+
+    for item in items:
+        approval_id = item["approval_id"]
+
+        try:
+            created = datetime.fromisoformat(
+                item["created_at"]
+            ).astimezone().strftime("%d.%m · %H:%M")
+        except Exception:
+            created = "—"
+
+        keyboard = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(
+                    "✅ Подтвердить",
+                    callback_data=f"approval:approve:{approval_id}",
+                ),
+                InlineKeyboardButton(
+                    "❌ Отклонить",
+                    callback_data=f"approval:reject:{approval_id}",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    "📋 Подробнее",
+                    callback_data=f"approval:details:{approval_id}",
+                ),
+            ],
+        ])
+
+        text = (
+            "🟡 <b>ОЖИДАЕТ РЕШЕНИЯ</b>\n\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            f"📌 <b>{html.escape(item['title'])}</b>\n\n"
+            f"🧩 Тип: <code>{html.escape(item['action_type'])}</code>\n\n"
+            f"📝 {html.escape(item['details'])}\n\n"
+            f"🕐 Создан: {created}\n"
+            f"🔖 ID: <code>{html.escape(approval_id)}</code>\n\n"
+            "🔐 Без подтверждения действие не выполняется.\n\n"
+            "━━━━━━━━━━━━━━━━━━\n"
+            "<i>Atlas Approval Inbox · v0.4</i>"
+        )
+
+        await update.effective_message.reply_text(
+            text,
+            parse_mode=ParseMode.HTML,
+            reply_markup=keyboard,
+        )
+
+
 # ─────────────────────────────────────────────
 # APPROVAL INBOX
 # ─────────────────────────────────────────────
@@ -227,63 +404,105 @@ async def approval_callback(
     action = parts[1]
     approval_id = parts[2]
 
+    approval = get_approval(approval_id)
+
+    if not approval:
+        await query.answer(
+            "❌ Approval не найден в хранилище.",
+            show_alert=True,
+        )
+        return
+
     if action == "details":
         await query.answer()
+
+        status_map = {
+            "PENDING": "🟡 ОЖИДАЕТ РЕШЕНИЯ",
+            "APPROVED": "🟢 ПОДТВЕРЖДЕНО",
+            "REJECTED": "🔴 ОТКЛОНЕНО",
+        }
 
         await query.message.reply_text(
             "📋 <b>ATLAS · ДЕТАЛИ РЕШЕНИЯ</b>\n\n"
             "━━━━━━━━━━━━━━━━━━\n\n"
-            f"🔖 ID: <code>{html.escape(approval_id)}</code>\n\n"
-            "🤖 <b>Почему Atlas запрашивает решение</b>\n"
-            "Действие выходит за рамки полностью "
-            "автоматизированных полномочий и требует "
-            "подтверждения владельца.\n\n"
-            "🛡 <b>Политика</b>\n"
-            "Без подтверждения действие выполнено не будет.\n\n"
+            f"🔖 <b>ID</b>\n<code>{html.escape(approval_id)}</code>\n\n"
+            f"📌 <b>Действие</b>\n{html.escape(approval['title'])}\n\n"
+            f"🧩 <b>Тип</b>\n{html.escape(approval['action_type'])}\n\n"
+            f"📝 <b>Описание</b>\n{html.escape(approval['details'])}\n\n"
+            f"📊 <b>Статус</b>\n"
+            f"{status_map.get(approval['status'], approval['status'])}\n\n"
             "━━━━━━━━━━━━━━━━━━\n"
-            "<i>Atlas Approval Inbox · v0.1</i>",
+            "<i>Atlas Approval Inbox · v0.2</i>",
             parse_mode=ParseMode.HTML,
         )
-
         return
 
-    if action == "approve":
+    if action not in {"approve", "reject"}:
+        await query.answer("Неизвестное действие.")
+        return
+
+    decision = "APPROVED" if action == "approve" else "REJECTED"
+
+    result = decide_approval(
+        approval_id=approval_id,
+        decision=decision,
+        decided_by=user.id,
+    )
+
+    if result == "NOT_FOUND":
+        await query.answer(
+            "❌ Approval не найден.",
+            show_alert=True,
+        )
+        return
+
+    if result == "ALREADY_DECIDED":
+        current = get_approval(approval_id)
+
+        status_text = (
+            "🟢 уже подтверждено"
+            if current and current["status"] == "APPROVED"
+            else "🔴 уже отклонено"
+        )
+
+        await query.answer(
+            f"Это решение {status_text}.",
+            show_alert=True,
+        )
+        return
+
+    await query.edit_message_reply_markup(reply_markup=None)
+
+    if result == "APPROVED":
         await query.answer("✅ Решение подтверждено")
 
-        await query.edit_message_reply_markup(reply_markup=None)
-
         await query.message.reply_text(
-            "✅ <b>ATLAS · РЕШЕНИЕ ПРИНЯТО</b>\n\n"
+            "✅ <b>ATLAS · РЕШЕНИЕ ЗАРЕГИСТРИРОВАНО</b>\n\n"
             "━━━━━━━━━━━━━━━━━━\n\n"
             f"🔖 ID: <code>{html.escape(approval_id)}</code>\n"
             "Статус: 🟢 <b>ПОДТВЕРЖДЕНО</b>\n\n"
-            "🤖 Atlas получил разрешение владельца.\n\n"
+            "👤 Решение владельца сохранено в Approval Store.\n\n"
+            "⚠️ Само внешнее действие пока автоматически "
+            "не выполняется.\n\n"
             "━━━━━━━━━━━━━━━━━━\n"
-            "<i>Atlas Approval Inbox</i>",
+            "<i>Atlas Approval Inbox · v0.2</i>",
             parse_mode=ParseMode.HTML,
         )
-
         return
 
-    if action == "reject":
-        await query.answer("❌ Действие отклонено")
+    await query.answer("❌ Действие отклонено")
 
-        await query.edit_message_reply_markup(reply_markup=None)
-
-        await query.message.reply_text(
-            "❌ <b>ATLAS · ДЕЙСТВИЕ ОТКЛОНЕНО</b>\n\n"
-            "━━━━━━━━━━━━━━━━━━\n\n"
-            f"🔖 ID: <code>{html.escape(approval_id)}</code>\n"
-            "Статус: 🔴 <b>ОТКЛОНЕНО</b>\n\n"
-            "🛑 Atlas не будет выполнять это действие.\n\n"
-            "━━━━━━━━━━━━━━━━━━\n"
-            "<i>Atlas Approval Inbox</i>",
-            parse_mode=ParseMode.HTML,
-        )
-
-        return
-
-    await query.answer("Неизвестное действие.")
+    await query.message.reply_text(
+        "❌ <b>ATLAS · РЕШЕНИЕ ЗАРЕГИСТРИРОВАНО</b>\n\n"
+        "━━━━━━━━━━━━━━━━━━\n\n"
+        f"🔖 ID: <code>{html.escape(approval_id)}</code>\n"
+        "Статус: 🔴 <b>ОТКЛОНЕНО</b>\n\n"
+        "👤 Решение владельца сохранено в Approval Store.\n\n"
+        "🛑 Atlas не будет выполнять это действие.\n\n"
+        "━━━━━━━━━━━━━━━━━━\n"
+        "<i>Atlas Approval Inbox · v0.2</i>",
+        parse_mode=ParseMode.HTML,
+    )
 
 
 # ─────────────────────────────────────────────
@@ -295,6 +514,8 @@ async def post_init(application: Application):
         [
             BotCommand("start", "🏠 Центр управления"),
             BotCommand("status", "📊 Состояние Atlas"),
+            BotCommand("approvals", "⚠️ Approval Inbox"),
+            BotCommand("pending", "🟡 Ожидают решения"),
             BotCommand("help", "❓ Команды"),
         ]
     )
@@ -315,6 +536,8 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("status", status))
     application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("approvals", approvals_command))
+    application.add_handler(CommandHandler("pending", pending_command))
 
     application.add_handler(
         CallbackQueryHandler(

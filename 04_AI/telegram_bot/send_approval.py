@@ -1,8 +1,11 @@
 import asyncio
+from datetime import datetime
 from pathlib import Path
 
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
+
+from approval_store import create_approval
 
 
 ENV_PATH = Path(__file__).with_name(".env")
@@ -38,7 +41,23 @@ async def main():
         print("❌ Не найдены Telegram настройки")
         return
 
-    approval_id = "TEST-001"
+    approval_id = datetime.now().strftime(
+        "TEST-%Y%m%d-%H%M%S-%f"
+    )
+
+    created = create_approval(
+        approval_id=approval_id,
+        title="Отправить коммерческое предложение",
+        action_type="COMMERCIAL_PROPOSAL",
+        details=(
+            "Тестовый запрос: отправить коммерческое предложение "
+            "Example GmbH на сумму €3 500."
+        ),
+    )
+
+    if not created:
+        print("❌ Approval с таким ID уже существует")
+        return
 
     text = (
         "⚠️ <b>ATLAS · ТРЕБУЕТСЯ РЕШЕНИЕ</b>\n\n"
@@ -55,7 +74,8 @@ async def main():
 
         "🎯 <b>Причина</b>\n"
         "Компания соответствует целевому профилю и имеет "
-        "потенциальную потребность в автоматизации клиентской поддержки.\n\n"
+        "потенциальную потребность в автоматизации "
+        "клиентской поддержки.\n\n"
 
         "🤖 <b>Оценка Atlas</b>\n"
         "Уверенность: 87%\n"
@@ -65,9 +85,10 @@ async def main():
         "Без решения владельца действие выполнено не будет.\n\n"
 
         "━━━━━━━━━━━━━━━━━━\n"
-        f"🔖 ID: <code>{approval_id}</code>\n\n"
+        f"🔖 ID: <code>{approval_id}</code>\n"
+        "📊 Статус: 🟡 <b>PENDING</b>\n\n"
 
-        "<i>Atlas Approval Inbox · v0.1</i>"
+        "<i>Atlas Approval Inbox · v0.2</i>"
     )
 
     keyboard = InlineKeyboardMarkup([
@@ -85,7 +106,7 @@ async def main():
             InlineKeyboardButton(
                 "📋 Подробнее",
                 callback_data=f"approval:details:{approval_id}",
-            )
+            ),
         ],
     ])
 
@@ -98,10 +119,11 @@ async def main():
                 reply_markup=keyboard,
             )
 
-    print("✅ Тестовый Approval отправлен")
-    print(f"👤 Получателей: {len(owner_ids)}")
+    print("✅ Новый Approval создан и отправлен")
     print(f"🔖 Approval ID: {approval_id}")
-    print("🛡 Реальное действие за этим тестом НЕ выполняется")
+    print("📊 Начальный статус: PENDING")
+    print(f"👤 Получателей: {len(owner_ids)}")
+    print("🛡 Реальное внешнее действие НЕ выполняется")
 
 
 if __name__ == "__main__":
