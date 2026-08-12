@@ -25,7 +25,7 @@ from telegram.ext import (
     CallbackQueryHandler,
     ContextTypes,
 )
-from task_store import list_tasks, count_tasks
+from task_store import list_tasks, count_tasks, update_task_status
 
 # ─────────────────────────────────────────────
 # ЛОГИ
@@ -396,11 +396,11 @@ async def activity_command(
         "APPROVAL_CLEARED",
     }
 
-    events = [
+    events = list(reversed([
         event
         for event in raw_events
         if event["event_type"] not in hidden_types
-    ][:10]
+    ][:10]))
 
     event_labels = {
         "SYSTEM": ("⚙️", "СИСТЕМА"),
@@ -543,7 +543,7 @@ async def activity_command(
         "📊 /status — состояние системы",
         "⚠️ /approvals — история решений",
         "",
-        "<i>Atlas Activity Feed · v0.3</i>",
+        "<i>Atlas Activity Feed · v0.4</i>",
     ])
 
     await update.effective_message.reply_text(
@@ -931,6 +931,33 @@ async def approval_callback(
         return
 
     await query.edit_message_reply_markup(reply_markup=None)
+
+
+    # TASK-LINKED APPROVAL
+    # Формат approval_id:
+    # TASK-0001-YYYYMMDD-HHMMSS
+    if (
+        approval_id.startswith("TASK-")
+        and result in {"APPROVED", "REJECTED"}
+    ):
+        approval_parts = approval_id.split("-")
+
+        if len(approval_parts) >= 2:
+            task_id = (
+                f"{approval_parts[0]}-"
+                f"{approval_parts[1]}"
+            )
+
+            next_status = (
+                "IN_PROGRESS"
+                if result == "APPROVED"
+                else "BLOCKED"
+            )
+
+            update_task_status(
+                task_id,
+                next_status,
+            )
 
     if result == "APPROVED":
         await query.answer("✅ Решение подтверждено")
