@@ -6,6 +6,7 @@ from datetime import datetime
 from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 from atlas_status import get_atlas_status
+from activity_store import list_events
 
 from approval_store import (
     get_approval,
@@ -121,6 +122,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Доступ: ✅ АВТОРИЗОВАН\n\n"
         "━━━━━━━━━━━━━━━━━━\n\n"
         "📊 /status — состояние Atlas\n"
+        "🧠 /activity — журнал активности\n"
         "⚠️ /approvals — журнал решений\n"
         "🟡 /pending — ожидают решения\n"
         "❓ /help — команды управления\n\n"
@@ -209,7 +211,10 @@ async def status(
 # /HELP
 # ─────────────────────────────────────────────
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def help_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
     if not authorized(update):
         await deny_access(update)
         return
@@ -217,20 +222,54 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "🤖 <b>ATLAS · КОМАНДНЫЙ ЦЕНТР</b>\n\n"
         "━━━━━━━━━━━━━━━━━━\n\n"
-        "🏠 /start — центр управления\n"
-        "📊 /status — состояние Atlas\n"
-        "❓ /help — список команд\n\n"
+
+        "🏠 <b>Управление</b>\n\n"
+
+        "🏠 /start\n"
+        "Открыть главный центр управления Atlas.\n\n"
+
+        "📊 /status\n"
+        "Показать живое состояние Atlas Lab: "
+        "Git, синхронизацию, последний commit, "
+        "Approval Inbox и Telegram Control.\n\n"
+
+        "🧠 /activity\n"
+        "Открыть журнал последних действий и событий Atlas.\n\n"
+
         "━━━━━━━━━━━━━━━━━━\n\n"
-        "🟢 <b>Активные возможности</b>\n\n"
-        "🔔 Системные уведомления\n"
-        "⚠️ Approval Inbox\n"
-        "🔐 Owner Authentication\n\n"
-        "🔜 <b>Следующие этапы</b>\n\n"
-        "💼 Возможности и клиенты\n"
-        "💰 Финансы\n"
-        "🧠 Аналитика\n"
-        "🛡 Безопасность\n\n"
-        "<i>Atlas Control · v0.2</i>"
+
+        "⚠️ <b>Решения владельца</b>\n\n"
+
+        "⚠️ /approvals\n"
+        "История запросов и принятых решений.\n\n"
+
+        "🟡 /pending\n"
+        "Показать только запросы, которые прямо сейчас "
+        "ожидают решения владельца.\n\n"
+
+        "━━━━━━━━━━━━━━━━━━\n\n"
+
+        "❓ <b>Помощь</b>\n\n"
+
+        "❓ /help\n"
+        "Показать этот список команд.\n\n"
+
+        "━━━━━━━━━━━━━━━━━━\n\n"
+
+        "🟢 <b>Активные системы</b>\n\n"
+        "🔔 Система уведомлений · АКТИВНА\n"
+        "⚠️ Approval Inbox · АКТИВЕН\n"
+        "🧠 Activity Feed · АКТИВЕН\n"
+        "👁 Atlas Watcher · АКТИВЕН\n"
+        "📊 Live Status · АКТИВЕН\n"
+        "🔐 Авторизация владельца · АКТИВНА\n\n"
+
+        "━━━━━━━━━━━━━━━━━━\n\n"
+
+        "💡 <i>Все основные команды также доступны "
+        "через кнопку «Меню» в Telegram.</i>\n\n"
+
+        "<i>Atlas Control · Command Center v0.5</i>"
     )
 
     await update.effective_message.reply_text(
@@ -238,6 +277,85 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=ParseMode.HTML,
     )
 
+
+# ─────────────────────────────────────────────
+# /ACTIVITY
+# ─────────────────────────────────────────────
+
+async def activity_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    events = list_events(10)
+
+    event_labels = {
+        "SYSTEM": ("⚙️", "СИСТЕМА"),
+        "GIT_COMMIT": ("🧾", "GIT COMMIT"),
+        "GIT_DIRTY": ("🟡", "ИЗМЕНЕНИЯ GIT"),
+        "GIT_CLEAN": ("🟢", "GIT ЧИСТ"),
+        "GIT_SYNC_REQUIRED": ("🟠", "GIT SYNC"),
+        "GIT_SYNC_RESTORED": ("🟢", "GIT SYNC"),
+        "APPROVAL_CREATED": ("⚠️", "СОЗДАН ЗАПРОС"),
+        "APPROVAL_PENDING": ("🟡", "ОЖИДАЕТ РЕШЕНИЯ"),
+        "APPROVAL_DECIDED": ("✅", "РЕШЕНИЕ ПРИНЯТО"),
+        "APPROVAL_CLEARED": ("🟢", "ОЧЕРЕДЬ ОБРАБОТАНА"),
+    }
+
+    parts = [
+        "🧠 <b>ATLAS · ЖУРНАЛ АКТИВНОСТИ</b>",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+    ]
+
+    if not events:
+        parts.extend([
+            "📭 Событий пока нет.",
+            "",
+        ])
+    else:
+        for event in events:
+            emoji, label = event_labels.get(
+                event["event_type"],
+                ("🔵", event["event_type"]),
+            )
+
+            try:
+                dt = datetime.fromisoformat(
+                    event["created_at"]
+                ).astimezone()
+
+                time_text = dt.strftime("%d.%m · %H:%M")
+            except Exception:
+                time_text = "—"
+
+            title = html.escape(event["title"])
+            source = html.escape(event["source"])
+
+            parts.extend([
+                f"{emoji} <b>{label}</b> · {time_text}",
+                f"{title}",
+                f"<i>{source}</i>",
+                "",
+            ])
+
+    parts.extend([
+        "━━━━━━━━━━━━━━━━━━",
+        "",
+        "⚠️ /pending — ожидают решения",
+        "📊 /status — состояние системы",
+        "",
+        "<i>Atlas Activity Feed · v0.1</i>",
+    ])
+
+    await update.effective_message.reply_text(
+        "\n".join(parts),
+        parse_mode=ParseMode.HTML,
+    )
 
 
 # ─────────────────────────────────────────────
@@ -548,6 +666,7 @@ async def post_init(application: Application):
         [
             BotCommand("start", "🏠 Центр управления"),
             BotCommand("status", "📊 Состояние Atlas"),
+            BotCommand("activity", "🧠 Журнал активности"),
             BotCommand("approvals", "⚠️ Approval Inbox"),
             BotCommand("pending", "🟡 Ожидают решения"),
             BotCommand("help", "❓ Команды"),
@@ -569,6 +688,7 @@ def main():
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("status", status))
+    application.add_handler(CommandHandler("activity", activity_command))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("approvals", approvals_command))
     application.add_handler(CommandHandler("pending", pending_command))

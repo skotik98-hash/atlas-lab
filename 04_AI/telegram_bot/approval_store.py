@@ -2,6 +2,8 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from activity_store import log_event
+
 
 DB_PATH = Path(__file__).with_name("data") / "approvals.db"
 
@@ -73,6 +75,18 @@ def create_approval(
 
             db.commit()
 
+        log_event(
+            event_type="APPROVAL_CREATED",
+            source="Approval Engine",
+            title=title,
+            details=details,
+            metadata={
+                "approval_id": approval_id,
+                "action_type": action_type,
+                "status": "PENDING",
+            },
+        )
+
         return True
 
     except sqlite3.IntegrityError:
@@ -142,6 +156,18 @@ def decide_approval(
         )
 
         db.commit()
+
+    log_event(
+        event_type="APPROVAL_DECIDED",
+        source="Approval Engine",
+        title=f"Approval {decision}",
+        details=f"Решение владельца по {approval_id}: {decision}",
+        metadata={
+            "approval_id": approval_id,
+            "decision": decision,
+            "decided_by": decided_by,
+        },
+    )
 
     return decision
 

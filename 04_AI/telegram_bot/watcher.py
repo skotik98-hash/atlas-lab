@@ -3,6 +3,7 @@ import asyncio
 import json
 from pathlib import Path
 
+from activity_store import log_event
 from atlas_status import get_atlas_status
 from notifier import send_notification
 
@@ -15,7 +16,9 @@ def load_previous_state():
         return None
 
     try:
-        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
+        return json.loads(
+            STATE_PATH.read_text(encoding="utf-8")
+        )
     except Exception:
         return None
 
@@ -46,31 +49,53 @@ def snapshot():
     }
 
 
-async def process_changes(previous, current):
-    # ─────────────────────────────────────────
-    # Новый commit
-    # ─────────────────────────────────────────
+async def record_and_notify(
+    event_type,
+    notification_type,
+    title,
+    message,
+    metadata=None,
+):
+    log_event(
+        event_type=event_type,
+        source="Atlas Watcher",
+        title=title,
+        details=message,
+        metadata=metadata or {},
+    )
 
+    await send_notification(
+        notification_type,
+        title,
+        message,
+    )
+
+
+async def process_changes(previous, current):
+    # Новый commit
     if previous["commit_hash"] != current["commit_hash"]:
-        await send_notification(
+        await record_and_notify(
+            "GIT_COMMIT",
             "success",
             "Новый commit в Atlas Lab",
             (
                 f"{current['commit_hash']} · "
                 f"{current['commit_message']}"
             ),
+            {
+                "commit_hash": current["commit_hash"],
+                "commit_message": current["commit_message"],
+            },
         )
 
-    # ─────────────────────────────────────────
     # Рабочее дерево
-    # ─────────────────────────────────────────
-
     if (
         previous["working_tree_clean"]
         != current["working_tree_clean"]
     ):
         if current["working_tree_clean"]:
-            await send_notification(
+            await record_and_notify(
+                "GIT_CLEAN",
                 "success",
                 "Рабочее дерево очищено",
                 (
@@ -79,7 +104,8 @@ async def process_changes(previous, current):
                 ),
             )
         else:
-            await send_notification(
+            await record_and_notify(
+                "GIT_DIRTY",
                 "warning",
                 "В Atlas есть локальные изменения",
                 (
@@ -88,10 +114,7 @@ async def process_changes(previous, current):
                 ),
             )
 
-    # ─────────────────────────────────────────
     # Git Sync
-    # ─────────────────────────────────────────
-
     old_sync = (
         previous["ahead"] == 0
         and previous["behind"] == 0
@@ -104,32 +127,36 @@ async def process_changes(previous, current):
 
     if old_sync != new_sync:
         if new_sync:
-            await send_notification(
+            await record_and_notify(
+                "GIT_SYNC_RESTORED",
                 "success",
                 "Git синхронизация восстановлена",
                 "main и origin/main снова синхронизированы.",
             )
         else:
-            await send_notification(
+            await record_and_notify(
+                "GIT_SYNC_REQUIRED",
                 "warning",
                 "Git требует синхронизации",
                 (
                     f"Ahead: {current['ahead']} · "
                     f"Behind: {current['behind']}"
                 ),
+                {
+                    "ahead": current["ahead"],
+                    "behind": current["behind"],
+                },
             )
 
-    # ─────────────────────────────────────────
     # Pending Approvals
-    # ─────────────────────────────────────────
-
     if current["pending"] > previous["pending"]:
         difference = (
             current["pending"]
             - previous["pending"]
         )
 
-        await send_notification(
+        await record_and_notify(
+            "APPROVAL_PENDING",
             "approval",
             "Появилось новое решение",
             (
@@ -137,13 +164,18 @@ async def process_changes(previous, current):
                 f"Всего ожидают решения: {current['pending']}.\n\n"
                 "Открой /pending в Atlas Control."
             ),
+            {
+                "new_pending": difference,
+                "total_pending": current["pending"],
+            },
         )
 
     elif (
         current["pending"] < previous["pending"]
         and current["pending"] == 0
     ):
-        await send_notification(
+        await record_and_notify(
+            "APPROVAL_CLEARED",
             "success",
             "Approval Inbox обработан",
             "Активных запросов на решение больше нет.",
@@ -172,6 +204,7 @@ async def run_forever(interval):
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     print("👁 ATLAS WATCHER · ACTIVE")
     print(f"⏱ Интервал проверки · {interval} сек.")
+    print("🧠 Activity Store · CONNECTED")
     print("🔕 Повторные состояния · НЕ ДУБЛИРУЮТСЯ")
     print("⏹ Для остановки: Control + C")
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -197,14 +230,12 @@ async def main():
     parser.add_argument(
         "--once",
         action="store_true",
-        help="Выполнить одну проверку",
     )
 
     parser.add_argument(
         "--interval",
         type=int,
         default=15,
-        help="Интервал проверки в секундах",
     )
 
     args = parser.parse_args()
