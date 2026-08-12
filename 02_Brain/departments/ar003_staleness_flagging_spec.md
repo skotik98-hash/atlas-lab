@@ -6,10 +6,10 @@
 **Location:** `02_Brain/departments/`
 **Status:** Draft
 **Version:** 1.0
-**Owner:** Анатолий (Knowledge hat) — per AR-003 registry Owner; Spec authored under AI-hat Spec step of the [AI adoption process](00_ATLAS_BRAIN.md#ai-adoption-process)
+**Owner:** Антон (Knowledge hat) — per AR-003 registry Owner; Spec authored under AI-hat Spec step of the [AI adoption process](00_ATLAS_BRAIN.md#ai-adoption-process)
 **Last updated:** 2026-08-10
 **Review date:** 2027-02-10
-**Registry candidate:** [AR-003](automation_registry.md#ar-003--t1t3-document-staleness-flagging)
+**Registry candidate:** [AR-003](automation_registry.md#ar-003--t1t5-document-staleness-flagging)
 
 ---
 
@@ -18,7 +18,7 @@
 | Field | Entry |
 |---|---|
 | **Name** | AR-003 — T1–T5 document Review-date staleness flagging |
-| **Owner** | Анатолий (Knowledge hat) |
+| **Owner** | Антон (Knowledge hat) |
 | **SOP reference** | [`knowledge_playbook.md`](knowledge_playbook.md) § Execution guidance ("Staleness-flagging procedure") and checklist item "Flag any T1–T5 document past its `Review date`…" — provisional playbook procedure; this Spec supplies the executable mechanics |
 | **Trigger** | Manual / ad hoc at a real Brain-hat or Knowledge-hat working session; or a future scheduled cadence once Frequency evidence exists. **Not** a same-session artificial re-run for Frequency credit |
 | **Inputs** | (1) Reference date = calendar date of the run (YYYY-MM-DD). (2) Document headers containing a real `**Review date:**` field under in-scope paths (see Scope). (3) No secondary table (e.g. Current State document-status rows) may substitute for a missing source-header value |
@@ -48,7 +48,7 @@ Compare each in-scope document’s header `Review date` to the run’s reference
 - `01_Projects/` working files unless/until a later Spec revision explicitly adds them
 - Any write to document `Status`, archive, or content
 
-**Note:** AR-003 registry Purpose still says "T1–T3". This Spec’s executable scope is the broader Run #1 practice (T1–T5 headers). Updating the registry Purpose line is **out of scope for this Spec create** and must be a separate, later edit if approved.
+**Note:** Registry Purpose/title/inputs for AR-003 are aligned to **T1–T5** (same executable scope as this Spec and Prototype Run #1).
 
 ## Trigger
 
@@ -111,7 +111,7 @@ Plus counts: total in-scope docs, Clear, Flagged, Invalid/Missing; elapsed time;
 
 ## Owner
 
-Анатолий (Knowledge hat) — accountable for exceptions and maintenance.  
+Антон (Knowledge hat) — accountable for exceptions and maintenance.
 AI hat owns registry tracking of this Spec’s existence; does not own Knowledge remediation decisions.
 
 ## Fallback procedure
@@ -150,7 +150,6 @@ Do not fabricate Frequency from same-session repeats.
 3. Whether tier labels should be inferred when not self-declared (Spec: report "not self-declared")
 4. Whether to expand Scope beyond `02_Brain/` + `03_Knowledge/`
 5. Whether to record the run into `automation_registry.md` and whether eligibility/maturity may change
-6. Resolving the registry Purpose "T1–T3" vs this Spec’s T1–T5 executable scope (separate edit)
 
 ## How to record future Run #2 / Run #3
 

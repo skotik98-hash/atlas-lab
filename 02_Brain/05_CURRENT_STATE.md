@@ -5,10 +5,10 @@
 **Document ID:** `05_CURRENT_STATE.md`
 **Location:** `02_Brain/`
 **Status:** Active
-**Version:** 1.2
+**Version:** 1.3.1
 **Owner:** Brain (Brain lead; instance values contributed by all departments — currently all held by the same individual, see [Current Organization](#current-organization))
 **Classification:** Governance — current state snapshot
-**Last updated:** 2026-08-08
+**Last updated:** 2026-08-10
 **Review date:** 2026-11-08
 **Update trigger:** Quarterly on calendar, **or immediately** on any material change — phase transition, first portfolio asset, first hire, first logged decision, first production automation
 **Supersedes:** — (first populated version; document previously existed as an empty placeholder)
@@ -166,7 +166,7 @@ If this document and a sibling document disagree:
 | Headcount, roles, ownership | Direct observation | Updated on any hiring/offboarding event |
 | Decision log statistics | [`06_DECISIONS.md`](06_DECISIONS.md) | Counted at each update |
 | Financial figures | Finance systems (Not Yet Implemented) | TBD once Finance department is active |
-| Automation registry statistics | AI department registry (Not Yet Implemented) | TBD once registry exists |
+| Automation registry statistics | [`automation_registry.md`](departments/automation_registry.md) (exists; 6 candidates) | Live candidate/maturity counts from registry; production L2 remains 0 |
 | Portfolio statistics | Assets department tracker (Not Yet Implemented) | TBD once first asset exists |
 
 ---
@@ -197,7 +197,7 @@ If this document and a sibling document disagree:
 | If you are… | Read these sections first |
 |---|---|
 | A new operator joining Atlas | [Current Executive Summary](#current-executive-summary), [Snapshot Dashboard](#snapshot-dashboard), [Current Organization](#current-organization), [Current Roles](#current-roles) |
-| Anatoly (Brain lead), doing a weekly self-check | [Snapshot Dashboard](#snapshot-dashboard), [Current Risks](#current-risks), [Appendix B — Next 90 Days Watch List](#appendix-b--next-90-days-watch-list) |
+| Anton (Brain lead), doing a weekly self-check | [Snapshot Dashboard](#snapshot-dashboard), [Current Risks](#current-risks), [Appendix B — Next 90 Days Watch List](#appendix-b--next-90-days-watch-list) |
 | An AI agent retrieving context for a task | [Current Ownership](#current-ownership), [Current Governance](#current-governance), [Current Documentation Coverage](#current-documentation-coverage) |
 | A future hire evaluating whether to join | [Current Mission Status](#current-mission-status), [Current Strategic Position](#current-strategic-position), [Current Scaling Readiness](#current-scaling-readiness) |
 | A future investor or advisor | [Current Executive Summary](#current-executive-summary), [Current Finance](#current-finance), [Current Assets](#current-assets), [Current Risks](#current-risks) |
@@ -207,18 +207,18 @@ If this document and a sibling document disagree:
 
 ## Current Executive Summary
 
-Atlas is, as of 2026-08-08, a **single-operator holding-company-in-formation** with a complete first-generation governance substrate and no operating history beyond that substrate.
+Atlas is, as of 2026-08-10, a **single-operator holding-company-in-formation** with a complete first-generation governance substrate, Draft department playbooks, an automation registry, and early project/automation evidence — still without revenue, portfolio assets, or production L2 automations.
 
 In concrete terms:
 
-- **What exists:** All eight Brain governance documents ([`00`](00_ATLAS_BRAIN.md)–[`07`](07_GLOSSARY.md)) Active — a complete mission, principle set, organizational model, multi-decade roadmap, decision framework ([`06_DECISIONS.md`](06_DECISIONS.md) v1.0), and shared vocabulary ([`07_GLOSSARY.md`](07_GLOSSARY.md) v1.0, ~150 terms). **2 Decision Records logged** (DR-2026-001, DR-2026-002). This document ([`05`](05_CURRENT_STATE.md)) is Active v1.2. The knowledge base exists as a version-controlled local vault.
-- **What does not yet exist:** Any department playbook or SOP, any portfolio asset, any automation, any hired employee or contractor, any financial system, any legal entity confirmation, any customer, any revenue, and any external stakeholder relationship of record.
-- **Who runs it:** One person — **Анатолий (Anatoly)**, acting as Brain Lead / Holding Lead and, per [Org Stage 0 rules](03_ORGANIZATION.md#stage-0-one-operator), simultaneously wearing all seven department hats.
+- **What exists:** All eight Brain governance documents ([`00`](00_ATLAS_BRAIN.md)–[`07`](07_GLOSSARY.md)) Active — a complete mission, principle set, organizational model, multi-decade roadmap, decision framework ([`06_DECISIONS.md`](06_DECISIONS.md) v1.0), and shared vocabulary ([`07_GLOSSARY.md`](07_GLOSSARY.md) v1.0, ~150 terms). **4 Decision Records logged** (DR-2026-001 through DR-2026-004). This document ([`05`](05_CURRENT_STATE.md)) is Active v1.3.1. The knowledge base exists as a version-controlled local vault.
+- **What does not yet exist:** Portfolio assets, production L2 automations, hired employees/contractors, a live financial system with chart of accounts and actual closes, legal-entity confirmation, customers, revenue, and external stakeholder relationships of record. (Draft playbooks, one close SOP, the automation registry, and P-001/Market Screen artifacts **do** exist — see below.)
+- **Who runs it:** One person — **Антон (Anton)**, acting as Brain Lead / Holding Lead and, per [Org Stage 0 rules](03_ORGANIZATION.md#stage-0-one-operator), simultaneously wearing all seven department hats.
 - **What phase this is:** [Roadmap Phase P1 — Operating Kernel](04_ROADMAP.md#phase-1--operating-kernel), entered 2026-08-08 via DR-2026-002, inside [Horizon H0 — Foundation](04_ROADMAP.md#vision-horizon) and [Era E0 — Substrate](04_ROADMAP.md#multi-year-evolution). **Phase P0 exited** 2026-08-08 — all exit criteria met or acceptably partial (P0.9).
-- **What the near-term priority is:** P1 primary work — department playbook skeleton ×7 (M-K-003), then automation registry (M-A-001).
+- **What the near-term priority is:** P1 exit criteria that remain open — especially **P1.2** (strict project-lifecycle evidence across ≥3 initiatives), **P1.4** (≥3 processes at L2), and **P1.5** (actual financial closes). **P1.1** and **P1.3** are Met. Milestone **M-A-001** remains only **Partial** (detailed Done-means not fully satisfied — see milestone rows).
 - **What the Holding Capability Maturity score is:** CM-0 (weakest-link) overall; CM-1 for governance documentation per narrow interpretation adopted in DR-2026-002. Seven dimensions remain at CM-0 — expected at Stage 0 entering P1.
 
-**The honest one-line summary:** Atlas has exited Phase P0 and entered P1 — the constitution is written and the first decisions are logged; execution layer (playbooks, registry, project lifecycle) is the work ahead. Every operational claim below (finance, portfolio, automation, hiring) remains **Not Yet Implemented**.
+**The honest one-line summary:** Atlas has exited Phase P0 and entered P1 — constitution, 7 Draft department playbooks, automation registry (6 candidates), and 4 logged decisions exist; **P1.1 / P1.3 / P1.6 / P1.7 / P1.8 are Met**. **P1.2 / P1.4 / P1.5 remain Not Met**; Phase 1 exit = **No**. Portfolio revenue, production L2 automations, and actual financial closes still do not exist.
 
 ---
 
@@ -235,19 +235,19 @@ A single-glance reference. Every value below is expanded with evidence in its ow
 | **Holding Capability Maturity (weakest-link)** | CM-0 — Implicit (CM-1 governance docs per DR-2026-002 narrow reading) |
 | **Holding Capability Maturity (average across 10 dimensions)** | ~0.6 / 5 |
 | **Org scale stage** | Stage 0 — One operator |
-| **Named headcount** | 1 (Анатолий — Brain Lead / Holding Lead, all seven hats) |
+| **Named headcount** | 1 (Антон — Brain Lead / Holding Lead, all seven hats) |
 | **Contractors / vendors** | 0 documented; Unknown whether any exist informally |
 | **Portfolio assets (any lifecycle stage)** | 0 |
-| **Decision records logged** | 2 |
+| **Decision records logged** | 4 (DR-2026-001 through DR-2026-004) |
 | **Glossary terms published** | ~150 (Active v1.0 in [`07_GLOSSARY.md`](07_GLOSSARY.md)) |
-| **Department playbooks (T3) published** | 0 of 7 |
-| **SOPs (T4) published** | 0 |
-| **Production automations / agents** | 0 registered; informal AI-assisted drafting used, not yet spec'd or owned per [Agent design standards](00_ATLAS_BRAIN.md#agent-design-standards) |
+| **Department playbooks (T3) published** | 7 of 7 (Draft stubs in `02_Brain/departments/`) |
+| **SOPs (T4) published** | 1 (`finance_close_sop.md`); chart of accounts still absent |
+| **Production automations / agents** | 6 candidates in [`automation_registry.md`](departments/automation_registry.md); formal L2 = 0; AR-003 Spec committed; AR-002/003/006 each have Prototype Run #1 only (still L0) |
 | **AI maturity of any process** | L0 (Manual) formally; informal AI drafting assistance in practice, unregistered |
 | **Capital bucket allocation** | TBD — not yet set by Finance + Brain |
 | **Legal entity status** | Unknown / TBD |
-| **Financial close process** | Not Yet Implemented |
-| **Projects run through full lifecycle** | 0 |
+| **Financial close process** | SOP documented (`finance_close_sop.md`); **0 actual closes**; P1.5 Not Met |
+| **Projects run through full lifecycle** | 0 full closes; P-001 active with partial Market Screen lifecycle evidence — **P1.2 Not Met** (strict) |
 | **Escalation events logged** | 0 |
 | **Quarterly Brain reviews held** | 0 |
 | **Next scheduled review** | 2026-11-08 |
@@ -298,7 +298,7 @@ The single largest risk to mission status is **documentation without subsequent 
 | Phase | **P1 — Operating Kernel** (entered 2026-08-08) | [Major Phases](04_ROADMAP.md#major-phases) |
 | Org stage | **Stage 0 — One operator** | [Organizational Scaling](03_ORGANIZATION.md#organizational-scaling) |
 | AI evolution arc (Arc C) | **Pre-C1** — informal use only; C1 (L1 assisted, formally registered) not yet reached | [Arc C](04_ROADMAP.md#multi-year-evolution) |
-| Knowledge evolution arc (Arc D) | **D1 in progress** — Glossary v1 published; 2 Register entries; onboarding path partially executable | [Arc D](04_ROADMAP.md#multi-year-evolution) |
+| Knowledge evolution arc (Arc D) | **D1 in progress** — Glossary v1 published; 4 Register entries; onboarding path executable end-to-end (P1.8 Met) | [Arc D](04_ROADMAP.md#multi-year-evolution) |
 | Portfolio evolution arc (Arc B) | **Pre-B1** — no first asset closed | [Arc B](04_ROADMAP.md#multi-year-evolution) |
 | OS evolution arc (Arc A) | **A1** — Brain documents and org model exist | [Arc A](04_ROADMAP.md#multi-year-evolution) |
 | Org evolution arc (Arc E) | **E1 in progress** — Stage 0, 1 person | [Arc E](04_ROADMAP.md#multi-year-evolution) |
@@ -352,7 +352,7 @@ Per [Phase 0 explicit non-goals](04_ROADMAP.md#phase-0--brain-substrate), the fo
 |---|---|---|
 | Still assign single owner on every outcome, even if the owner is the same human | 🟡 Partial | Ownership is assigned by department hat in [Current Ownership](#current-ownership), but no formal role-charter documents (T3) exist yet to make this machine-legible |
 | Still write Decision Records for material calls | 🔴 Not yet | Zero decisions logged to date, including the material call to activate this document |
-| Still separate project work from BAU in briefs | 🔴 Not yet | No project briefs exist; all work to date has been informal |
+| Still separate project work from BAU in briefs | 🟡 Partial | P-001 / Market Screen briefs exist; Brain drafting still largely outside formal briefs; **P1.2 Not Met** |
 | Do not skip metadata blocks | ✅ Met | All eight active Brain documents carry full T1 metadata blocks |
 
 ### Distance to Stage 1
@@ -373,22 +373,22 @@ Holding Capability Maturity (CM) is defined in [Capability Maturity Model](04_RO
 
 | ID | Dimension | Score | Rubric match | Rationale |
 |---|---|---|---|---|
-| CM-D1 | Governance & judgment | **1** | "Docs exist; rarely used in live decisions" | Full principle and decision-framework documentation exists; zero decisions have yet been run through it |
-| CM-D2 | Knowledge compounding | **1** | "Docs exist; hard to find" *(partially inaccurate — docs are easy to find in a five-file vault, but retrieval tooling and staleness detection do not exist)* | Structure exists; ownership is assigned; but no onboarding path has been executed and no staleness process runs |
-| CM-D3 | AI & automation | **1** | "Ad-hoc assistant usage unmanaged" | AI assistance was used informally to draft governance documents; no spec, no registry, no named owner per [Agent design standards](00_ATLAS_BRAIN.md#agent-design-standards) |
-| CM-D4 | Financial truth | **0** | "Unreliable numbers" *(more precisely: no numbers exist)* | No chart of accounts, no close process, no capital deployed |
+| CM-D1 | Governance & judgment | **1** | "Docs exist; rarely used in live decisions" | Framework exists; 4 DRs logged, but operating volume still very low |
+| CM-D2 | Knowledge compounding | **1** | "Docs exist; hard to find" *(partially inaccurate — docs are findable; retrieval tooling still thin)* | Onboarding dry-run complete (P1.8); AR-003 Prototype Run #1 only — no recurring staleness process yet |
+| CM-D3 | AI & automation | **1** | "Ad-hoc assistant usage unmanaged" | Registry + AR-003 Spec now exist; usage still largely unmanaged relative to L2; production L2 = 0; AR-001 informal L1 only |
+| CM-D4 | Financial truth | **0** | "Unreliable numbers" *(more precisely: no numbers exist)* | Close SOP exists; no chart of accounts, **0 actual closes**, no capital deployed; **P1.5 Not Met** |
 | CM-D5 | Operational integration | **0** | "Each asset invents ops" *(not applicable — no assets)* | No portfolio to integrate |
 | CM-D6 | Portfolio stewardship | **0** | "No lifecycle" | No assets in any [Company Lifecycle](00_ATLAS_BRAIN.md#company-lifecycle) stage |
-| CM-D7 | Delivery system | **0** | "Ad-hoc initiatives" | No project has been run through [Project Lifecycle](00_ATLAS_BRAIN.md#project-lifecycle) |
+| CM-D7 | Delivery system | **0** | "Ad-hoc initiatives" | P-001/Market Screen has partial lifecycle evidence; no initiative has completed full lifecycle; **P1.2 Not Met** |
 | CM-D8 | Organizational clarity | **2** | "Owners named; dual-hats labeled" | Ownership is named per department hat (see [Current Ownership](#current-ownership)); no interface SLA activity yet because there is no second party |
 | CM-D9 | Platform / infrastructure | **1** | "Inventory" | A minimal tooling inventory exists implicitly (see [Current Technical Stack](#current-technical-stack)); no preferred-stack policy or access baseline documented |
-| CM-D10 | Learning loop | **0** | "No retros" | No project or decision has completed a cycle to retrospect on |
+| CM-D10 | Learning loop | **0** | "No retros" | One Market Screen stage retrospective exists; no project-close or quarterly decision-review cycle completed |
 
 ### Aggregate scores
 
 | Method | Score | Interpretation |
 |---|---|---|
-| Weakest link (gating) | **CM-0 — Implicit** | Correct and expected for Phase P0; seven of ten dimensions have not started |
+| Weakest link (gating) | **CM-0 — Implicit** | Still expected early in Phase P1 at Stage 0; seven of ten dimensions remain at CM-0 |
 | Average (diagnostic) | **0.6 / 5** | Reflects genuine progress on governance/knowledge/org clarity even though the floor is 0 |
 
 ### CM-to-phase gate check
@@ -420,7 +420,7 @@ AI maturity here refers to the **process-level L0–L4 model** in [AI Strategy �
 
 | Process | Current L-level | Notes |
 |---|---|---|
-| Brain document drafting / editing | **Informal L1** (Assisted) | AI assistance used to draft and structure Brain documents; human (Анатолий) directs, reviews, and approves every substantive claim. Not yet formally spec'd, registered, or owned per [Agent design standards](00_ATLAS_BRAIN.md#agent-design-standards) — this is a gap, not a maturity claim |
+| Brain document drafting / editing | **Informal L1** (Assisted) | AI assistance used to draft and structure Brain documents; human (Антон) directs, reviews, and approves every substantive claim. Not yet formally spec'd, registered, or owned per [Agent design standards](00_ATLAS_BRAIN.md#agent-design-standards) — this is a gap, not a maturity claim |
 | Financial close | **N/A** | No financial process exists yet |
 | Customer support | **N/A** | No customers exist yet |
 | Due diligence | **N/A** | No deal pipeline exists yet |
@@ -429,7 +429,7 @@ AI maturity here refers to the **process-level L0–L4 model** in [AI Strategy �
 
 ### Distance to default target
 
-The Brain's default target is **L2 or higher within 90 days of process stabilization** ([AI Strategy](00_ATLAS_BRAIN.md#ai-strategy)). No process has stabilized yet (nothing has been repeated three times), so the 90-day clock has not started for any workflow. This is expected at Phase P0.
+The Brain's default target is **L2 or higher within 90 days of process stabilization** ([AI Strategy](00_ATLAS_BRAIN.md#ai-strategy)). No process has stabilized yet (nothing has been repeated three times), so the 90-day clock has not started for any workflow. This remains expected early in Phase P1.
 
 ### AI adoption process status
 
@@ -438,11 +438,11 @@ Per the [AI adoption process](00_ATLAS_BRAIN.md#ai-adoption-process) (Identify �
 | Stage | Status |
 |---|---|
 | Identify | Informally identified: documentation drafting is repetitive enough to be a candidate |
-| Spec | **Not Yet Implemented** |
-| Prototype | **Not Yet Implemented** |
-| Evaluate | **Not Yet Implemented** |
+| Spec | 🟡 Partial — AR-003 Spec committed (`ar003_staleness_flagging_spec.md`); other candidates lack Specs |
+| Prototype | 🟡 Partial — AR-002, AR-003, AR-006 each have Prototype Run #1 recorded; not promoted |
+| Evaluate | **Not Yet Implemented** — no 2–4 week Evaluate against baseline |
 | Deploy | **Not Yet Implemented** |
-| Document | **Not Yet Implemented** |
+| Document | 🟡 Partial — registry Evaluation lines + AR-003 Spec only |
 
 ### Data and security posture for AI
 
@@ -461,7 +461,7 @@ This section describes **what AI can actually do inside Atlas today**, as distin
 | AI-assisted document drafting | **Active, informal** | Used to produce the Brain document set, including this document, under direct human direction and review |
 | AI-assisted research or analysis | **Not Yet Implemented** | No due diligence, market research, or financial analysis has been performed |
 | AI-assisted operational execution | **Not Yet Implemented** | No operations exist to execute |
-| AI agents with defined guardrails/owners | **Not Yet Implemented** | Zero entries in an automation registry that does not yet exist |
+| AI agents with defined guardrails/owners | 🟡 Partial | Registry exists with 6 candidates; none promoted to production L2; guardrails recorded as proposed fields |
 | AI-assisted decision scoring | **Not Yet Implemented** | No decision has been scored against the [Decision Framework](00_ATLAS_BRAIN.md#decision-framework) criteria table yet |
 | AI-assisted retrieval over the knowledge base | **Not Yet Implemented** | The knowledge base is small enough today to read directly; retrieval tooling has not been built |
 
@@ -486,7 +486,7 @@ The single largest gap: Atlas has *used* AI before it has *governed* its use of 
 | [`02_FOUNDING_PRINCIPLES.md`](02_FOUNDING_PRINCIPLES.md) | Active | 1.0 | 2026-08-08 | 2026-11-08 |
 | [`03_ORGANIZATION.md`](03_ORGANIZATION.md) | Active | 1.0 | 2026-08-08 | 2026-11-08 |
 | [`04_ROADMAP.md`](04_ROADMAP.md) | Active | 1.0 | 2026-08-08 | 2026-11-08 |
-| [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md) | Active (this document) | 1.0 | 2026-08-08 | 2026-11-08 |
+| [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md) | Active (this document) | 1.3.1 | 2026-08-10 | 2026-11-08 |
 | [`06_DECISIONS.md`](06_DECISIONS.md) | Active | 1.0 | 2026-08-08 | 2026-11-08 |
 | [`07_GLOSSARY.md`](07_GLOSSARY.md) | Active | 1.0 | 2026-08-08 | 2026-11-08 |
 
@@ -500,7 +500,7 @@ Brain document freshness is a Brain-level KPI ([Brain § KPIs](03_ORGANIZATION.m
 |---|---|---|
 | Interpretation of the CM-1 phase gate (narrow vs strict reading) | **Closed** — narrow reading adopted in DR-2026-002 | Resolved at P0→P1 gate |
 | Whether/when to declare P0 exited | **Closed** — P0 exited 2026-08-08 via DR-2026-002 | Phase P1 active |
-| Formal registration of the AI-assisted-drafting pattern | **Open** | Candidate DR-2026-003; flagged in [Current AI Maturity](#current-ai-maturity) |
+| Formal registration of the AI-assisted-drafting pattern | **Open** | Candidate **DR-2026-008** (unused ID; live DR-2026-003 is irreversible-commitment threshold); flagged in [Current AI Maturity](#current-ai-maturity) |
 
 **Unknown / TBD.** No board, advisor, or investor relationship is documented anywhere in the current vault. If any exists informally, it is not yet reflected in governance and should be, per [Transparency](02_FOUNDING_PRINCIPLES.md#transparency) and [Integrity](02_FOUNDING_PRINCIPLES.md#integrity).
 
@@ -515,11 +515,11 @@ Brain document freshness is a Brain-level KPI ([Brain § KPIs](03_ORGANIZATION.m
 | Designed layer | Actual state |
 |---|---|
 | `02_Brain/` strategy and principles | ✅ Present — 8 active documents (`00`–`07`) |
-| Department playbooks/SOPs | 🔴 **Not Yet Implemented** — 0 of 7 department playbooks exist |
-| `06_DECISIONS.md` decision log | ✅ **Operational** — Active v1.0; **2 Register entries** (DR-2026-001, DR-2026-002) |
+| Department playbooks/SOPs | 🟡 **Partial** — 7 of 7 Draft T3 playbooks exist; T4 sparse (`finance_close_sop.md` only) |
+| `06_DECISIONS.md` decision log | ✅ **Operational** — Active v1.0; **4 Register entries** (DR-2026-001 through DR-2026-004) |
 | `07_GLOSSARY.md` shared vocabulary | ✅ **Active** — v1.0, ~150 terms |
-| Project archives | 🔴 **Not Yet Implemented** — no projects have run |
-| Research folder | 🔴 **Not Yet Implemented** — no research has been commissioned |
+| Project archives | 🟡 **Partial** — P-001 active; Market Screen brief + stage retrospective in `03_Knowledge/`; **P1.2 Not Met** under strict criterion |
+| Research folder | 🔴 **Not Yet Implemented** — no separate research commission beyond P-001 screening artifacts |
 
 ### Knowledge lifecycle status
 
@@ -527,11 +527,11 @@ Against the five-stage [Knowledge lifecycle](00_ATLAS_BRAIN.md#knowledge-managem
 
 | Stage | Status |
 |---|---|
-| Capture | 🟡 Partial — Brain documents captured at creation time; decisions and learnings not yet captured because none exist |
+| Capture | 🟡 Partial — Brain docs + 4 Decision Records captured; P-001/Market Screen brief + stage retrospective exist in Knowledge; capture is incomplete, not zero |
 | Organize | 🟡 Partial — numbered filenames and cross-references exist; no tagging system beyond the file naming convention |
 | Surface | 🔴 Not started — no search or retrieval tooling; findability today depends on direct file reading |
 | Validate | 🔴 Not started — no document has yet reached its first review date |
-| Apply | 🔴 Not started — no decision has yet been made *with reference to* these documents; today's exercise (writing this document) is the first application |
+| Apply | 🟡 Early — live DRs and the P0→P1 gate used governance docs as evidence; repeated day-to-day evidence-based decision practice is still limited/immature |
 
 ### Onboarding knowledge path — execution status
 
@@ -558,19 +558,19 @@ A spot-check against [One source of truth](02_FOUNDING_PRINCIPLES.md#one-source-
 
 ### The one operator
 
-**Анатолий (Anatoly)** — Brain Lead / Holding Lead. Per [Stage 0](03_ORGANIZATION.md#stage-0-one-operator), this individual currently holds every department head role concurrently. Role, self, something else — role classification beyond "Brain Lead / Holding Lead" is not further specified in any document to date.
+**Антон (Anton)** — Brain Lead / Holding Lead. Per [Stage 0](03_ORGANIZATION.md#stage-0-one-operator), this individual currently holds every department head role concurrently. Role, self, something else — role classification beyond "Brain Lead / Holding Lead" is not further specified in any document to date.
 
 ### Department staffing table
 
 | Department | Head (current) | Additional staff | Staffing gap vs Stage 1 target |
 |---|---|---|---|
-| Brain | Анатолий | None | Stage 1 expects a named Brain lead distinct in function, if not headcount, from other heads — met by role clarity, not by headcount |
-| Knowledge | Анатолий (dual-hat) | None | No dedicated Knowledge function yet |
-| AI | Анатолий (dual-hat) | None | No dedicated AI function yet |
-| Finance | Анатолий (dual-hat) | None | No dedicated Finance function yet |
-| Operations | Анатолий (dual-hat) | None | No dedicated Operations function yet |
-| Assets | Анатолий (dual-hat) | None | No dedicated Assets function yet |
-| Projects | Анатолий (dual-hat) | None | No dedicated Projects function yet |
+| Brain | Антон | None | Stage 1 expects a named Brain lead distinct in function, if not headcount, from other heads — met by role clarity, not by headcount |
+| Knowledge | Антон (dual-hat) | None | No dedicated Knowledge function yet |
+| AI | Антон (dual-hat) | None | No dedicated AI function yet |
+| Finance | Антон (dual-hat) | None | No dedicated Finance function yet |
+| Operations | Антон (dual-hat) | None | No dedicated Operations function yet |
+| Assets | Антон (dual-hat) | None | No dedicated Assets function yet |
+| Projects | Антон (dual-hat) | None | No dedicated Projects function yet |
 
 ### Reporting lines
 
@@ -589,12 +589,12 @@ Department **definitions, scope, responsibilities, and interfaces** are canonica
 | Department | Mission (link) | Current activity level | Current output |
 |---|---|---|---|
 | [Brain](03_ORGANIZATION.md#department-brain) | Define direction, maintain governance | **Active — primary activity to date** | 5 active T1 documents; this document |
-| [Knowledge](03_ORGANIZATION.md#department-knowledge) | Institutional memory | **Dormant** | No playbooks, SOPs, decision log entries, or glossary terms yet |
-| [AI](03_ORGANIZATION.md#department-ai) | Intelligent infrastructure | **Informal only** | Ad hoc AI-assisted drafting; no registry, no spec'd agent |
-| [Finance](03_ORGANIZATION.md#department-finance) | Capital and economic truth | **Dormant** | No budget, forecast, close process, or capital policy instance values |
-| [Operations](03_ORGANIZATION.md#department-operations) | Execution discipline | **Dormant** | No SOPs, no KPI dashboard, no vendor relationships |
+| [Knowledge](03_ORGANIZATION.md#department-knowledge) | Institutional memory | 🟡 **Early** | Glossary + 4 DRs + Draft playbooks exist; depth still early |
+| [AI](03_ORGANIZATION.md#department-ai) | Intelligent infrastructure | 🟡 **Early** | Registry (6 candidates) + AR-003 Spec; Prototype Runs on AR-002/003/006; production L2 = 0 |
+| [Finance](03_ORGANIZATION.md#department-finance) | Capital and economic truth | 🟡 **Early** | Close SOP exists; no CoA, **0 closes**, capital buckets TBD; **P1.5 Not Met** |
+| [Operations](03_ORGANIZATION.md#department-operations) | Execution discipline | 🟡 **Early** | Integration scorecard template exists (P1.6); KPI dictionary / broad SOP library still missing |
 | [Assets](03_ORGANIZATION.md#department-assets) | Portfolio ownership | **Dormant** | No pipeline, no portfolio company, no due diligence artifact |
-| [Projects](03_ORGANIZATION.md#department-projects) | Initiative delivery | **Dormant** | No project has entered the [Project Lifecycle](00_ATLAS_BRAIN.md#project-lifecycle) intake stage |
+| [Projects](03_ORGANIZATION.md#department-projects) | Initiative delivery | 🟡 **Early** | P-001 active with Market Screen intake/triage/brief evidence; **P1.2 Not Met** (strict) |
 
 ### Department KPI status
 
@@ -614,7 +614,7 @@ Canonical section: [Department: Brain](03_ORGANIZATION.md#department-brain).
 
 | Responsibility (designed) | Designed output | Current status |
 |---|---|---|
-| Maintain Brain documents (00–07) | Updated governance docs | 🟢 8 of 8 documents Active; 2 Register entries |
+| Maintain Brain documents (00–07) | Updated governance docs | 🟢 8 of 8 documents Active; 4 Register entries |
 | Set holding priorities | Quarterly priority memo | 🔴 No priority memo has been produced |
 | Resolve cross-department ownership disputes | Decision Record | 🔴 No dispute has occurred (impossible with one person) |
 | Approve principle exceptions | DR + Principles log | 🔴 Zero exceptions requested |
@@ -626,13 +626,13 @@ Canonical section: [Department: Brain](03_ORGANIZATION.md#department-brain).
 | KPI (target) | Live value |
 |---|---|
 | Brain document freshness ≥ on-schedule (Quarterly) | 100% (8/8 docs exist and are dated) |
-| Decision Record completeness (Per decision) | 100% for 2 logged decisions |
-| Decision log search success rate (> 95%) | N/A — 2 entries; formal search not yet tested |
+| Decision Record completeness (Per decision) | 100% for 4 logged decisions (DR-2026-001 through DR-2026-004) |
+| Decision log search success rate (> 95%) | N/A — 4 entries; formal search not yet tested |
 | Escalation resolution time (median < 5 business days) | N/A — 0 escalations |
 | Cross-department dispute count (trending down) | 0 (floor value — cannot go lower) |
 | Strategic priority clarity score (quarterly survey) | Not surveyed — no survey instrument exists |
 
-**Decision authority exercised:** 2 Strategic DL-4 decisions logged (DR-2026-001, DR-2026-002). Other authority types remain at 0.
+**Decision authority exercised:** 2 Strategic DL-4 (DR-2026-001, DR-2026-002) and 2 Operational (DR-2026-003 DL-1, DR-2026-004 DL-2) logged. Other authority types remain at 0.
 
 #### Knowledge — deep dive
 
@@ -642,10 +642,10 @@ Canonical section: [Department: Knowledge](03_ORGANIZATION.md#department-knowled
 |---|---|---|
 | Maintain documentation standards | T2 standards docs | 🟡 Standards exist embedded inside T1 documents; no standalone T2 artifact |
 | Operate knowledge base architecture | Index, taxonomy, search | 🔴 No index, taxonomy, or search tooling — direct file reading only |
-| Curate onboarding reading paths | Onboarding guides | 🟡 Steps 1–3, 5 pass; step 4 blocked on playbooks |
-| Flag stale / orphaned documents | Staleness reports to owners | 🔴 No document has reached a review date yet; no automation exists |
+| Curate onboarding reading paths | Onboarding guides | ✅ All 5 steps pass; P1.8 Met — see [Appendix I](#appendix-i--onboarding-path-dry-run) |
+| Flag stale / orphaned documents | Staleness reports to owners | 🟡 No recurring production automation; AR-003 Spec + Prototype Run #1 exist (still L0); production L2 = 0; AR-002/006 also have Prototype Run #1 only |
 | Support due diligence research | Research briefs (with Assets) | 🔴 No DD request has occurred |
-| Maintain decision log structure | Searchable `06_DECISIONS.md` | ✅ **2 entries** (DR-2026-001, DR-2026-002) |
+| Maintain decision log structure | Searchable `06_DECISIONS.md` | ✅ **4 entries** (DR-2026-001 through DR-2026-004) |
 | Coordinate glossary updates | Proposals to Brain for `07_GLOSSARY.md` | ✅ Glossary v1.0 published; maintenance process defined in [`07_GLOSSARY.md`](07_GLOSSARY.md) |
 
 **KPI live values:**
@@ -653,9 +653,9 @@ Canonical section: [Department: Knowledge](03_ORGANIZATION.md#department-knowled
 | KPI (target) | Live value |
 |---|---|
 | Document staleness rate (< 10%) | 0% measured — not a real 0%, simply unmeasured; no document has passed its review date |
-| Onboarding path completion time (< 5 business days) | N/A — never attempted |
-| Decision log search success rate (> 95%) | N/A — 2 entries; formal search not yet tested |
-| Playbook compliance (% processes with SOP) | 0% — 0 SOPs against 0 documented processes (undefined ratio) |
+| Onboarding path completion time (< 5 business days) | ✅ Dry-run complete within hours — P1.8 Met; see [Appendix I](#appendix-i--onboarding-path-dry-run) |
+| Decision log search success rate (> 95%) | N/A — 4 entries; formal search not yet tested |
+| Playbook compliance (% processes with SOP) | Sparse — 1 T4 SOP (`finance_close_sop.md`) against Draft playbooks; most processes still lack SOPs |
 | Knowledge reuse rate (trending up) | N/A — no reuse events possible with one reader |
 
 **Decision authority exercised:** 0 of any type (T2 standard changes, taxonomy changes, archive decisions, research prioritization, tool selection).
@@ -666,9 +666,9 @@ Canonical section: [Department: AI](03_ORGANIZATION.md#department-ai).
 
 | Responsibility (designed) | Designed output | Current status |
 |---|---|---|
-| Build and maintain agents | Production agents in registry | 🔴 0 agents in a registry that does not exist |
-| Enforce agent design standards | Specs with owner, guardrails, fallback | 🔴 0 specs written |
-| Operate automation registry | Quarterly portfolio review | 🔴 No registry exists to review |
+| Build and maintain agents | Production agents in registry | 🔴 Registry exists with 6 candidates; **0 production agents**; L2 = 0 |
+| Enforce agent design standards | Specs with owner, guardrails, fallback | 🟡 1 Spec written (AR-003); other candidates lack Specs |
+| Operate automation registry | Quarterly portfolio review | 🟡 Registry exists (6 candidates); quarterly portfolio review not yet run |
 | Evaluate and adopt models | Model evaluation reports | 🔴 No formal evaluation has been run; model choice is informal/ad hoc |
 | Embed AI in Operations workflows | L2+ automations for repeated processes | 🔴 No Operations workflows exist yet to embed AI into |
 | Support Finance reporting automation | Automated pipelines | 🔴 Not applicable — no Finance reporting exists |
@@ -692,22 +692,22 @@ Canonical section: [Department: Finance](03_ORGANIZATION.md#department-finance).
 
 | Responsibility (designed) | Designed output | Current status |
 |---|---|---|
-| Monthly / quarterly financial close | Financial statements | 🔴 No close process; no statements exist |
+| Monthly / quarterly financial close | Financial statements | 🟡 Close SOP exists; **0 actual closes**/statements; **P1.5 Not Met** |
 | Portfolio KPI dashboards | Unit economics reports | 🔴 Not applicable — no portfolio |
 | Investment memos (financial section) | Models and scenarios | 🔴 No memo has been drafted |
 | Capital bucket management | Allocation reports | 🔴 Buckets are structurally defined in the Brain; live percentages are **TBD** (see [Current Finance](#current-finance)) |
-| Threshold definition for escalations | Updated threshold tables | 🔴 No threshold table populated (see [Current Governance](#current-governance)) |
+| Threshold definition for escalations | Updated threshold tables | ✅ Threshold table populated (P1.7 Met) via live values + [DR-2026-003](06_DECISIONS.md#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) / [DR-2026-004](06_DECISIONS.md#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital); first quarterly refresh not yet due (next review 2026-11-08); thresholds have not been exercised against a real production commitment |
 | Compliance and tax filing | Filed returns, audit readiness | 🔴 **Unknown/TBD** whether any filing obligation currently exists |
 
 **KPI live values:**
 
 | KPI (target) | Live value |
 |---|---|
-| Close timeline (≤ 10 business days) | N/A — no close process exists |
+| Close timeline (≤ 10 business days) | N/A — SOP exists but **0 actual closes** have run |
 | Forecast accuracy, rolling 90-day (within band) | N/A — no forecast exists |
 | Portfolio reporting compliance (100% on-time) | N/A — no portfolio |
 | Unit economics coverage (100% of operating assets) | N/A — 0 operating assets |
-| Escalation threshold freshness (updated quarterly) | Not yet set even once |
+| Escalation threshold freshness (updated quarterly) | ✅ Values published (P1.7 Met via live thresholds + DR-2026-003/004); first quarterly refresh not yet due |
 
 **Decision authority exercised:** 0 — no expense approval, budget reallocation, capital deployment, hurdle rate change, or financial vendor decision has occurred.
 
@@ -717,22 +717,22 @@ Canonical section: [Department: Operations](03_ORGANIZATION.md#department-operat
 
 | Responsibility (designed) | Designed output | Current status |
 |---|---|---|
-| Define and maintain core SOPs | T4 SOP library | 🔴 0 SOPs published |
+| Define and maintain core SOPs | T4 SOP library | 🟡 1 SOP published (`finance_close_sop.md`); library otherwise empty |
 | Operate shared services | Service catalog | 🔴 Not applicable — no shared services exist |
 | Monitor operational KPIs | Dashboards | 🔴 No dashboard exists |
 | Run integration playbooks | Integration scorecards | 🔴 Not applicable — no asset to integrate |
 | Incident response (ops) | Incident reports | 🔴 0 incidents; runbook never exercised |
-| Identify automation candidates | Automation intake queue | 🟡 1 informal candidate noted (documentation drafting); no formal queue exists |
+| Identify automation candidates | Automation intake queue | ✅ Formal queue exists — [`automation_registry.md`](departments/automation_registry.md) with 6 candidates; AR-001 remains informal/unregistered L1; AR-002/003/006 remain L0 with Prototype Run #1 only |
 
 **KPI live values:**
 
 | KPI (target) | Live value |
 |---|---|
-| SOP coverage for repeated processes (> 95%) | 0% — 0 SOPs |
+| SOP coverage for repeated processes (> 95%) | Near-zero — 1 SOP exists; repeated-process volume still low |
 | Integration scorecard completion (100%, on timeline) | N/A — no integration underway |
 | Operational incident MTTR (per severity SLA) | N/A — 0 incidents |
 | KPI dashboard freshness (daily for critical metrics) | N/A — no dashboard |
-| Automation candidate conversion rate (trending up) | N/A — 0 candidates converted; 1 identified informally |
+| Automation candidate conversion rate (trending up) | N/A — 0 candidates converted to production; 6 registered; Prototype Runs only |
 
 **Decision authority exercised:** 0 — no process change, vendor selection, or incident-containment action has occurred.
 
@@ -767,22 +767,22 @@ Canonical section: [Department: Projects](03_ORGANIZATION.md#department-projects
 
 | Responsibility (designed) | Designed output | Current status |
 |---|---|---|
-| Operate intake and triage | Approved / deferred / rejected log | 🔴 No log exists; no request has been formally submitted |
+| Operate intake and triage | Approved / deferred / rejected log | 🟡 Used on P-001/Market Screen (A–E triage); no standing intake tracker yet; **P1.2 Not Met** |
 | Maintain project portfolio view | Status dashboard | 🔴 No dashboard exists |
-| Assign DRIs and contributors | Project briefs | 🔴 0 briefs written |
+| Assign DRIs and contributors | Project briefs | 🟡 P-001 / Market Screen briefs exist; not a standing multi-brief cadence; **P1.2 Not Met** |
 | Run milestone reviews | Gate decisions | 🔴 0 gate reviews held |
-| Conduct retrospectives | Retro docs → Knowledge | 🔴 0 retrospectives |
+| Conduct retrospectives | Retro docs → Knowledge | 🟡 1 Market Screen stage retrospective in Knowledge; no project-close retros; **P1.2 Not Met** |
 | Confirm handoffs | Handoff checklists | 🔴 0 handoffs — nothing has been produced by a tracked project to hand off |
 
 **KPI live values:**
 
 | KPI (target) | Live value |
 |---|---|
-| On-time milestone delivery (> 80%) | N/A — 0 milestones tracked |
-| Projects with approved brief before execution (100%) | 0% by strict reading — the document-drafting effort proceeded without a brief |
+| On-time milestone delivery (> 80%) | Partial tracking — Phase 1 / P-001 / Market Screen milestones and evidence exist; not all complete; on-time % not yet a meaningful rate |
+| Projects with approved brief before execution (100%) | Partial — P-001/Market Screen briefs exist; Brain drafting largely preceded formal briefs; **P1.2 Not Met** |
 | Handoff completion before project close (100%) | N/A — 0 projects closed under the lifecycle |
 | Retrospective within 5 days of close (100%) | N/A — 0 closes |
-| Red project escalation to Brain within 48 hours | N/A — 0 red projects (because 0 tracked projects) |
+| Red project escalation to Brain within 48 hours | N/A — P-001 is tracked/active; 0 red escalations recorded |
 
 **Decision authority exercised:** 0 — no intake/triage/scope-change/handoff decision has been formally made through the Projects process, though informal equivalents of these decisions were made without the tracking apparatus.
 
@@ -796,20 +796,20 @@ Per [Single Owner Principle](03_ORGANIZATION.md#single-owner-principle) and [Own
 
 | Artifact | Owner | Hat worn |
 |---|---|---|
-| `00_ATLAS_BRAIN.md` | Анатолий | Brain |
-| `01_WHY_ATLAS_EXISTS.md` | Анатолий | Brain |
-| `02_FOUNDING_PRINCIPLES.md` | Анатолий | Brain |
-| `03_ORGANIZATION.md` | Анатолий | Brain |
-| `04_ROADMAP.md` | Анатолий | Brain |
-| `05_CURRENT_STATE.md` | Анатолий | Brain (with input intended from all departments, currently self-supplied) |
-| `06_DECISIONS.md` (once initialized) | Анатолий | Brain (curation); decision owners submit records |
-| `07_GLOSSARY.md` (once initialized) | Анатолий | Brain (curation); all departments propose terms |
-| The Atlas vault / knowledge base itself | Анатолий | Knowledge |
-| AI-assisted drafting workflow | Анатолий | AI |
+| `00_ATLAS_BRAIN.md` | Антон | Brain |
+| `01_WHY_ATLAS_EXISTS.md` | Антон | Brain |
+| `02_FOUNDING_PRINCIPLES.md` | Антон | Brain |
+| `03_ORGANIZATION.md` | Антон | Brain |
+| `04_ROADMAP.md` | Антон | Brain |
+| `05_CURRENT_STATE.md` | Антон | Brain (with input intended from all departments, currently self-supplied) |
+| `06_DECISIONS.md` (once initialized) | Антон | Brain (curation); decision owners submit records |
+| `07_GLOSSARY.md` (once initialized) | Антон | Brain (curation); all departments propose terms |
+| The Atlas vault / knowledge base itself | Антон | Knowledge |
+| AI-assisted drafting workflow | Антон | AI |
 | (No financial ledger exists yet) | — | Finance — unowned pending existence |
-| (No SOP exists yet) | — | Operations — unowned pending existence |
+| `finance_close_sop.md` | Антон (Finance hat) | Finance — close SOP; other SOPs still absent |
 | (No portfolio asset exists yet) | — | Assets — unowned pending existence |
-| (No project brief exists yet) | — | Projects — unowned pending existence |
+| P-001 / Market Screen briefs | Антон (Projects hat) | Projects — see `01_Projects/…` and `03_Knowledge/`; **P1.2 Not Met** |
 
 ### Ownership audit
 
@@ -817,7 +817,7 @@ Per the [Ownership counter-examples](02_FOUNDING_PRINCIPLES.md#ownership), owner
 
 ### Unowned gaps
 
-The following are conceptually owned by a department per the Organization document but have **no artifact yet to attach ownership to**: financial ledger, first SOP, first portfolio asset, first project brief, first automation. These are not ownership failures — they are simply gaps where the *thing to be owned* does not yet exist. Listed here so they are not silently forgotten once they are created.
+The following still have **no artifact yet to attach ownership to**: financial ledger, first portfolio asset. **Now exist and are owned:** `finance_close_sop.md`, P-001/Market Screen project briefs, automation registry candidates / AR-003 Spec (Антон). Existence here does **not** imply operational completion (e.g. **0 closes**, **P1.2 Not Met**, production L2 = 0).
 
 ---
 
@@ -827,13 +827,13 @@ The following are conceptually owned by a department per the Organization docume
 
 | Role | Individual | Status |
 |---|---|---|
-| Brain Lead / Holding Lead | Анатолий | Active |
-| Head of Knowledge | Анатолий (dual-hat) | Active, informal |
-| Head of AI | Анатолий (dual-hat) | Active, informal |
-| Head of Finance / CFO | Анатолий (dual-hat) | Active, informal |
-| Head of Operations / COO | Анатолий (dual-hat) | Active, informal |
-| Head of Assets | Анатолий (dual-hat) | Active, informal |
-| Head of Projects | Анатолий (dual-hat) | Active, informal |
+| Brain Lead / Holding Lead | Антон | Active |
+| Head of Knowledge | Антон (dual-hat) | Active, informal |
+| Head of AI | Антон (dual-hat) | Active, informal |
+| Head of Finance / CFO | Антон (dual-hat) | Active, informal |
+| Head of Operations / COO | Антон (dual-hat) | Active, informal |
+| Head of Assets | Антон (dual-hat) | Active, informal |
+| Head of Projects | Антон (dual-hat) | Active, informal |
 
 ### Role charters
 
@@ -860,14 +860,14 @@ The [Decision Framework](00_ATLAS_BRAIN.md#decision-framework) has been run end-
 | Metric | Value |
 |---|---|
 | Total Decision Records logged | **2** |
-| `06_DECISIONS.md` status | Active v1.0 — **2 entries** (DR-2026-001, DR-2026-002) |
+| `06_DECISIONS.md` status | Active v1.0 — **4 entries** (DR-2026-001 through DR-2026-004) |
 | Oldest open decision | N/A |
 | Decisions overdue for review | N/A |
 | Decisions by type (Investment / Operational / Strategic / Personnel / Technical) | Strategic: 2; all others: 0 |
 
 ### The nearest thing to a decision made so far
 
-**DR-2026-001 and DR-2026-002 logged.** See [`06_DECISIONS.md` § Decision Register](06_DECISIONS.md#decision-register).
+**DR-2026-001 through DR-2026-004 logged.** See [`06_DECISIONS.md` § Decision Register](06_DECISIONS.md#decision-register).
 
 ### Escalation activity
 
@@ -946,7 +946,7 @@ The [Build vs. acquire framework](00_ATLAS_BRAIN.md#build-vs-acquire-framework) 
 
 ### Integration capability
 
-The [Integration standards](00_ATLAS_BRAIN.md#company-lifecycle) (30/45/60/14/45-day thresholds) and [Integration scorecard](04_ROADMAP.md#strategic-milestones) (milestone M-O-002) exist only as targets. **No scorecard has ever been instantiated** because there is nothing to integrate.
+The [Integration standards](00_ATLAS_BRAIN.md#company-lifecycle) (30/45/60/14/45-day thresholds) are canonical in Brain. Milestone **M-O-002 / P1.6**: Draft template [`integration_scorecard.md`](departments/integration_scorecard.md) exists and is **Met** as scorecard v1; **zero assets** have triggered a live scored instance.
 
 ### Exit posture
 
@@ -958,25 +958,27 @@ The [Integration standards](00_ATLAS_BRAIN.md#company-lifecycle) (30/45/60/14/45
 
 ### Project portfolio
 
-**Zero projects have entered the [Project Lifecycle](00_ATLAS_BRAIN.md#project-lifecycle)** (Intake → Triage → Brief → Plan → Execute → Review → Handoff).
+**P-001 — Atlas Operating System** is **Active** under `01_Projects/P-001_ATLAS_OPERATING_SYSTEM/`, with Market Screen artifacts and a Knowledge-layer brief + stage retrospective.
 
-| Lifecycle stage | Count |
+**Phase 1 exit criterion P1.2 remains Not Met** under the strict reading: lifecycle use on ≥3 initiatives with the required Briefs + retrospectives in Knowledge. Current evidence is partial (one Knowledge brief + one stage retrospective covering Market Screen triage of initiatives A–E; only Initiative A reached a fuller project brief in the Projects folder). This is **not** self-certified as P1.2 complete.
+
+| Lifecycle stage | Count (honest) |
 |---|---|
-| Intake | 0 |
-| Triage | 0 |
-| Brief | 0 |
+| Intake | ≥1 (P-001 / Market Screen) |
+| Triage | 5 initiatives (A–E) recorded in Market Screen materials |
+| Brief | 1 Knowledge brief (Market Screen) + OP-022 brief in Projects for Initiative A |
 | Plan | 0 |
 | Execute | 0 |
-| Review | 0 |
+| Review | 0 project-close reviews; 1 stage retrospective in Knowledge (Intake→Triage→Brief only) |
 | Handoff | 0 |
 
 ### Informal work vs formal projects
 
-The creation of the eight active Brain documents represents substantial completed work — but none of it was run through a Project Brief, milestone tracker, or retrospective. Per [Stage 0 structural rules](03_ORGANIZATION.md#stage-0-one-operator) ("still separate project work from BAU in briefs"), this is a **known compliance gap**, not an oversight being hidden. The Brain document set arguably qualifies retroactively as an "Infrastructure" project type per [Project types](00_ATLAS_BRAIN.md#project-lifecycle); no retroactive brief has been written.
+The eight active Brain documents were substantial work largely outside formal project briefs. P-001 now supplies the first formal project container. Brain drafting still lacks a dedicated retroactive Infrastructure brief — a known gap, not hidden.
 
 ### Project health signals
 
-No project currently has a [health signal](00_ATLAS_BRAIN.md#project-health-signals) (🟢/🟡/🔴/🔵) because no project is being tracked. The document-drafting effort itself, if scored informally, would read 🟢 Green — on track, metrics met (deliverable produced, no scope cut, no schedule slip against an implicit "today" deadline).
+P-001 / Market Screen, if scored informally at current stage, reads 🟡 Yellow — real triage and documentation exist, but no initiative has reached Plan/Execute, and **P1.2 is not satisfied**.
 
 ### Milestone register progress (canonical IDs)
 
@@ -984,23 +986,23 @@ Cross-referencing the [Milestone register](04_ROADMAP.md#strategic-milestones):
 
 | Milestone ID | Milestone | Status |
 |---|---|---|
-| M-G-001 | Brain OS document set Active | 🟡 8 of 8 Active; 2 Register entries |
+| M-G-001 | Brain OS document set Active | 🟡 8 of 8 Active; 4 Register entries |
 | M-G-007 | Phase gate P0→P1 passed | ✅ Met — DR-2026-002 |
 | M-G-002 | Current State v1 published | ✅ Met |
 | M-G-003 | Decision log operational | ✅ Met — DR-2026-001 logged |
 | M-K-001 | Glossary v1 | ✅ Met |
 | M-K-002 | Onboarding path executed | ✅ Met — all 5 steps pass; see [Appendix I](#appendix-i--onboarding-path-dry-run) |
-| M-K-003 | Playbook skeleton ×7 | 🔴 Not met |
-| M-A-001 | Automation registry v1 | 🔴 Not met |
+| M-K-003 | Playbook skeleton ×7 | ✅ Met — 7 Draft playbooks (P1.1 Met) |
+| M-A-001 | Automation registry v1 | 🟡 Partial — registry + 6 candidates + owners/maturity exist (**P1.3 Met**); detailed Done-means incomplete (no production entries; most candidates lack SOP links) |
 | M-A-002 | First 3 agents in production | 🔴 Not met |
-| M-F-001 | Chart of accounts / close SOP | 🔴 Not met |
+| M-F-001 | Chart of accounts / close SOP | 🟡 Partial — close SOP exists; chart of accounts absent; **P1.5 Not Met** |
 | M-O-001 | KPI dictionary v1 | 🔴 Not met |
-| M-O-002 | Integration scorecard v1 | 🔴 Not met |
+| M-O-002 | Integration scorecard v1 | ✅ Met — Draft unscored template (P1.6 Met); zero live integrations |
 | M-S-001 | Build-vs-acquire checklist in use | 🔴 Not met |
-| M-P-001 | Intake/triage process live | 🔴 Not met |
+| M-P-001 | Intake/triage process live | 🟡 Partial — P-001/Market Screen used intake/triage; not yet a standing process; **P1.2 Not Met** |
 | M-I-001 | Tooling inventory + preferred stack | 🟡 Informal inventory only (see [Current Technical Stack](#current-technical-stack)) |
 | M-I-002 | Identity/access baseline | 🔴 Not met |
-| All P1 milestones | 🟡 **Active** — P1 entered; work not yet started on most |
+| All P1 milestones | 🟡 **Active** — P1 entered; P1.1/P1.3/P1.6/P1.7/P1.8 Met; P1.2/P1.4/P1.5 Not Met; Phase 1 exit = No |
 
 ---
 
@@ -1008,25 +1010,28 @@ Cross-referencing the [Milestone register](04_ROADMAP.md#strategic-milestones):
 
 ### Automation registry
 
-**Not Yet Implemented.** Per [Automation portfolio review](00_ATLAS_BRAIN.md#automation-portfolio-review), the AI department is supposed to maintain a registry; no registry file, tracker, or table exists in the vault today.
+**Exists.** [`automation_registry.md`](departments/automation_registry.md) tracks **six** candidates (AR-001 through AR-006). This satisfies **P1.3**. Ownership: AI hat.
+
+Honest maturity note: **AR-001** remains informal L1 (unregistered). **AR-002, AR-003, and AR-006** each have **Prototype Run #1** evidence recorded; **none** of those three has been promoted beyond **L0**. **AR-003** has a committed Automation Spec (`ar003_staleness_flagging_spec.md`). **P1.4 remains Not Met** (production L2 count = 0).
 
 ### Production automations
 
 | Metric | Value |
 |---|---|
-| Automations registered | 0 |
-| Automations at L1 | 0 (formally) |
-| Automations at L2+ | 0 |
+| Automations registered (candidates tracked) | 6 |
+| Automations at formal L1 | 0 (AR-001 is informal L1 only) |
+| Automations at L2+ | **0** |
 | Automations retired | 0 |
-| Automation candidates identified but not yet built | 1 (informal — documentation drafting; see [Current AI Maturity](#current-ai-maturity)) |
+| Prototype Run #1 recorded | AR-002, AR-003, AR-006 (still L0) |
+| Committed automation Specs | 1 (AR-003) |
 
 ### Automation eligibility review
 
-Per [Automation eligibility criteria](00_ATLAS_BRAIN.md#automation-standards) (frequency ≥3×/month, clear definition, documentation exists, baseline metrics exist, named owner), the documentation-drafting pattern likely qualifies on frequency and definition but fails on documentation (no SOP), baseline metrics (no time/error tracking), and formal named ownership. **Not yet eligible for promotion** under Atlas's own standard — a useful, honest self-application of the rule.
+Per [Automation eligibility criteria](00_ATLAS_BRAIN.md#automation-standards), no candidate has cleared Frequency + Baseline + Evaluate requirements for promotion. AR-003 is furthest along (Spec + Clear definition + Named owner; Documentation Partial) but remains **L0**. **No L1/L2 promotion is claimed.**
 
 ### Automation spec inventory
 
-**Zero automation specs exist** using the [Automation spec template](00_ATLAS_BRAIN.md#automation-standards) (Name, Owner, SOP reference, Trigger, Inputs, Steps, Outputs, Error handling, Monitoring, Maturity level, Last tested).
+**One** automation Spec exists using the [Automation spec template](00_ATLAS_BRAIN.md#automation-standards): [`ar003_staleness_flagging_spec.md`](departments/ar003_staleness_flagging_spec.md). Other candidates do not yet have Specs.
 
 ---
 
@@ -1109,7 +1114,7 @@ Per the [Risk assessment matrix](00_ATLAS_BRAIN.md#risk-management), the likelih
 
 ### Financial systems
 
-**Not Yet Implemented.** No chart of accounts, no accounting software, no bookkeeping process, and no monthly close cadence exists.
+**Partial.** Monthly Financial Close SOP exists: [`finance_close_sop.md`](departments/finance_close_sop.md). **No chart of accounts**, no accounting software, and **zero actual closes** have occurred. **P1.5 remains Not Met** (requires Finance SOP + actual closes; chart/operating prerequisites still absent).
 
 ### Capital
 
@@ -1152,7 +1157,7 @@ None of the return metrics in [Return measurement](00_ATLAS_BRAIN.md#return-meas
 
 ### Operational systems
 
-**Not Yet Implemented.** No SOP, no KPI dictionary (milestone M-O-001), no vendor management framework, and no incident response drill has occurred.
+**Partial.** Integration scorecard template exists (P1.6). Close SOP lives under Finance. Operations still lacks a KPI dictionary (M-O-001), a broad T4 SOP library, vendor management, and any incident-response drill.
 
 ### Vendor relationships
 
@@ -1179,12 +1184,12 @@ Per [Continuous improvement as a system](00_ATLAS_BRAIN.md#continuous-improvemen
 | Workflow | Status | Notes |
 |---|---|---|
 | Governance document drafting and versioning | **Active** | The only workflow currently exercised; git commit history and version metadata blocks serve as the audit trail |
-| Decision framing and logging | **Not Yet Implemented** | Framework exists; unused |
-| Project intake and triage | **Not Yet Implemented** | Framework exists; unused |
-| Financial close | **Not Yet Implemented** | — |
+| Decision framing and logging | 🟡 Partial | Framework + 4 logged DRs; AR-002 Prototype Run #1 only |
+| Project intake and triage | 🟡 Partial | Used on P-001/Market Screen; not a standing multi-initiative cadence; **P1.2 Not Met** |
+| Financial close | 🟡 Partial | SOP exists; **0 actual closes**; **P1.5 Not Met** |
 | Due diligence | **Not Yet Implemented** | — |
-| Integration | **Not Yet Implemented** | — |
-| Onboarding (new operator) | **Not Yet Implemented** | Path defined, never executed |
+| Integration | 🟡 Partial | Scorecard template exists (P1.6 Met); zero live integrations |
+| Onboarding (new operator) | ✅ Dry-run complete | P1.8 Met — see [Appendix I](#appendix-i--onboarding-path-dry-run) |
 | Offboarding | **Not Yet Implemented** | Not applicable — no one has ever left |
 | Incident response | **Not Yet Implemented** | Framework exists; unused |
 | Automation eligibility review | **Not Yet Implemented** | Framework exists; unused |
@@ -1237,11 +1242,11 @@ With one operator, none of the [internal communication principles](00_ATLAS_BRAI
 | Purpose (per Brain) | Designed channel | Current status |
 |---|---|---|
 | Strategic direction | Brain documents, quarterly reviews | 🟡 Documents exist; no quarterly review cycle has run yet |
-| Project status | Written status reports | 🔴 No projects tracked |
+| Project status | Written status reports | 🟡 P-001/Market Screen artifacts exist; no standing status-report cadence |
 | Operational issues | Direct escalation + incident reports | 🔴 No operations to escalate from |
-| Decision records | `06_DECISIONS.md` | 🔴 Not initialized |
+| Decision records | `06_DECISIONS.md` | ✅ Operational — 4 live Register entries |
 | Portfolio performance | Finance dashboards + board materials | 🔴 Not applicable |
-| Knowledge sharing | Knowledge base, playbooks | 🟡 Base exists; playbooks do not |
+| Knowledge sharing | Knowledge base, playbooks | 🟡 Base + 7 Draft playbooks exist; depth/usage still early |
 
 ---
 
@@ -1257,9 +1262,9 @@ Per [Planning artifacts](04_ROADMAP.md#roadmap-architecture):
 | Annual plan memo | Annual | 0 |
 | Quarterly priorities | Quarterly | 0 |
 | Department roadmap appendix | Quarterly | 0 |
-| Project portfolio | Weekly/monthly | 0 (no projects) |
+| Project portfolio | Weekly/monthly | 1 active container (P-001); no weekly/monthly portfolio pack yet |
 | Current State | Quarterly | 1 (this document, first activation) |
-| Decision Records | On decision | 0 |
+| Decision Records | On decision | 4 (DR-2026-001 through DR-2026-004) |
 
 ### Quarterly Planning Model — status
 
@@ -1288,10 +1293,10 @@ The [Annual Planning Model](04_ROADMAP.md#annual-planning-model) has never been 
 
 ### What the first real review should evaluate
 
-1. P0 exit status and P1.1 (playbook skeleton) progress.
-2. Whether any real decision has been logged.
-3. Whether the informal AI-assistance pattern has been formally spec'd and owned.
-4. Whether the capital bucket table has moved from **TBD** to real, even provisional, values.
+1. P0 exit remains closed; verify **P1.1** remains valid; focus open exit criteria **P1.2 / P1.4 / P1.5**.
+2. Decision log health — four live DRs exist; are open Appendix E proposals advancing without ID collisions?
+3. Whether the informal AI-assistance pattern has been formally Spec'd/owned (candidate DR-2026-008).
+4. Whether the capital bucket table has moved from **TBD** to real, even provisional, values (candidate DR-2026-009).
 5. Whether legal entity and infrastructure **Unknown/TBD** items have been resolved to at least a documented decision to investigate.
 
 ---
@@ -1321,17 +1326,17 @@ Department-level KPI **definitions** live in each department's section of [Organ
 |---|---|---|
 | Brain | Decision Record completeness | 0 (no decisions to be complete or incomplete) |
 | Brain | Escalation resolution time (median) | No data |
-| Knowledge | % docs with owner/review date | 100% of active Brain docs (6 of 6); 0% of nonexistent playbooks |
+| Knowledge | % docs with owner/review date | 100% of active Brain docs; Draft playbooks carry owner/review metadata |
 | Knowledge | Staleness rate | No data — no document has reached a review date yet |
 | AI | Automation ROI | No data — no automation |
 | AI | L2+ coverage % of eligible processes | 0% |
-| Finance | Close timeliness | No data — no close process |
+| Finance | Close timeliness | No data — SOP exists; **0 actual closes** |
 | Finance | Reserve intact (Y/N) | No data — no reserve defined |
 | Operations | KPI dictionary completeness | 0% (dictionary does not exist) |
 | Assets | Pipeline hygiene | No data — no pipeline |
-| Projects | Retrospective compliance % | No data — no projects |
+| Projects | Retrospective compliance % | Partial — 1 stage retrospective for Market Screen; no project-close retros |
 
-**Interpretation:** a KPI table that is entirely "no data" is itself a meaningful and honest signal at Phase P0 — it confirms that Atlas has not yet begun claiming progress it cannot evidence.
+**Interpretation:** a KPI table that is still mostly "no data" is itself a meaningful and honest signal early in Phase P1 — it confirms that Atlas has not begun claiming operating progress it cannot evidence.
 
 ---
 
@@ -1343,12 +1348,12 @@ Using the [Evolution Track Scorecard questions](04_ROADMAP.md#appendix-b--evolut
 
 | Track | Self-score (qualitative) | Evidence |
 |---|---|---|
-| AI track | Weak | No registry, no ROI reporting, no guardrail testing; one informal, unreviewed usage pattern |
+| AI track | Weak–improving | Registry exists (6 candidates) + AR-003 Spec; Prototype Runs recorded; still no L2, no ROI reporting, limited guardrail testing |
 | Knowledge track | Weak-to-moderate | Docs have owners and review dates; findability and staleness tooling absent; onboarding path unexecuted |
 | Infrastructure track | Weak | No access review, no restore test, no tooling inventory beyond informal use |
 | Organization track | Moderate | Single owners present by construction (only one person); dual-hats are implicitly labeled but not charter-documented; no shadow structures possible yet |
 | Product (HOS) track | Not applicable | No HOS increments have shipped to any user other than the operator |
-| Automation track | Weak | No candidates queued formally; one informal candidate identified |
+| Automation track | Weak–improving | Six candidates queued in registry; Prototype Runs on AR-002/003/006; production L2 = 0 |
 | Finance track | Weak | No close, no buckets set, no hurdles, no reporting |
 | Assets track | Not applicable | No pipeline, no memos, no integrations |
 
@@ -1369,7 +1374,7 @@ Applying the [Risk categories](00_ATLAS_BRAIN.md#risk-management) and [Risk asse
 | Documentation without subsequent action ("docs as theater") | Medium | Medium | Monitor | Partially mitigated by this document's honest gap-reporting; requires follow-through to remain mitigated |
 | Premature portfolio scale before P0/P1 gates clear | Low (no pipeline exists to act on prematurely) | High if it occurred | Monitor | Mitigated by explicit P0 non-goals; risk is currently low because there is nothing to act on prematurely |
 | Mission drift — meta-work (governance) substituting indefinitely for real work (Build/Acquire/Operate) | Low today | High if sustained for years | Monitor | Mitigated only by the [Appendix B watch list](#appendix-b--next-90-days-watch-list) forcing near-term action items |
-| No competitive or market thesis yet validated | Not applicable | Not applicable | Accept | Correct at Phase P0; becomes relevant only once a build or acquire thesis is drafted |
+| No competitive or market thesis yet validated | Not applicable | Not applicable | Accept | Still acceptable early in Phase P1; becomes material once a build or acquire thesis is drafted and tested |
 
 ### Financial risks
 
@@ -1384,7 +1389,7 @@ Applying the [Risk categories](00_ATLAS_BRAIN.md#risk-management) and [Risk asse
 | Risk | Likelihood | Impact | Matrix cell | Mitigation status |
 |---|---|---|---|---|
 | Key person dependency — 100% of institutional knowledge in one person | High | High | **Escalate to Brain** (per matrix, though Brain is the same person) | Partially mitigated by [Extreme documentation](02_FOUNDING_PRINCIPLES.md#extreme-documentation) discipline; not mitigated by cross-training (impossible with one person) or succession planning (not yet started) |
-| No SOPs exist for any repeated task | High (certain — 0 SOPs) | Low today, rising with any repetition | Monitor | Not yet mitigated; low urgency because volume of repeated work is currently near zero |
+| Most repeated tasks still lack SOPs | High (certain — only 1 T4 SOP today) | Low today, rising with any repetition | Monitor | Close SOP exists; other SOPs still absent; urgency low while repetition volume remains low |
 | Vendor dependency on a single AI assistance tool with no documented evaluation | Medium | Low today | Accept | Will require a multi-vendor evaluation before material reliance grows |
 
 ### Technical risks
@@ -1407,7 +1412,7 @@ Applying the [Risk categories](00_ATLAS_BRAIN.md#risk-management) and [Risk asse
 
 | Risk | Likelihood | Impact | Matrix cell | Mitigation status |
 |---|---|---|---|---|
-| No external stakeholder relationship exists to damage | Not applicable | Not applicable | Accept | Correct and expected at Phase P0 — reputational risk is effectively zero because there is no external audience yet |
+| No external stakeholder relationship exists to damage | Not applicable | Not applicable | Accept | Still expected early in Phase P1 — reputational risk remains effectively zero while there is no external audience |
 | Future risk: publishing an incomplete or inaccurate Current State would itself be a small integrity/reputational risk once external readers exist | Low today | Low today, rising once shared externally | Monitor | Mitigated by this document's TBD/Unknown discipline rather than optimistic guessing |
 
 ### Risk register summary
@@ -1449,7 +1454,7 @@ Zero incidents have occurred, and the [Incident response](00_ATLAS_BRAIN.md#risk
 
 | Bottleneck | Where it bites | Fix effort |
 |---|---|---|
-| Empty Decision Register | ~~Blocks P0.7~~ | ✅ **Closed** — DR-2026-001 and DR-2026-002 logged |
+| Empty Decision Register | ~~Blocks P0.7~~ | ✅ **Closed** — DR-2026-001 through DR-2026-004 logged |
 | ~~Empty glossary~~ | ~~Blocks M-K-001, CM-D2, P0.8~~ | ✅ **Closed** — Glossary v1.0 published |
 | No financial visibility | Blocks any real capital allocation decision, blocks CM-D4 | Medium — depends on resolving legal entity/banking Unknowns first |
 | No backup policy for the knowledge base | Single point of failure for the entire institutional memory of Atlas | Low — establish an offsite/cloud backup or mirror |
@@ -1483,9 +1488,9 @@ Per the [Organizational Anti-Patterns](03_ORGANIZATION.md#organizational-anti-pa
 | Meeting as workflow | No | No meetings occur |
 | Shadow governance | No | All governance is written in the eight active Brain documents |
 | Org chart in stealth | No | This document and the Organization document make the (trivial, one-person) org chart explicit |
-| Project permanence | Not applicable | No projects exist |
+| Project permanence | Watch | P-001 exists; risk is treating it as permanent without kill/continue criteria discipline |
 | Knowledge in Slack / informal channels | **Unknown** | No communication tooling is documented; if informal notes exist outside the vault, they represent undocumented knowledge in violation of [Extreme documentation](02_FOUNDING_PRINCIPLES.md#extreme-documentation) |
-| AI without owner | **Present** | The informal AI-assistance pattern has no named owner metadata, per [Current AI Maturity](#current-ai-maturity) |
+| AI without owner | 🟡 Watch (AR-001) | Registered candidates/Spec list Антон as owner; residual debt is **informal AR-001** drafting not yet formally Spec'd/registered (candidate DR-2026-008), plus any future AI artifact created without an owner |
 | Portfolio silo | Not applicable | No portfolio |
 | Title as authority | No | No titles have been asserted beyond role description |
 | Escalation punishment | No | No escalation has occurred to punish or reward |
@@ -1493,7 +1498,7 @@ Per the [Organizational Anti-Patterns](03_ORGANIZATION.md#organizational-anti-pa
 | Hiring ahead of workflow | No | No hiring has occurred |
 | Reorg as performance fix | Not applicable | No org exists to reorganize |
 
-**Net organizational debt: very low**, with one flagged item (AI without owner) requiring near-term remediation and one latent risk (hero culture) to watch as headcount grows.
+**Net organizational debt: very low**, with residual informal-AR-001 / future-unowned-AI watch item and one latent risk (hero culture) to watch as headcount grows.
 
 ---
 
@@ -1503,21 +1508,21 @@ Per the [Organizational Anti-Patterns](03_ORGANIZATION.md#organizational-anti-pa
 |---|---|---|
 | T1 — Governance | Brain, principles, frameworks | 8 of 8 core Brain files Active (`00`–`07`) |
 | T2 — Standards | Doc standards, automation specs, templates | Defined *inside* T1 documents (e.g., [Documentation Standards](00_ATLAS_BRAIN.md#documentation-standards), [Automation spec template](00_ATLAS_BRAIN.md#automation-standards)); no standalone T2 artifact yet, which is acceptable at this scale |
-| T3 — Playbooks | Integration playbook, hiring playbook | **0 of 7** department playbooks exist |
-| T4 — SOPs | Monthly close SOP, onboarding checklist | **0** SOPs exist |
-| T5 — Records | Decision records, meeting notes, reports | **2** Decision Records (DR-2026-001, DR-2026-002) |
+| T3 — Playbooks | Integration playbook, hiring playbook | **7 of 7** Draft department playbooks exist (P1.1 Met) |
+| T4 — SOPs | Monthly close SOP, onboarding checklist | **1** SOP (`finance_close_sop.md`); others absent |
+| T5 — Records | Decision records, meeting notes, reports | **4** Decision Records (DR-2026-001 through DR-2026-004) |
 
 ### Coverage by department
 
 | Department | T3 playbook | T4 SOPs |
 |---|---|---|
-| Brain | N/A — Brain owns T1 directly | N/A |
-| Knowledge | 0 | 0 |
-| AI | 0 | 0 |
-| Finance | 0 | 0 |
-| Operations | 0 | 0 |
-| Assets | 0 | 0 |
-| Projects | 0 | 0 |
+| Brain | Draft (`brain_playbook.md`) | 0 |
+| Knowledge | Draft (`knowledge_playbook.md`) | 0 |
+| AI | Draft (`ai_playbook.md`) | 0 |
+| Finance | Draft (`finance_playbook.md`) | 1 (`finance_close_sop.md`) |
+| Operations | Draft (`operations_playbook.md`) | 0 (integration scorecard is a template, not an SOP) |
+| Assets | Draft (`assets_playbook.md`) | 0 |
+| Projects | Draft (`projects_playbook.md`) | 0 |
 
 ---
 
@@ -1527,11 +1532,14 @@ Ranked by how much they block other progress:
 
 | Gap | Blocks | Priority |
 |---|---|---|
-| No department playbooks (T3) | P1.1 exit criterion; onboarding step 4; Stage 1 readiness | **Highest** — M-K-003 |
-| No automation registry | P1.3 exit criterion | High |
-| No SOPs (T4) | Any future automation (automation requires a documented SOP per [Automation eligibility criteria](00_ATLAS_BRAIN.md#automation-standards)) | High |
+| ~~No department playbooks (T3)~~ | ~~P1.1~~ | ✅ **Closed** — 7 Draft playbooks; P1.1 / M-K-003 Met |
+| ~~No automation registry~~ | ~~P1.3~~ | ✅ **Closed** — registry + 6 candidates; **P1.3 Met**; **M-A-001 Partial** (no production entries / sparse SOP links) |
+| P1.2 strict lifecycle evidence incomplete | Phase 1 exit | **Highest** — need ≥3 initiatives with required Knowledge briefs + retrospectives |
+| P1.4 — zero processes at L2 | Phase 1 exit | **Highest** — Frequency / Evaluate / Deploy still open |
+| P1.5 — no actual financial closes; no chart of accounts | Phase 1 exit; live Finance | **High** — SOP exists; closes and CoA absent |
+| Sparse T4 SOPs beyond close SOP | Automation eligibility for other processes | High |
 | No role charters | Clean Stage 0→1 transition | Medium |
-| No automation spec for the AI-assistance pattern | Automation Standards compliance; CM-D3 improvement | Medium |
+| No automation Spec for AR-001 / AR-002 / AR-006 (AR-003 Spec exists) | Adoption process completeness | Medium |
 | No tooling inventory document | M-I-001; general findability for future operators | Low |
 | No informal-pipeline documentation (if any pipeline exists in the operator's head) | Assets department credibility; mission "Acquire" activity readiness | Medium, contingent on whether informal pipeline exists (Unknown) |
 
@@ -1550,11 +1558,11 @@ The eight active Brain documents (`00`–`07`) exhibit:
 
 ### Quality of what does not exist
 
-Not applicable by definition — you cannot assess the quality of a decision log, glossary, or SOP that has not been written. The correct framing is coverage (see [Current Documentation Coverage](#current-documentation-coverage)), not quality, for these items.
+Decision Records, Glossary, and at least the Finance Close SOP **have been written**. Quality of those early artifacts is only lightly self-assessed; broad operational SOP/playbook *depth* and outside validation remain incomplete. Prefer coverage + honesty over claiming finished quality (see [Current Documentation Coverage](#current-documentation-coverage)).
 
 ### Overall quality verdict
 
-**Governance layer: high quality, unvalidated by outside use. Everything else: not yet assessable, because not yet built.**
+**Governance layer: high quality, unvalidated by outside use.** Early execution-layer artifacts now also exist (7 Draft playbooks, finance close SOP, automation registry, AR-003 Spec, integration scorecard template, P-001 + Knowledge Market Screen artifacts) — mostly draft/prototype/unexercised. Atlas still lacks mature repeatable operations, production automation, customers, revenue, and a completed operating cycle.
 
 ---
 
@@ -1574,9 +1582,23 @@ Not applicable by definition — you cannot assess the quality of a decision log
 
 Per [Phase 1 entry criteria](04_ROADMAP.md#phase-1--operating-kernel): **Met** — P0 exited 2026-08-08; Brain approved P1 entry via DR-2026-002.
 
+### Phase 1 exit criteria — honest status
+
+| # | Criterion | Status |
+|---|---|---|
+| P1.1 | Department playbook skeleton ×7 | ✅ **Met** |
+| P1.2 | Project lifecycle used on ≥3 initiatives (Briefs + retrospectives in Knowledge) | 🔴 **Not Met** (strict) |
+| P1.3 | Automation registry exists (≥5 candidates) | ✅ **Met** |
+| P1.4 | ≥3 processes at L2 | 🔴 **Not Met** (L2 count = 0) |
+| P1.5 | Monthly financial close process documented (SOP + actual closes) | 🔴 **Not Met** (SOP exists; 0 closes) |
+| P1.6 | Integration scorecard v1 | ✅ **Met** (Draft unscored template; no live integrations) |
+| P1.7 | Escalation thresholds published | ✅ **Met** |
+| P1.8 | Onboarding path executed once | ✅ **Met** |
+| **Phase 1 exit** | All exit criteria | 🔴 **No** |
+
 ### Overall scaling verdict
 
-Atlas has **exited P0 and entered P1**. Readiness gaps for P1 exit criteria (playbooks, registry, project lifecycle) are expected and are now the active workstream — not blockers to phase entry.
+Atlas has **exited P0 and entered P1**. Several P1 exit criteria are now Met (P1.1, P1.3, P1.6, P1.7, P1.8); **P1.2, P1.4, and P1.5 remain Not Met**, so Phase 1 exit = **No**.
 
 ---
 
@@ -1584,7 +1606,7 @@ Atlas has **exited P0 and entered P1**. Readiness gaps for P1 exit criteria (pla
 
 ### Hiring status
 
-**No hiring is in progress and none is recommended yet.** Per [Organizational Anti-Patterns § Hiring ahead of workflow](03_ORGANIZATION.md#organizational-anti-patterns) ("Three people, no SOP" → fix: "Document; automate; then hire"), hiring before SOPs exist would itself be an anti-pattern.
+**No hiring is in progress and none is recommended yet.** Per [Organizational Anti-Patterns § Hiring ahead of workflow](03_ORGANIZATION.md#organizational-anti-patterns) ("Three people, no SOP" → fix: "Document; automate; then hire"), hiring before the relevant workflows are understood and usable SOP coverage exists would itself be an anti-pattern. (One Finance close SOP exists; broad role-ready SOP coverage does not.)
 
 ### Readiness checklist
 
@@ -1593,7 +1615,7 @@ Atlas has **exited P0 and entered P1**. Readiness gaps for P1 exit criteria (pla
 | Outcome needed is defined (not just headcount) | 🔴 Not defined for any role |
 | Single owner for the role's outcomes defined | 🔴 Not applicable — no role opened |
 | Success metrics at 30/90/180 days | 🔴 Not defined |
-| At least one SOP or playbook the new hire would use | 🔴 None exist |
+| At least one SOP or playbook the new hire would use | 🟡 7 Draft playbooks + 1 close SOP exist; depth still early |
 | Legal entity able to employ or contract | 🔴 Unknown/TBD |
 
 ### Recommendation
@@ -1636,13 +1658,13 @@ The [Build vs. acquire framework](00_ATLAS_BRAIN.md#build-vs-acquire-framework) 
 | Area | Health | Rationale |
 |---|---|---|
 | Governance | 🟢 Green | Complete, consistent, in active use for self-assessment |
-| Knowledge | 🟡 Yellow | Glossary live; 2 Register entries; playbooks pending |
+| Knowledge | 🟡 Yellow | Glossary live; 4 Register entries; 7 Draft playbooks; P1.2 still open |
 | Organization | 🟢 Green for stage | Stage 0 rules are being followed; gaps are known and listed, not hidden |
 | AI | 🟡 Yellow | Usage exists ahead of governance; low risk today, needs closure before scale |
 | Finance | 🔴 Red-if-judged-as-a-company / 🟢 Green-if-judged-as-Phase-P1-early | Genuinely nonexistent; correct for early P1, would be alarming if unchanged at P1 exit |
 | Operations | 🟢 Green for stage | Nothing to operate yet; no defect |
 | Assets | 🟢 Green for stage | Nothing to own yet; no defect |
-| Projects | 🟡 Yellow | Real work has happened outside the lifecycle discipline the org demands of itself |
+| Projects | 🟡 Yellow | P-001 active with partial lifecycle evidence; **P1.2 Not Met** |
 | Security | 🟢 Green for stage, with one flagged gap | Backup policy for the knowledge base should not wait |
 | Overall | 🟢 **Green for Phase P1, Stage 0** | P0 exited; P1 entered; execution layer work ahead |
 
@@ -1666,12 +1688,12 @@ Quick-lookup table for values that other documents explicitly defer to this one.
 | Holding CM (average) | ~0.6 / 5 | [Current Capability Maturity](#current-capability-maturity) |
 | Headcount | 1 | [Current Organization](#current-organization) |
 | Portfolio assets | 0 | [Current Assets](#current-assets) |
-| Decision records | 2 | [Current Decision System](#current-decision-system) |
+| Decision records | 4 | [Current Decision System](#current-decision-system) |
 | Glossary terms | ~150 | [Current Knowledge System](#current-knowledge-system) |
 | Capital bucket allocation | TBD (all buckets) | [Current Finance](#current-finance) |
 | Legal entity status | Unknown / TBD | [Current Infrastructure](#current-infrastructure) |
-| Production automations | 0 | [Current Automation](#current-automation) |
-| Escalation thresholds | TBD (all thresholds) | [Current Governance](#current-governance) |
+| Production automations | 0 at L2+; 6 candidates tracked | [Current Automation](#current-automation) |
+| Escalation thresholds | Live (P1.7 Met); capital/irreversible defaults temporary | [Current Governance](#current-governance) |
 
 ---
 
@@ -1680,13 +1702,14 @@ Quick-lookup table for values that other documents explicitly defer to this one.
 Ordered by leverage (impact ÷ effort), not by department:
 
 1. ~~**Conduct P0→P1 gate review**~~ — ✅ **Done** (DR-2026-002; P1 entered 2026-08-08).
-2. **Begin department playbook skeleton ×7** — M-K-003; P1.1 exit criterion; unblocks onboarding step 4.
-3. **Establish a backup/redundancy policy for the knowledge base** — single point of failure ([Current Risks](#current-risks)).
-4. **Resolve legal entity and banking status** — move from Unknown/TBD to a documented answer.
-5. **Spec and name an owner for the AI-assistance pattern** — DR-2026-003 candidate.
-6. **Set a provisional capital bucket allocation** — per [Action over perfection](02_FOUNDING_PRINCIPLES.md#action-over-perfection).
+2. ~~**Department playbook skeleton ×7**~~ — ✅ **Done** (P1.1 / M-K-003 Met).
+3. **Establish a backup/redundancy policy for the knowledge base** — single point of failure ([Current Risks](#current-risks)); candidate DR-2026-006.
+4. **Resolve legal entity and banking status** — move from Unknown/TBD to a documented answer; candidate DR-2026-005.
+5. **Spec and name an owner for the AI-assistance pattern** — candidate **DR-2026-008** (do not reuse live DR-2026-003).
+6. **Set a provisional capital bucket allocation** — candidate **DR-2026-009** (do not reuse live DR-2026-004).
 7. **Run the first Quarterly Brain review** — 2026-11-08.
-8. **Automation registry v1** — M-A-001; P1.3 exit criterion.
+8. ~~**Automation registry (P1.3)**~~ — ✅ **Done** (registry + ≥5 candidates). **M-A-001** remains 🟡 Partial (detailed Done-means not fully satisfied).
+9. **Advance P1.2 / P1.4 / P1.5 honestly** — strict lifecycle evidence; L2 maturity; actual closes — without fabricating Frequency or closes.
 
 ---
 
@@ -1698,7 +1721,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 
 | ID | Milestone | Phase | Status |
 |---|---|---|---|
-| M-G-001 | Brain OS document set Active | P0 | 🟡 8 of 8 Active; 2 Register entries |
+| M-G-001 | Brain OS document set Active | P0 | 🟡 8 of 8 Active; 4 Register entries |
 | M-G-002 | Current State v1 published | P0 | ✅ Met |
 | M-G-003 | Decision log operational | P0 | ✅ Met — DR-2026-001 logged |
 | M-G-004 | Escalation thresholds live | P1 | ✅ Met — all 5 of 5 rows carry live values; Capital commitment and Irreversible commitment are explicitly temporary/unexercised defaults (DR-2026-004, DR-2026-003) |
@@ -1717,7 +1740,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 |---|---|---|---|
 | M-K-001 | Glossary v1 | P0–P1 | ✅ Met |
 | M-K-002 | Onboarding path executed | P1 | ✅ Met — all 5 steps pass; see [Appendix I](#appendix-i--onboarding-path-dry-run) |
-| M-K-003 | Playbook skeleton ×7 | P1 | 🔴 Not met |
+| M-K-003 | Playbook skeleton ×7 | P1 | ✅ Met — 7 Draft playbooks (P1.1 Met) |
 | M-K-004 | SOP quality bar defined | P1 | 🔴 Not met |
 | M-K-005 | Staleness flags live | P2–P3 | 🔵 Not applicable yet |
 | M-K-006 | Retrieval for operators | P2 | 🔵 Not applicable yet |
@@ -1730,7 +1753,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 
 | ID | Milestone | Phase | Status |
 |---|---|---|---|
-| M-A-001 | Automation registry v1 | P1 | 🔴 Not met |
+| M-A-001 | Automation registry v1 | P1 | 🟡 Partial — 6 candidates + owners/maturity (**P1.3 Met**); no production entries; most candidates lack SOP links |
 | M-A-002 | First 3 agents in production | P1 | 🔴 Not met |
 | M-A-003 | L2 default on repeated holding processes | P2 | 🔵 Not applicable yet |
 | M-A-004 | Agent template library | P3 | 🔵 Not applicable yet |
@@ -1745,7 +1768,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 
 | ID | Milestone | Phase | Status |
 |---|---|---|---|
-| M-F-001 | Chart of accounts / close SOP | P1 | 🔴 Not met |
+| M-F-001 | Chart of accounts / close SOP | P1 | 🟡 Partial — close SOP exists; chart of accounts absent; P1.5 Not Met |
 | M-F-002 | Capital bucket policy published | P1 | 🔴 Not met — see [Current Finance](#current-finance) |
 | M-F-003 | Hurdle rate policy published | P1 | 🔴 Not met |
 | M-F-004 | Portfolio reporting package | P2 | 🔵 Not applicable yet |
@@ -1759,7 +1782,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 | ID | Milestone | Phase | Status |
 |---|---|---|---|
 | M-O-001 | KPI dictionary v1 | P1 | 🔴 Not met |
-| M-O-002 | Integration scorecard v1 | P1 | 🔴 Not met |
+| M-O-002 | Integration scorecard v1 | P1 | ✅ Met — Draft unscored template (P1.6 Met) |
 | M-O-003 | Vendor management framework | P2 | 🔵 Not applicable yet |
 | M-O-004 | Incident response drills | P2 | 🔵 Not applicable yet |
 | M-O-005 | Integration playbook v2 | P3 | 🔵 Not applicable yet |
@@ -1784,7 +1807,7 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 
 | ID | Milestone | Phase | Status |
 |---|---|---|---|
-| M-P-001 | Intake/triage process live | P1 | 🔴 Not met |
+| M-P-001 | Intake/triage process live | P1 | 🟡 Partial — used on P-001/Market Screen; P1.2 Not Met |
 | M-P-002 | 100% approved projects have briefs | P1 | 🔴 Not met |
 | M-P-003 | Retrospective compliance ≥90% | P2 | 🔵 Not applicable yet |
 | M-P-004 | Handoff confirmation gate | P2 | 🔵 Not applicable yet |
@@ -1847,20 +1870,28 @@ Full status against every milestone ID defined in the [Roadmap's Milestone regis
 
 ## Appendix E — Decision Record Backlog
 
-Decisions that either (a) have already been made in substance but not logged, or (b) are immediately actionable and should be the first formal entries in [`06_DECISIONS.md`](06_DECISIONS.md). The decision framework is Active v1.0; **none of the proposed IDs below are live in the Register yet.**
+Live Register entries are authoritative in [`06_DECISIONS.md`](06_DECISIONS.md). This appendix separates **logged** decisions from **open proposals**. Open proposals must **not** reuse IDs already assigned in the live Register.
+
+### Logged (live Register)
+
+| ID | Decision | Type | Status | Notes |
+|---|---|---|---|---|
+| DR-2026-001 | Build the full Brain governance document set before any operating activity | Strategic | **Logged / Approved** | Live |
+| DR-2026-002 | Approve Phase P0→P1 transition (includes CM-1 narrow reading) | Strategic | **Logged / Approved** | Live — CM-1 interpretation is closed here, not a separate open ID |
+| DR-2026-003 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | **Logged / Approved** | Live |
+| DR-2026-004 | Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital | Operational | **Logged / Approved** | Live |
+
+### Open proposals (unused future IDs only)
 
 | Proposed ID | Decision | Type | Status | Notes |
 |---|---|---|---|---|
-| DR-2026-001 (proposed) | Build the full Brain governance document set before any operating activity | Strategic | **Logged** | Live in Register — see [`06_DECISIONS.md`](06_DECISIONS.md#dr-2026-001-build-full-brain-governance-set-before-operating-activity) |
-| DR-2026-002 (proposed) | Interpretation of the CM-1 phase gate (narrow vs. strict reading) | Operational / Technical | Open, undecided | Flagged in [Current Capability Maturity](#current-capability-maturity) |
-| DR-2026-002 (proposed) | Approve Phase P0→P1 transition | Strategic | **Logged** | Live in Register — see [`06_DECISIONS.md`](06_DECISIONS.md#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
-| DR-2026-003 (proposed) | Whether to formally register the AI-assisted-drafting pattern as an automation | Technical | Open, undecided | Flagged in [Current AI Maturity](#current-ai-maturity) and [Current Automation](#current-automation) |
-| DR-2026-004 (proposed) | Initial (even provisional) capital bucket allocation | Investment / Operational | Open, undecided | Flagged in [Current Finance](#current-finance) |
-| DR-2026-005 (proposed) | Legal entity formation path and jurisdiction | Strategic / Compliance | Open, undecided | Flagged in [Current Infrastructure](#current-infrastructure) |
-| DR-2026-006 (proposed) | Knowledge base backup/redundancy approach | Technical | Open, undecided | Flagged in [Current Risks](#current-risks) |
-| DR-2026-007 (proposed) | Whether an informal deal pipeline exists and should be documented | Investment | Open, undecided (Unknown fact, not yet a decision) | Flagged in [Current Assets](#current-assets) |
+| DR-2026-005 (proposed) | Legal entity formation path and jurisdiction | Strategic / Compliance | Open, undecided | [Current Infrastructure](#current-infrastructure) |
+| DR-2026-006 (proposed) | Knowledge base backup/redundancy approach | Technical | Open, undecided | [Current Risks](#current-risks) |
+| DR-2026-007 (proposed) | Whether an informal deal pipeline exists and should be documented | Investment | Open, undecided (Unknown fact) | [Current Assets](#current-assets) |
+| DR-2026-008 (proposed) | Whether to formally register the AI-assisted-drafting pattern as an automation | Technical | Open, undecided | Was incorrectly labeled DR-2026-003 in older drafts — that ID is live for irreversible commitment |
+| DR-2026-009 (proposed) | Initial (even provisional) capital bucket allocation | Investment / Operational | Open, undecided | Was incorrectly labeled DR-2026-004 in older drafts — that ID is live for capital-commitment threshold |
 
-**Process note:** per [Decision Record template](00_ATLAS_BRAIN.md#documentation-standards), each of the above requires Date, Owner, Status, Type, Context, Options considered, Decision, Success metrics, and Review date before it can be considered a real entry. This appendix intentionally omits those fields — populating them is exactly the P0.7-closing action, not a preview of it.
+**Process note:** open proposals still require full Decision Record fields before becoming live Register entries.
 
 ---
 
@@ -1898,9 +1929,9 @@ A one-time, honest self-check of current practice against every immutable princi
 | [Compounding over optimization](02_FOUNDING_PRINCIPLES.md#compounding-over-optimization) | 🟢 Strong for governance | The document set is explicitly built for reuse and cross-reference, not one-off convenience |
 | [Ownership](02_FOUNDING_PRINCIPLES.md#ownership) | 🟢 Strong | Every artifact has exactly one named owner, per [Current Ownership](#current-ownership) |
 | [Transparency](02_FOUNDING_PRINCIPLES.md#transparency) | 🟡 Partial | Fully transparent internally; no external audience yet exists to test transparency against |
-| [Extreme documentation](02_FOUNDING_PRINCIPLES.md#extreme-documentation) | 🟡 Partial | Strong for governance; zero for decisions, SOPs, and playbooks — see [Current Documentation Gaps](#current-documentation-gaps) |
+| [Extreme documentation](02_FOUNDING_PRINCIPLES.md#extreme-documentation) | 🟡 Partial | Strong for governance; playbooks + close SOP + 4 DRs now exist; depth and operating exercise still early — see [Current Documentation Gaps](#current-documentation-gaps) |
 | [AI-first thinking](02_FOUNDING_PRINCIPLES.md#ai-first-thinking) | 🟡 Partial | AI was used to help build the governance layer; no operational workflow yet exists to test AI-first design against |
-| [Automation by default](02_FOUNDING_PRINCIPLES.md#automation-by-default) | 🔴 Weak | Zero registered automations; the one candidate pattern remains informal, in tension with this principle's own eligibility bar |
+| [Automation by default](02_FOUNDING_PRINCIPLES.md#automation-by-default) | 🔴 Weak | Registry exists but production L2 = 0; Prototype Runs only; Frequency/Evaluate not met |
 | [Simple before complex](02_FOUNDING_PRINCIPLES.md#simple-before-complex) | 🟢 Strong | Tooling choices (markdown, git, no custom platform) are the simplest adequate solution at this scale |
 | [Reversible decisions](02_FOUNDING_PRINCIPLES.md#reversible-decisions) | 🟡 Not yet tested | No decision has been explicitly classified as one-way or two-way |
 | [Human accountability](02_FOUNDING_PRINCIPLES.md#human-accountability) | 🟢 Strong | Every AI-assisted output has a named human reviewer (the sole operator) |
@@ -1970,7 +2001,7 @@ Per [Knowledge § KPIs](03_ORGANIZATION.md#department-knowledge) ("Onboarding pa
 
 No quarterly Brain review has ever been held (see [Current Review Process](#current-review-process)). This appendix drafts the agenda for the first one, due 2026-11-08, built entirely from gaps and action items already surfaced elsewhere in this document — so that the first review has a concrete starting point rather than a blank page.
 
-1. **Phase gate check** — ✅ **Completed 2026-08-08.** P0 exited; P1 entered via DR-2026-002. Reconfirm P1.1 progress at review.
+1. **Phase gate check** — ✅ **Completed 2026-08-08.** P0 exited; P1 entered via DR-2026-002. Verify **P1.1** remains valid; prioritize open criteria **P1.2 / P1.4 / P1.5**.
 2. **CM re-score** — Re-run the [Current Capability Maturity](#current-capability-maturity) scorecard. Did any dimension move from 0/1 to 2? Which is now the weakest link?
 3. **Decision log health** — How many Decision Records exist? Does the count match the [Decision Record Backlog](#appendix-e--decision-record-backlog) items that were supposed to be logged?
 4. **Risk review** — Walk the [Current Risks](#current-risks) register category by category. Has the knowledge-base backup risk been closed? Has legal entity status moved from Unknown to Known?
@@ -1993,7 +2024,7 @@ This document is the **instance layer** of Atlas. Every sibling document supplie
 | [`02_FOUNDING_PRINCIPLES.md`](02_FOUNDING_PRINCIPLES.md) | Source of [Truth over comfort](02_FOUNDING_PRINCIPLES.md#truth-over-comfort) and [Evidence over opinion](02_FOUNDING_PRINCIPLES.md#evidence-over-opinion), the two principles this document exists to operationalize most directly. |
 | [`03_ORGANIZATION.md`](03_ORGANIZATION.md) | Source of Org Stage definitions, department scope, ownership rules, and the explicit instruction that headcount, roles, and threshold instance values live here. |
 | [`04_ROADMAP.md`](04_ROADMAP.md) | Source of horizons, eras, phases, milestone IDs, and the CM dimension rubrics this document scores against. Roadmap sets *what phase we are building toward*; this document reports *what phase we are actually in*. |
-| [`06_DECISIONS.md`](06_DECISIONS.md) | Active v1.0 — **2 Register entries**; decision-count statistics sourced from that file. |
+| [`06_DECISIONS.md`](06_DECISIONS.md) | Active v1.0 — **4 Register entries** (DR-2026-001 through DR-2026-004); decision-count statistics sourced from that file. |
 | [`07_GLOSSARY.md`](07_GLOSSARY.md) | Active v1.0 — terms used in this document (DRI, believability, one-way door, CM, L-level) resolve to that canonical source. |
 
 ### Relationship to Principles
@@ -2026,6 +2057,8 @@ This document is the **instance layer** of Atlas. Every sibling document supplie
 | 1.0 | 2026-08-08 | Initial population. First honest snapshot of Atlas at Phase P0 / Org Stage 0: 5 active Brain documents, 1 operator, 0 portfolio assets, 0 decisions logged, 0 glossary terms, 0 automations, full gap inventory across all 47 requested current-state dimensions. |
 | 1.1 | 2026-08-08 | Synced instance layer to reflect populated [`06_DECISIONS.md`](06_DECISIONS.md) (framework v1.0) and [`07_GLOSSARY.md`](07_GLOSSARY.md) (v1.0, ~150 terms). P0.8 met; P0.7 partially met (Register empty); onboarding dry-run updated (blocked at step 4, not step 3). |
 | 1.2 | 2026-08-08 | Logged DR-2026-001 and DR-2026-002; P0 exited and P1 entered; M-G-003 and M-G-007 met; CM-1 narrow interpretation resolved; near-term priority shifted to P1 playbook work. |
+| 1.3 | 2026-08-10 | Truth-layer sync: 7 Draft playbooks (P1.1 Met); registry + 6 candidates (P1.3 Met); integration scorecard template (P1.6 Met); 4 live DRs; AR-002/003/006 Prototype Run #1 + AR-003 Spec noted without maturity promotion; P-001/Market Screen project evidence without marking P1.2 Met; finance close SOP noted with P1.5 still Not Met; Appendix E ID collisions removed; Founder name normalized to Антон / Anton. Phase 1 exit remains No. |
+| 1.3.1 | 2026-08-10 | Second truth-sync pass + final micro-fixes: remaining contradictory stale claims; **M-A-001** Partial (P1.3 remains Met); Last updated → 2026-08-10; threshold-table wording aligned to P1.7; present-tense P0 framing corrected to early P1 where current; P1.1 review wording updated (Met); hiring/SOP absolute wording made precise. |
 
 ---
 

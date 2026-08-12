@@ -6,7 +6,7 @@
 **Location:** `02_Brain/departments/`
 **Status:** Draft
 **Version:** 1.0
-**Owner:** Анатолий (Finance hat)
+**Owner:** Антон (Finance hat)
 **Last updated:** 2026-08-09
 **Review date:** 2027-02-09
 
@@ -61,9 +61,9 @@ A close cycle runs once a defined **period end** (last calendar day of the month
 
 | Role | Owner | Note |
 |---|---|---|
-| Process owner (accountable for the close running and completing) | Анатолий (Finance hat) | Per [`03_ORGANIZATION.md` § Department: Finance § Ownership](03_ORGANIZATION.md#department-finance) ("Holding financial statements — Finance head") |
+| Process owner (accountable for the close running and completing) | Антон (Finance hat) | Per [`03_ORGANIZATION.md` § Department: Finance § Ownership](03_ORGANIZATION.md#department-finance) ("Holding financial statements — Finance head") |
 | AI assist (draft close summary/variance commentary only) | Candidate — see `automation_registry.md` § AR-004 | **L0 (Manual), proposed only.** This SOP's existence is a precondition AR-004 was waiting on, not evidence AR-004 has run |
-| Sign-off authority | Анатолий (Finance hat) | Per [`03_ORGANIZATION.md` § Department: Finance § Decision authority](03_ORGANIZATION.md#department-finance) |
+| Sign-off authority | Антон (Finance hat) | Per [`03_ORGANIZATION.md` § Department: Finance § Decision authority](03_ORGANIZATION.md#department-finance) |
 
 ## Evidence requirements (the Close Record)
 

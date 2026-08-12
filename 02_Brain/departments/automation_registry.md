@@ -6,8 +6,8 @@
 **Location:** `02_Brain/departments/`
 **Status:** Draft
 **Version:** 1.0
-**Owner:** Анатолий (AI hat) — per [`03_ORGANIZATION.md` § Department: AI § Ownership](03_ORGANIZATION.md#department-ai) ("Automation registry | AI head")
-**Last updated:** 2026-08-09
+**Owner:** Антон (AI hat) — per [`03_ORGANIZATION.md` § Department: AI § Ownership](03_ORGANIZATION.md#department-ai) ("Automation registry | AI head")
+**Last updated:** 2026-08-10
 **Review date:** 2027-02-09
 
 ---
@@ -40,7 +40,7 @@ This registry links to, and does not restate:
 
 ## How to read this registry
 
-Every candidate below is sourced from an existing canonical reference — either the [Automation domain priority order](04_ROADMAP.md#automation-evolution) or a department playbook's own "AI participation to specify" line — not invented for this document. Per [Truth over comfort](02_FOUNDING_PRINCIPLES.md#truth-over-comfort), a candidate is labeled above **L0 (Manual)** only where repository evidence of actual repeated use exists. Today that is true for exactly one candidate, and only at an **informal, unregistered L1** — no candidate is labeled L2 or higher, because no candidate has been piloted, measured, or promoted through the [AI adoption process](00_ATLAS_BRAIN.md#ai-strategy).
+Every candidate below is sourced from an existing canonical reference — either the [Automation domain priority order](04_ROADMAP.md#automation-evolution) or a department playbook's own "AI participation to specify" line — not invented for this document. Per [Truth over comfort](02_FOUNDING_PRINCIPLES.md#truth-over-comfort), a candidate is labeled above **L0 (Manual)** only where repository evidence of actual repeated use exists. Today that is true for exactly one candidate, and only at an **informal, unregistered L1** (AR-001). Separately, **AR-002, AR-003, and AR-006** each have one recorded **Prototype Run #1**; that evidence is real but is **not** sufficient for promotion — those three remain **L0**, and **no candidate is labeled L2 or higher**. No candidate has completed Evaluate → Deploy promotion through the [AI adoption process](00_ATLAS_BRAIN.md#ai-strategy).
 
 ## Registry summary
 
@@ -48,7 +48,7 @@ Every candidate below is sourced from an existing canonical reference — either
 |---|---|---|---|---|
 | AR-001 | AI-assisted governance & knowledge drafting | Brain / Knowledge | 🟡 Informal L1 (Assisted) — unregistered | #2 Knowledge capture, tagging, staleness |
 | AR-002 | Decision framing & precedent packaging assist | Brain | 🔴 L0 (Manual) — proposed only | #8 Decision packaging / precedent retrieval |
-| AR-003 | T1–T3 document staleness flagging | Knowledge | 🔴 L0 (Manual) — proposed only | #2 Knowledge capture, tagging, staleness |
+| AR-003 | T1–T5 document staleness flagging | Knowledge | 🔴 L0 (Manual) — proposed only | #2 Knowledge capture, tagging, staleness |
 | AR-004 | Monthly close & variance-draft assist | Finance | 🔴 L0 (Manual) — proposed only | #1 Financial reporting & reconciliation assists |
 | AR-005 | KPI anomaly flagging | Operations | 🔴 L0 (Manual) — proposed only | #5 KPI anomaly detection |
 | AR-006 | Project status synthesis & risk flagging | Projects | 🔴 L0 (Manual) — proposed only | #3 Project status synthesis |
@@ -68,7 +68,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | **Inputs** | Existing canonical Brain documents (for cross-referencing and consistency); the human owner's stated requirements for the document being drafted |
 | **Outputs** | Draft Markdown document sections or files, proposed for human review before being treated as canonical or Active |
 | **Guardrails** | Must never mark a document Active/canonical without human sign-off; must never assert a fact, date, or figure not present in a source document; every substantive claim is reviewed by the human owner before publication |
-| **Owner** | Анатолий (currently dual-hatted across all seven departments at [Org Stage 0](03_ORGANIZATION.md#organizational-scaling)) |
+| **Owner** | Антон (currently dual-hatted across all seven departments at [Org Stage 0](03_ORGANIZATION.md#organizational-scaling)) |
 | **Evaluation** | Not measured — no baseline for time saved or error rate has been recorded |
 | **Fallback** | Fully manual drafting; this is the pre-existing default the pattern would revert to |
 
@@ -82,7 +82,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | Clear definition (inputs/steps/outputs) | 🟡 Partial — practiced consistently but never written as a formal spec |
 | Documentation (SOP/playbook exists) | 🔴 Not met — no SOP exists for this pattern |
 | Baseline metrics exist | 🔴 Not met — no time/error/cost measurement has ever been taken |
-| Named human owner assigned | 🟡 Partial — informally named (Анатолий), not assigned via a formal Agent Design Standards record until this entry |
+| Named human owner assigned | 🟡 Partial — informally named (Антон), not assigned via a formal Agent Design Standards record until this entry |
 
 **Verdict:** Not yet eligible for formal promotion past its current informal state — fails on documentation and measurement, matching the self-assessment already on record in [`05_CURRENT_STATE.md` § Current Automation](05_CURRENT_STATE.md#current-automation).
 
@@ -99,7 +99,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | **Inputs** | The decision question; the current [Decision Register](06_DECISIONS.md#decision-register); relevant Brain principles and policies |
 | **Outputs** | A draft Frame section, a precedent-search summary, and a draft Options list for human review |
 | **Guardrails** | Must never self-certify a Gate; must never set a DR's status to Approved or Logged; any AI-proposed risk score must be flagged for extra scrutiny per [Bias Detection](06_DECISIONS.md#bias-detection) |
-| **Owner** | Анатолий (Brain hat) |
+| **Owner** | Антон (Brain hat) |
 | **Evaluation** | **Prototype Run #1 completed 2026-08-10** (run window 12:01:33–12:01:43 UTC, 10 seconds elapsed). Decision question: "Knowledge base backup/redundancy approach" (Appendix E question text only; proposed ID not used as a live Decision Register ID). Produced Frame + precedent-search summary + 4 draft Options in chat only. Live Decision Register entries examined: 4 (DR-2026-001 through DR-2026-004); relevant live precedents found: 0. Factual claims: 28 (27 repository-traceable, 1 read-only git-observation); unsupported factual claims: 0; invented facts: 0; Gate self-certifications: 0; Registry/status mutations made or implied: 0; lifecycle-stage/status changes made or implied: 0. Manual judgment calls: 7. No option was selected, ranked, or approved; no Decision Record was created. This is real operational evidence of one execution only — repeated real runs across real elapsed time are still required before the Frequency eligibility criterion or any L0→L2 promotion can be honestly claimed |
 | **Fallback** | Decision owner drafts the DR entirely manually, as was done for both `DR-2026-001` and `DR-2026-002` to date |
 
@@ -119,18 +119,18 @@ Every candidate below is sourced from an existing canonical reference — either
 
 ---
 
-## AR-003 — T1–T3 document staleness flagging
+## AR-003 — T1–T5 document staleness flagging
 
 **Source:** Roadmap [Automation domain priority order](04_ROADMAP.md#automation-evolution) #2 (Knowledge capture, tagging, staleness); `knowledge_playbook.md` § Execution guidance ("Staleness-flagging procedure").
 
 | Field | Entry |
 |---|---|
-| **Purpose** | Compare each T1–T3 document's `Review date` field against the current date and flag any document past due, per `knowledge_playbook.md`'s staleness-flagging procedure |
+| **Purpose** | Compare each T1–T5 document's `Review date` field against the current date and flag any document past due, per `knowledge_playbook.md`'s staleness-flagging procedure and [`ar003_staleness_flagging_spec.md`](ar003_staleness_flagging_spec.md) |
 | **Trigger** | Proposed scheduled check (e.g., monthly), or ad hoc at each Brain-hat working session |
-| **Inputs** | Metadata blocks (`Review date` field) of all active T1–T3 documents |
+| **Inputs** | Metadata blocks (`Review date` field) of all active T1–T5 documents in Spec scope |
 | **Outputs** | A list of past-due documents with named owner and days-overdue, routed to the Knowledge hat |
 | **Guardrails** | May only flag; must never edit, archive, or change a document's `Status` field itself — remains a human decision |
-| **Owner** | Анатолий (Knowledge hat) |
+| **Owner** | Антон (Knowledge hat) |
 | **Evaluation** | **Prototype Run #1 completed 2026-08-10.** 19 real T1–T5 documents were in scope. 18 of the 19 carried a valid `Review date` field and were evaluable: 18 Clear, 0 Flagged. 1 of the 19 (`00_ATLAS_BRAIN.md`) was Invalid/Missing — its header is present but the `Review date` field itself is absent, contradicting `05_CURRENT_STATE.md`'s claimed value for it, and it could not be evaluated as Clear or Flagged. Elapsed execution time: 1 minute 19 seconds. The run required manual judgment on several edge cases not yet reducible to a fully mechanical script — excluding two template-placeholder date strings, excluding one decision-record-level (non-header) date, rejecting one prose false-positive match, and inferring one document's tier where none is self-declared. This is real operational evidence of one execution only — repeated real runs across real elapsed time are still required before the Frequency eligibility criterion or any L0→L2 promotion can be honestly claimed |
 | **Fallback** | Knowledge hat checks review dates manually, which is current practice |
 
@@ -144,7 +144,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | Clear definition | ✅ Met — comparing a date field against today's date is fully specified |
 | Documentation | 🟡 Partial — Automation Spec exists ([`ar003_staleness_flagging_spec.md`](ar003_staleness_flagging_spec.md)); provisional playbook pointer only — no dedicated T4 SOP yet |
 | Baseline metrics | 🔴 Not met |
-| Named human owner | ✅ Met — Анатолий (Knowledge hat), formally recorded in [`ar003_staleness_flagging_spec.md`](ar003_staleness_flagging_spec.md) Owner field |
+| Named human owner | ✅ Met — Антон (Knowledge hat), formally recorded in [`ar003_staleness_flagging_spec.md`](ar003_staleness_flagging_spec.md) Owner field |
 
 **Verdict:** Not eligible; correctly tracked as proposed-only.
 
@@ -161,7 +161,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | **Inputs** | Financial transaction records, prior-period actuals, capital bucket targets |
 | **Outputs** | Draft close summary and variance commentary for Finance hat review and sign-off |
 | **Guardrails** | Must never post, reconcile, or file anything; every close remains human-signed-off before being treated as final |
-| **Owner** | Анатолий (Finance hat) |
+| **Owner** | Антон (Finance hat) |
 | **Evaluation** | Not measured — no close has ever occurred |
 | **Fallback** | Fully manual close, which is the current (only) state |
 
@@ -192,7 +192,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | **Inputs** | Department KPI definitions ([`03_ORGANIZATION.md`](03_ORGANIZATION.md)); live KPI values (currently none recorded) |
 | **Outputs** | An anomaly/flag list routed to the relevant department hat |
 | **Guardrails** | May only flag; must never trigger an automated remediation action |
-| **Owner** | Анатолий (Operations hat) |
+| **Owner** | Антон (Operations hat) |
 | **Evaluation** | Not measured — not applicable; no KPI is currently instrumented |
 | **Fallback** | Manual KPI review at quarterly cadence (also not yet exercised) |
 
@@ -223,7 +223,7 @@ Every candidate below is sourced from an existing canonical reference — either
 | **Inputs** | Project briefs, retrospectives, and any status notes filed for active projects |
 | **Outputs** | A one-page status/risk digest for human review |
 | **Guardrails** | Must never change a project's lifecycle stage (e.g., Triage → Brief) on its own; that remains the DRI's call |
-| **Owner** | Анатолий (Projects hat) |
+| **Owner** | Антон (Projects hat) |
 | **Evaluation** | **Prototype Run #1 completed 2026-08-10** (run window 10:34:14–10:34:25 UTC, 11 seconds elapsed), executed under strict six-file source isolation. Source files used: `PROJECT_BRIEF.md`, `PROJECT_BRIEF_P-001_MARKET_SCREEN_001.md`, `RETROSPECTIVE_P-001_MARKET_SCREEN_001.md`, `OPPORTUNITY_REGISTER.md`, `ATLAS_MARKET_SCREEN_001.md`, `OP-022_AI_AUTOMATION_EXPERIMENT.md`. Produced a 6-row Project Status & Risk Digest (P-001 top level + Initiatives A–E): 17 positive factual claims, 100% traceable to these six sources; 1 cell correctly reported as "Not stated" (P-001 top-level capital); 0 claims from any other source; 0 direct contradictions found among the six inputs; 0 contradictions silently resolved; 0 lifecycle-stage or status changes made or implied. An earlier execution of this same prototype was rejected before recording because it drew facts from `05_CURRENT_STATE.md` and `projects_playbook.md`, outside the approved six-file scope — it is not counted as Run #1 and is noted here only to prevent ambiguity in this evidence history. This is one real execution only — repeated real runs across real elapsed time are still required before the Frequency eligibility criterion or any L0→L2 promotion can be honestly claimed |
 | **Fallback** | DRI reviews project files manually, which is current practice |
 
@@ -255,7 +255,7 @@ No candidate in this registry may be promoted to L1 or higher in this document w
 
 ## Status of this document
 
-This is a **Draft T2/T3 artifact**, created to satisfy [Phase 1 exit criterion P1.3](04_ROADMAP.md#phase-1--operating-kernel) (Milestone M-A-001, "Automation registry v1"). At [Org Stage 0](03_ORGANIZATION.md#organizational-scaling), zero candidates have been built, piloted, or promoted — every entry above is a tracked proposal, not evidenced production practice, except AR-001's informal L1 usage, which is disclosed as informal rather than counted as a registered automation.
+This is a **Draft T2/T3 artifact**, created to satisfy [Phase 1 exit criterion P1.3](04_ROADMAP.md#phase-1--operating-kernel) (Milestone M-A-001, "Automation registry v1"). At [Org Stage 0](03_ORGANIZATION.md#organizational-scaling), **AR-001** remains informal L1 (unregistered); **AR-002, AR-003, and AR-006** each have one recorded **Prototype Run #1** and remain **L0**; **no candidate is at formal L1 or L2**. Production practice beyond those Prototype Runs and informal AR-001 drafting has not been claimed.
 
 ## Cross references
 

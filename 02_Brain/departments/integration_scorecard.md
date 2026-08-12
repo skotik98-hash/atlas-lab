@@ -6,7 +6,7 @@
 **Location:** `02_Brain/departments/`
 **Status:** Draft
 **Version:** 1.0
-**Owner:** Анатолий (Operations hat) — co-referenced to Assets (stage handoff) and AI (automation-audit row); see [Ownership note](#ownership-note) below for how this document reconciles two slightly different department pairings named across canonical sources
+**Owner:** Антон (Operations hat) — co-referenced to Assets (stage handoff) and AI (automation-audit row); see [Ownership note](#ownership-note) below for how this document reconciles two slightly different department pairings named across canonical sources
 **Last updated:** 2026-08-09
 **Review date:** 2027-02-09
 

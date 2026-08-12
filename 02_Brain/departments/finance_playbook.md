@@ -6,7 +6,7 @@
 **Location:** `02_Brain/departments/`
 **Status:** Draft
 **Version:** 1.0
-**Owner:** Анатолий (Finance hat)
+**Owner:** Антон (Finance hat)
 **Last updated:** 2026-08-08
 **Review date:** 2027-02-08
 

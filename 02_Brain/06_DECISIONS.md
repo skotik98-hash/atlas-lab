@@ -1687,17 +1687,17 @@ The table below is the actual, current Register. New entries are appended chrono
 
 | ID | Date | Title | Type | Level | Door | Owner | Status | Review date | Link |
 |---|---|---|---|---|---|---|---|---|---|
-| DR-2026-001 | 2026-08-08 | Build full Brain governance set before operating activity | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-001-build-full-brain-governance-set-before-operating-activity) |
-| DR-2026-002 | 2026-08-08 | Approve Phase P0→P1 transition (Operating Kernel entry) | Strategic | DL-4 | One-way | Анатолий (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
-| DR-2026-003 | 2026-08-09 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | DL-1 | Two-way | Анатолий (Finance hat) | Approved | 2027-02-09 | [Full DR below](#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) |
-| DR-2026-004 | 2026-08-09 | Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital | Operational | DL-2 | Two-way | Анатолий (Brain + Finance hats) | Approved | 2026-11-09 | [Full DR below](#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital) |
+| DR-2026-001 | 2026-08-08 | Build full Brain governance set before operating activity | Strategic | DL-4 | One-way | Антон (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-001-build-full-brain-governance-set-before-operating-activity) |
+| DR-2026-002 | 2026-08-08 | Approve Phase P0→P1 transition (Operating Kernel entry) | Strategic | DL-4 | One-way | Антон (Brain) | Approved | 2026-11-08 | [Full DR below](#dr-2026-002-approve-phase-p0p1-transition-operating-kernel-entry) |
+| DR-2026-003 | 2026-08-09 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | DL-1 | Two-way | Антон (Finance hat) | Approved | 2027-02-09 | [Full DR below](#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) |
+| DR-2026-004 | 2026-08-09 | Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital | Operational | DL-2 | Two-way | Антон (Brain + Finance hats) | Approved | 2026-11-09 | [Full DR below](#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital) |
 
 **Current entry count: 4.**
 
 ### DR-2026-001: Build full Brain governance set before operating activity
 
 **Date:** 2026-08-08
-**Owner:** Анатолий (Brain Lead)
+**Owner:** Антон (Brain Lead)
 **Status:** Approved
 **Type:** Strategic
 **Sub-class:** Holding OS / governance substrate
@@ -1773,7 +1773,7 @@ Should Atlas invest its first months in writing the full governance document set
 ### DR-2026-002: Approve Phase P0→P1 transition (Operating Kernel entry)
 
 **Date:** 2026-08-08
-**Owner:** Анатолий (Brain Lead)
+**Owner:** Антон (Brain Lead)
 **Status:** Approved
 **Type:** Strategic
 **Sub-class:** Governance / phase gate
@@ -1843,7 +1843,7 @@ P0 exit criteria are met or acceptably partial. Request formal approval to enter
 ### DR-2026-003: Adopt Brain-default "Irreversible commitment" escalation threshold for Finance
 
 **Date:** 2026-08-09
-**Owner:** Анатолий (Finance hat)
+**Owner:** Антон (Finance hat)
 **Status:** Approved
 **Type:** Operational
 **Level:** DL-1 — Routine
@@ -1876,7 +1876,7 @@ Option 2 — adopt the Brain-default as-is. Option 1 leaves this row unnecessari
 ### DR-2026-004: Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital
 
 **Date:** 2026-08-09
-**Owner:** Анатолий (Brain + Finance hats)
+**Owner:** Антон (Brain + Finance hats)
 **Status:** Approved
 **Type:** Operational
 **Sub-class:** Governance / escalation threshold
@@ -2450,7 +2450,7 @@ This walks through the decision Current State names as "the nearest thing to a d
 
 ### Example EX-2 — Technical, DL-2: "Register the AI-assisted-drafting pattern as a production automation"
 
-Based on the open item Current State flags as `DR-2026-003 (proposed)`.
+Based on the open item Current State Appendix E flags as `DR-2026-008 (proposed)` (unused future ID). Live `DR-2026-003` is the irreversible-commitment escalation threshold and must not be reused here.
 
 **1. Frame** — Should the pattern of using AI to draft Brain documents (this document included) be formally registered as a production automation under [Automation Standards](00_ATLAS_BRAIN.md#automation-standards), rather than remaining an ad hoc practice?
 
@@ -2464,7 +2464,7 @@ Based on the open item Current State flags as `DR-2026-003 (proposed)`.
 
 **6. Decide** — Option (a): register at L1 now, with a defined path to L2 once baseline metrics (time saved, revision rate) exist, per the standard [AI adoption process](00_ATLAS_BRAIN.md#ai-adoption-process).
 
-**7. Log (if made real)** — `DR-2026-003`, Type: Technical, Level: DL-2, Door: Two-way, AI-assistance flag: Yes (this decision is itself about AI drafting), Review date: 90 days.
+**7. Log (if made real)** — Proposed ID `DR-2026-008` (not yet live), Type: Technical, Level: DL-2, Door: Two-way, AI-assistance flag: Yes (this decision is itself about AI drafting), Review date: 90 days.
 
 ### Example EX-3 — Investment, DL-4 (illustrative, not yet applicable): "First acquisition target"
 
