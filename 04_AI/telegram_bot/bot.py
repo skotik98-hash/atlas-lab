@@ -1,4 +1,6 @@
 import os
+import plistlib
+import subprocess
 import html
 import logging
 from datetime import datetime
@@ -140,6 +142,61 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # /STATUS
 # ─────────────────────────────────────────────
 
+
+def get_owner_report_scheduler_status():
+    plist_path = os.path.expanduser(
+        "~/Library/LaunchAgents/com.atlaslab.ownerreport.plist"
+    )
+
+    if not os.path.exists(plist_path):
+        return "🔴 OFF", "—"
+
+    hour = 22
+    minute = 0
+
+    try:
+        with open(plist_path, "rb") as f:
+            config = plistlib.load(f)
+
+        schedule = config.get(
+            "StartCalendarInterval",
+            {},
+        )
+
+        hour = int(schedule.get("Hour", hour))
+        minute = int(schedule.get("Minute", minute))
+
+    except Exception:
+        pass
+
+    label = (
+        f"gui/{os.getuid()}/"
+        "com.atlaslab.ownerreport"
+    )
+
+    try:
+        result = subprocess.run(
+            ["launchctl", "print", label],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+
+        loaded = result.returncode == 0
+
+    except Exception:
+        loaded = False
+
+    schedule_text = (
+        f"ежедневно · {hour:02d}:{minute:02d}"
+    )
+
+    if loaded:
+        return "🟢 ACTIVE", schedule_text
+
+    return "🟡 INSTALLED", schedule_text
+
+
 async def status(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE,
@@ -165,6 +222,8 @@ async def status(
         sync_status = "🟡 ТРЕБУЕТ СИНХРОНИЗАЦИИ"
 
     now = datetime.now().strftime("%H:%M:%S")
+
+    report_status, report_schedule = get_owner_report_scheduler_status()
 
     text = (
         "🟢 <b>ATLAS LAB · СОСТОЯНИЕ СИСТЕМЫ</b>\n\n"
@@ -196,10 +255,14 @@ async def status(
         "Approval Engine: 🟢 READY\n"
         "Owner Authentication: 🔐 ACTIVE\n\n"
 
+        "📊 <b>Автоматические отчёты</b>\n"
+        f"Daily Owner Report: {report_status}\n"
+        f"Расписание: {report_schedule}\n\n"
+
         "━━━━━━━━━━━━━━━━━━\n"
         f"🕐 Обновлено: {now}\n\n"
 
-        "<i>Atlas Control · Live Status v0.5</i>"
+        "<i>Atlas Control · Live Status v0.7</i>"
     )
 
     await update.effective_message.reply_text(
