@@ -290,19 +290,51 @@ async def activity_command(
         await deny_access(update)
         return
 
-    events = list_events(10)
+    # Берём больше записей, потому что часть технических
+    # событий скрывается из пользовательской ленты.
+    raw_events = list_events(30)
+
+    # Эти события остаются в Activity Store для аудита,
+    # но не дублируются в обычном Telegram-интерфейсе.
+    hidden_types = {
+        "APPROVAL_PENDING",
+        "APPROVAL_CLEARED",
+    }
+
+    events = [
+        event
+        for event in raw_events
+        if event["event_type"] not in hidden_types
+    ][:10]
 
     event_labels = {
         "SYSTEM": ("⚙️", "СИСТЕМА"),
-        "GIT_COMMIT": ("🧾", "GIT COMMIT"),
-        "GIT_DIRTY": ("🟡", "ИЗМЕНЕНИЯ GIT"),
+        "GIT_COMMIT": ("🧾", "НОВЫЙ COMMIT"),
+        "GIT_DIRTY": ("🟡", "ЛОКАЛЬНЫЕ ИЗМЕНЕНИЯ"),
         "GIT_CLEAN": ("🟢", "GIT ЧИСТ"),
-        "GIT_SYNC_REQUIRED": ("🟠", "GIT SYNC"),
-        "GIT_SYNC_RESTORED": ("🟢", "GIT SYNC"),
-        "APPROVAL_CREATED": ("⚠️", "СОЗДАН ЗАПРОС"),
-        "APPROVAL_PENDING": ("🟡", "ОЖИДАЕТ РЕШЕНИЯ"),
-        "APPROVAL_DECIDED": ("✅", "РЕШЕНИЕ ПРИНЯТО"),
-        "APPROVAL_CLEARED": ("🟢", "ОЧЕРЕДЬ ОБРАБОТАНА"),
+        "GIT_SYNC_REQUIRED": (
+            "🟠",
+            "НУЖНА СИНХРОНИЗАЦИЯ",
+        ),
+        "GIT_SYNC_RESTORED": (
+            "🟢",
+            "СИНХРОНИЗАЦИЯ ВОССТАНОВЛЕНА",
+        ),
+        "APPROVAL_CREATED": (
+            "⚠️",
+            "СОЗДАН ЗАПРОС",
+        ),
+        "APPROVAL_DECIDED": (
+            "✅",
+            "РЕШЕНИЕ ПРИНЯТО",
+        ),
+    }
+
+    source_labels = {
+        "Approval Engine": "Система решений Atlas",
+        "Atlas Watcher": "Наблюдатель Atlas",
+        "Atlas Infrastructure": "Инфраструктура Atlas",
+        "Atlas Control": "Центр управления Atlas",
     }
 
     parts = [
@@ -319,37 +351,83 @@ async def activity_command(
         ])
     else:
         for event in events:
+            event_type = event["event_type"]
+            metadata = event.get("metadata") or {}
+
             emoji, label = event_labels.get(
-                event["event_type"],
-                ("🔵", event["event_type"]),
+                event_type,
+                ("🔵", event_type),
             )
+
+            # Для решения владельца показываем результат
+            # человеческим языком.
+            if event_type == "APPROVAL_DECIDED":
+                decision = metadata.get("decision")
+
+                if decision == "APPROVED":
+                    emoji = "✅"
+                    label = "ЗАПРОС ПОДТВЕРЖДЁН"
+                    title = "Владелец подтвердил действие"
+                elif decision == "REJECTED":
+                    emoji = "❌"
+                    label = "ЗАПРОС ОТКЛОНЁН"
+                    title = "Владелец отклонил действие"
+                else:
+                    title = event["title"]
+            else:
+                title = event["title"]
 
             try:
                 dt = datetime.fromisoformat(
                     event["created_at"]
                 ).astimezone()
 
-                time_text = dt.strftime("%d.%m · %H:%M")
+                time_text = dt.strftime(
+                    "%d.%m · %H:%M"
+                )
             except Exception:
                 time_text = "—"
 
-            title = html.escape(event["title"])
-            source = html.escape(event["source"])
+            source = source_labels.get(
+                event["source"],
+                event["source"],
+            )
 
             parts.extend([
                 f"{emoji} <b>{label}</b> · {time_text}",
-                f"{title}",
-                f"<i>{source}</i>",
-                "",
+                html.escape(title),
+                f"<i>{html.escape(source)}</i>",
             ])
+
+            # Для Git commit показываем hash + сообщение.
+            if event_type == "GIT_COMMIT":
+                commit_hash = metadata.get(
+                    "commit_hash"
+                )
+                commit_message = metadata.get(
+                    "commit_message"
+                )
+
+                if commit_hash:
+                    parts.append(
+                        f"🔖 <code>{html.escape(str(commit_hash))}</code>"
+                    )
+
+                if commit_message:
+                    parts.append(
+                        html.escape(str(commit_message))
+                    )
+
+            parts.append("")
 
     parts.extend([
         "━━━━━━━━━━━━━━━━━━",
         "",
         "⚠️ /pending — ожидают решения",
         "📊 /status — состояние системы",
+        "⚠️ /approvals — история решений",
         "",
-        "<i>Atlas Activity Feed · v0.1</i>",
+        "<i>Atlas Activity Feed · v0.2</i>",
     ])
 
     await update.effective_message.reply_text(
