@@ -31,6 +31,7 @@ from task_store import (
     count_tasks,
     get_task,
     update_task_status,
+    create_task,
 )
 from telegram.ext import MessageHandler, filters
 import datetime as dt
@@ -325,6 +326,10 @@ async def help_command(
         "🎯 /tasks\n"
         "Показать текущие задачи Atlas, их статусы, "
         "приоритеты и очередь выполнения.\n\n"
+
+        "➕ /newtask\n"
+        "Создать новую задачу Atlas.\n"
+        "Формат: /newtask название | описание | приоритет\n\n"
         "──────────────────\n\n"
         "⚠️ <b>Решения владельца</b>\n\n"
 
@@ -702,6 +707,131 @@ async def tasks_command(
         "\n".join(parts),
         parse_mode=ParseMode.HTML,
         reply_markup=reply_markup,
+    )
+
+
+# ============================================================
+# /NEWTASK — OWNER CREATE TASK
+# ============================================================
+
+NEWTASK_USAGE = (
+    "➕ <b>ATLAS · НОВАЯ ЗАДАЧА</b>\n\n"
+    "━━━━━━━━━━━━━━━━━━\n\n"
+    "Формат:\n"
+    "<code>/newtask название | описание | приоритет</code>\n\n"
+    "Название — обязательно.\n"
+    "Описание — необязательно.\n"
+    "Приоритет — необязательно, по умолчанию "
+    "<b>NORMAL</b>.\n\n"
+    "Приоритеты: LOW, NORMAL, HIGH, CRITICAL\n\n"
+    "Примеры:\n"
+    "<code>/newtask Find second AI automation prospect</code>\n"
+    "<code>/newtask Find second AI automation prospect | "
+    "Research one real company and identify a concrete "
+    "AI automation opportunity | HIGH</code>\n\n"
+    "━━━━━━━━━━━━━━━━━━\n"
+    "<i>Atlas Work Engine · v0.1</i>"
+)
+
+
+async def newtask_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    if not authorized(update):
+        await deny_access(update)
+        return
+
+    raw = " ".join(context.args or []).strip()
+
+    if not raw:
+        await update.effective_message.reply_text(
+            NEWTASK_USAGE,
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    parts = [p.strip() for p in raw.split("|")]
+
+    if len(parts) > 3:
+        await update.effective_message.reply_text(
+            "❌ Слишком много полей.\n\n"
+            + NEWTASK_USAGE,
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    title = parts[0]
+    description = parts[1] if len(parts) >= 2 else ""
+    priority = parts[2] if len(parts) >= 3 else "NORMAL"
+
+    if not priority:
+        priority = "NORMAL"
+
+    if not title:
+        await update.effective_message.reply_text(
+            "❌ Название задачи обязательно.\n\n"
+            + NEWTASK_USAGE,
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    try:
+        task = create_task(
+            title=title,
+            description=description,
+            priority=priority,
+            source="OWNER",
+        )
+    except ValueError as exc:
+        await update.effective_message.reply_text(
+            f"❌ {html.escape(str(exc))}\n\n"
+            + NEWTASK_USAGE,
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
+    status_map = {
+        "NEW": ("🆕", "НОВАЯ"),
+        "IN_PROGRESS": ("🔵", "В РАБОТЕ"),
+        "WAITING_APPROVAL": ("🟡", "ЖДЁТ РЕШЕНИЯ"),
+        "BLOCKED": ("🔴", "ЗАБЛОКИРОВАНА"),
+        "DONE": ("✅", "ВЫПОЛНЕНО"),
+        "CANCELLED": ("⚫️", "ОТМЕНЕНА"),
+    }
+
+    priority_map = {
+        "LOW": "⚪️ LOW",
+        "NORMAL": "🟢 NORMAL",
+        "HIGH": "🔥 HIGH",
+        "CRITICAL": "🚨 CRITICAL",
+    }
+
+    emoji, status_text = status_map.get(
+        task["status"],
+        ("⚪️", task["status"]),
+    )
+
+    priority_label = priority_map.get(
+        task["priority"],
+        task["priority"],
+    )
+
+    text = (
+        "✅ <b>ATLAS · ЗАДАЧА СОЗДАНА</b>\n\n"
+        "━━━━━━━━━━━━━━━━━━\n\n"
+        f"🔖 ID: <b>{html.escape(task['task_id'])}</b>\n"
+        f"📌 {html.escape(task['title'])}\n"
+        f"Приоритет: {html.escape(str(priority_label))}\n"
+        f"Статус: {emoji} {html.escape(str(status_text))}\n\n"
+        "Просмотр: /tasks\n\n"
+        "━━━━━━━━━━━━━━━━━━\n"
+        "<i>Atlas Work Engine · v0.1</i>"
+    )
+
+    await update.effective_message.reply_text(
+        text,
+        parse_mode=ParseMode.HTML,
     )
 
 
@@ -2680,6 +2810,7 @@ async def post_init(application: Application):
             BotCommand("activity", "🧠 Журнал активности"),
             BotCommand("report", "📊 Отчёт владельцу"),
             BotCommand("tasks", "🎯 Задачи Atlas"),
+            BotCommand("newtask", "➕ Новая задача"),
             BotCommand("pipeline", "💼 Sales Pipeline"),
             BotCommand("approvals", "⚠️ Approval Inbox"),
             BotCommand("pending", "🟡 Ожидают решения"),
@@ -2706,6 +2837,7 @@ def main():
     application.add_handler(CommandHandler("report", report_command))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("tasks", tasks_command))
+    application.add_handler(CommandHandler("newtask", newtask_command))
     application.add_handler(CommandHandler("pipeline", pipeline_command))
     application.add_handler(CommandHandler("approvals", approvals_command))
     application.add_handler(CommandHandler("pending", pending_command))
