@@ -5,10 +5,10 @@
 **Document ID:** `06_DECISIONS.md`
 **Location:** `02_Brain/`
 **Status:** Active
-**Version:** 1.1
+**Version:** 1.2
 **Owner:** Brain
 **Classification:** Governance — decision framework
-**Last updated:** 2026-08-12
+**Last updated:** 2026-08-13
 **Review date:** 2026-11-08
 **Supersedes:** — (first populated version; document previously existed as an empty placeholder)
 **Authority:** This document is the authoritative source for *how Atlas makes decisions* — authority bands applied to decisions, decision classes, the decision pipeline, gates, evidence requirements, risk and opportunity scoring, AI participation rules, escalation mechanics, reversibility doctrine, delegation and ownership rules, logging mechanics, the live Decision Register, quality metrics, bias controls, postmortem and audit cadences, and anti-patterns. It does not hold philosophy ([`01_WHY_ATLAS_EXISTS.md`](01_WHY_ATLAS_EXISTS.md)), principles rationale ([`02_FOUNDING_PRINCIPLES.md`](02_FOUNDING_PRINCIPLES.md)), organizational structure ([`03_ORGANIZATION.md`](03_ORGANIZATION.md)), strategic sequencing ([`04_ROADMAP.md`](04_ROADMAP.md)), or instance facts about what has actually happened ([`05_CURRENT_STATE.md`](05_CURRENT_STATE.md)). Where this document and a sibling appear to disagree, the sibling wins on *type* (mission, principles, structure, roadmap) and this document wins on *decision mechanics* — see [Relationship to Other Brain Documents](#relationship-to-other-brain-documents).
@@ -1633,6 +1633,17 @@ Decisions made before this framework existed, or made informally under time pres
 
 Logging populates the Register, which is internal Knowledge-department infrastructure per [Knowledge Management](00_ATLAS_BRAIN.md#knowledge-management). Whether a decision's *existence* or *content* is communicated externally is governed separately by [External communication](00_ATLAS_BRAIN.md#external-communication) and does not block or delay logging.
 
+### Idea / Proposal Backlog vs Approved Decisions
+
+Important ideas must not be lost, and they must not be smuggled into the truth layer.
+
+| Layer | Meaning | Canonical home |
+|---|---|---|
+| **IDEA / PROPOSAL BACKLOG** | Interesting but **not** approved | [`IDEA_BACKLOG.md`](IDEA_BACKLOG.md) |
+| **APPROVED DECISIONS / TRUTH LAYER** | Explicitly Founder-confirmed | This Register, then instance docs |
+
+When the Founder says **agreed**, **fix it**, **we do it this way**, or **remember this** (or an equivalent confirmation), the durable part is logged here as an Approved Decision. Until that happens, the item stays in the Idea Backlog and must not be treated as policy, architecture, or permission to act.
+
 ### AI-assisted logging
 
 AI may draft the DR entry in full (see [AI-Assisted Decisions](#ai-assisted-decisions)) from the pipeline artifacts already produced; a human owner must confirm accuracy before the entry is marked Logged. AI never marks its own draft as the canonical logged record.
@@ -1692,8 +1703,10 @@ The table below is the actual, current Register. New entries are appended chrono
 | DR-2026-003 | 2026-08-09 | Adopt Brain-default "Irreversible commitment" escalation threshold for Finance | Operational | DL-1 | Two-way | Антон (Finance hat) | Approved | 2027-02-09 | [Full DR below](#dr-2026-003-adopt-brain-default-irreversible-commitment-escalation-threshold-for-finance) |
 | DR-2026-004 | 2026-08-09 | Set temporary Phase 1 "Capital commitment" escalation threshold at 10% of deployable capital | Operational | DL-2 | Two-way | Антон (Brain + Finance hats) | Approved | 2026-11-09 | [Full DR below](#dr-2026-004-set-temporary-phase-1-capital-commitment-escalation-threshold-at-10-of-deployable-capital) |
 | DR-2026-010 | 2026-08-12 | Atlas Capital Engine + Atlas Foundry direction | Strategic | DL-4 | One-way | Антон (Brain) | Approved (provisional) | 2026-11-12 | [Full DR below](#dr-2026-010-atlas-capital-engine--atlas-foundry-direction) |
+| DR-2026-011 | 2026-08-13 | Pre-FOP Period: no external commercial contact | Operational | DL-3 | Two-way | Антон (Brain) | Approved | 2026-08-27 | [Full DR below](#dr-2026-011-pre-fop-period-no-external-commercial-contact) |
+| DR-2026-012 | 2026-08-13 | Atlas Product Foundation, five factories, and P-002 | Strategic | DL-4 | One-way | Антон (Brain) | Approved | 2026-08-27 | [Full DR below](#dr-2026-012-atlas-product-foundation-five-factories-and-p-002) |
 
-**Current entry count: 5.**
+**Current entry count: 7.**
 
 ### DR-2026-001: Build full Brain governance set before operating activity
 
@@ -2096,6 +2109,230 @@ This decision is **not** permission to create many new departments, governance f
 - [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md) — live Phase 1 / automation / project facts this direction must not contradict
 - [`04_ROADMAP.md` § Phase 1](04_ROADMAP.md#phase-1--operating-kernel) — Phase 1 exit criteria remain independently evidenced
 - P-001 / Market Screen artifacts — early opportunity screening context; do not treat as completed Capital Engine proof
+
+---
+
+### DR-2026-011: Pre-FOP Period — no external commercial contact
+
+**Date:** 2026-08-13
+**Owner:** Антон (Brain Lead)
+**Status:** Approved
+**Type:** Operational
+**Sub-class:** Commercial sequencing / legal-operating constraint
+**Level:** DL-3
+**Door type:** Two-way (policy lifts when FOP is registered; violating it by contacting the market would be hard to reverse)
+**AI-assistance flag:** Drafting under Founder confirmation
+**Escalation approval:** N/A — Brain band; Founder-confirmed
+
+### Context
+
+Atlas Lab is not yet a registered FOP. TASK-0002 identified realistic companies and a possible outreach path. The Founder confirmed that **no external commercial contact** happens until FOP is registered. Do-nothing (continuing prospect outreach) would create unregistered commercial activity.
+
+This decision does **not** choose FOP jurisdiction, tax setup, or banking — those remain [DR-2026-005 (proposed)](05_CURRENT_STATE.md#appendix-e--decision-record-backlog). It only freezes outbound commercial action until FOP exists.
+
+### Evidence
+
+- **Operational feasibility:** Internal research, synthetic orders, and factory build do not require outbound contact.
+- **Principle alignment:** [Integrity](02_FOUNDING_PRINCIPLES.md#integrity), [Human accountability](02_FOUNDING_PRINCIPLES.md#human-accountability), [Optionality](02_FOUNDING_PRINCIPLES.md#optionality).
+- **Precedent:** DR-2026-001 (governance before premature operating scale); DR-2026-010 (human control for external customer commitments). Register search: no prior live DR defines a Pre-FOP freeze.
+- **Financial / Market:** Not claimed. This is a constraint, not a revenue plan.
+- **Stakeholder:** Founder confirmed this turn.
+
+### Options considered
+
+1. **Freeze all external commercial contact until FOP; allow internal research/build/synthetic orders (chosen).**
+2. Continue TASK-0002-style outreach (OUT-0002, email, LinkedIn, Telegram, proposals) before FOP.
+3. Freeze *all* Atlas work, including internal build, until FOP.
+
+### Risk score
+
+| Category | Likelihood (1–5) | Impact (1–5) | Mitigation |
+|---|---|---|---|
+| Strategic | 2 | 2 | Two-week internal factory objective (DR-2026-012) uses the freeze window |
+| Financial | 2 | 2 | No payment collection before FOP |
+| Operational | 2 | 2 | Synthetic orders replace live prospects for testing |
+| Compliance/legal | 2 | 4 | Hard freeze on outbound commercial action |
+| Reputational | 2 | 3 | Do not contact named benchmark companies |
+
+### Decision
+
+**Option 1 chosen.** Until the Founder has registered FOP, Atlas Lab will **not** contact the external world commercially.
+
+**Forbidden before FOP:**
+
+- outbound email
+- LinkedIn outreach
+- Telegram outreach to prospects
+- contact forms
+- real proposals sent externally
+- real OUT records intended for sending
+- payment collection
+- any other external commercial action
+
+**Allowed before FOP:**
+
+- research real companies using public information
+- identify real operational problems
+- use real companies as realistic benchmark cases
+- create synthetic/internal orders based on those problems
+- design and build solutions internally
+- run autonomous development, QA, security, and review
+- simulate client / project / finance workflows
+- prepare everything needed for later commercial launch
+
+**Named constraints:**
+
+- **Daniel Cobb** must not be contacted before FOP. TASK-0002 produced a realistic benchmark / synthetic-order candidate only. **Do not create OUT-0002.**
+- **Gosselin** remains an enterprise internal benchmark only. Do not contact. Do not treat as a live prospect.
+
+This suspends the *external* steps of DR-2026-010's commercial sequencing loop. It does not cancel Foundry / Capital Engine direction.
+
+### Success metrics
+
+- Zero outbound commercial contacts, OUT records-for-sending, proposals, or payment collection before FOP registration is recorded.
+- Internal synthetic-order work can still proceed under DR-2026-012.
+
+### Review date
+
+2026-08-27, or immediately upon FOP registration (policy lifts; a new DR or Current State update must record the lift).
+
+### Related documents / precedent
+
+- DR-2026-010 — Capital Engine / Foundry; external loop paused, not cancelled
+- DR-2026-012 — what Atlas builds during the freeze
+- [`IDEA_BACKLOG.md`](IDEA_BACKLOG.md)
+- [P-002 brief](../01_Projects/P-002_ATLAS_BUILD_FACTORY/PROJECT_BRIEF.md)
+
+---
+
+### DR-2026-012: Atlas Product Foundation, five factories, and P-002
+
+**Date:** 2026-08-13
+**Owner:** Антон (Brain Lead)
+**Status:** Approved
+**Type:** Strategic
+**Sub-class:** Holding direction / product-production architecture / project charter
+**Level:** DL-4
+**Door type:** One-way (choosing one shared foundation vs five products; expensive to unwind once factories exist)
+**AI-assistance flag:** Drafting under Founder confirmation
+**Escalation approval:** N/A — Brain band; Founder-confirmed
+
+### Context
+
+DR-2026-010 named Atlas Foundry as a capability and listed illustrative AI Office / bot / document domains. The Founder has now confirmed a concrete architecture, a two-week pre-FOP build objective, project **P-002**, and the rule that department products are factory packages — not independent codebases.
+
+This records strategic architecture and the P-002 charter. It does **not** ship factories, claim Night Build is live, complete P1.2 / P1.4 / P1.5, create revenue, or authorize product code in the same turn as this logging.
+
+### Evidence
+
+- **Financial:** $0 capital; Founder time for ~two weeks. No compute expansion. Consistent with DR-2026-010 revenue-before-compute.
+- **Market / competitive:** TASK-0002 public research produced a realistic small-company benchmark (Daniel Cobb / lettings inbox copilot) and an enterprise benchmark (Gosselin). This is **not** paid-demand evidence.
+- **Operational feasibility:** Work is internal to Atlas Lab. Existing Telegram bot is internal OS tooling and is **out of scope** unless a later execute step says otherwise.
+- **Principle alignment:** [Simple before complex](02_FOUNDING_PRINCIPLES.md#simple-before-complex), [Compounding over optimization](02_FOUNDING_PRINCIPLES.md#compounding-over-optimization), [Systems over heroes](02_FOUNDING_PRINCIPLES.md#systems-over-heroes), [Human accountability](02_FOUNDING_PRINCIPLES.md#human-accountability), [Action over perfection](02_FOUNDING_PRINCIPLES.md#action-over-perfection).
+- **Precedent:** DR-2026-010 (Foundry as capability, ~80/20 reuse, human control, anti-overbuild). This DR **refines** it: reuse target restated as **10–30% client-specific customization**; five named factories; department offerings as AI Office packages; two-week internal foundation sprint during Pre-FOP. DR-2026-010 is **not** superseded.
+- **Stakeholder:** Founder confirmed this turn.
+
+### Options considered
+
+1. **One Product Foundation + five factories as P-002; department offerings as AI Office packages; synthetic-order testing during Pre-FOP (chosen).**
+2. Five independent product codebases (Bot, Web, CRM, Office, Documents) plus separate Sales/Support/etc. studios.
+3. Stay a bot-development studio and defer other factories.
+4. Wait for FOP and a live paid pilot before any factory architecture.
+
+### Risk score
+
+| Category | Likelihood (1–5) | Impact (1–5) | Mitigation |
+|---|---|---|---|
+| Strategic | 3 | 3 | Sequence A→C before D–H; anti-overbuild from DR-2026-010 retained |
+| Financial | 2 | 2 | Time-only; no payment collection; no material compute spend |
+| Operational | 3 | 3 | Synthetic orders; Founder Review gate before any external action |
+| Technical | 3 | 3 | Shared foundation first; do not fork the live Telegram bot into the factory |
+| Reputational | 2 | 3 | No contact with benchmark companies; no claim of shipped factories |
+
+### Opportunity score
+
+| Criterion | Score (1–5) | Justification |
+|---|---|---|
+| Return potential | 4 | Path to later custom digital-company delivery from one stack |
+| Operational leverage | 5 | Shared foundation + 10–30% customization |
+| Time to impact | 3 | Two-week internal proof; commercial impact only after FOP |
+| Knowledge contribution | 5 | First real production architecture for Foundry |
+| Optionality created | 4 | Catalogue can expand as packages without new codebases |
+
+### Decision
+
+**Option 1 chosen.**
+
+#### Positioning
+
+Atlas Lab should evolve into: **a factory for custom digital companies, departments and automated business systems.** It is not merely a bot-development studio.
+
+A holding-OS mission rewrite in `00_ATLAS_BRAIN.md` is **not** made by this DR. Positioning is recorded here and in P-002 until a dedicated T1 update is approved.
+
+#### Atlas Product Foundation
+
+There should be **one reusable production foundation**, then reusable modules, then product factories, then client-specific **10–30%** customization.
+
+#### Five factories
+
+1. Atlas Bot Factory
+2. Atlas Web Factory
+3. Atlas Business App / Mini-CRM Factory
+4. Atlas AI Office Factory
+5. Atlas Document & Workflow Factory
+
+Sales, Recruiting, Support, Operations and Marketing must **not** become five independent codebases. They become configurations / solution packages of Atlas AI Office Factory.
+
+#### P-002
+
+**P-002 — Atlas Build Factory** is the project that implements this architecture. Canonical definition: [`01_Projects/P-002_ATLAS_BUILD_FACTORY/PROJECT_BRIEF.md`](../01_Projects/P-002_ATLAS_BUILD_FACTORY/PROJECT_BRIEF.md).
+
+#### Pre-FOP strategic objective
+
+Use approximately the next two weeks to build and test the autonomous product-production foundation — internally, under DR-2026-011.
+
+#### Night Build (target)
+
+The Founder should eventually approve an artificial order before sleep. Atlas should autonomously analyze, build, test, fix, and review overnight, and present `READY_FOR_REVIEW` in the morning. This is a target, not a live capability.
+
+#### Founder gates
+
+High autonomy is allowed **inside** Atlas Lab. External communication, production deployment, spending, payments, credentials, and other high-impact actions remain Founder-gated. Target workflow:
+
+ORDER → Product Manager → Requirements / BA → Solution Architect → Select foundation + modules → Build → QA → Fix loop → Security / Reviewer → Founder Review → only after approval: deployment / delivery / external action.
+
+#### Idea governance
+
+Unapproved ideas live in [`IDEA_BACKLOG.md`](IDEA_BACKLOG.md). Approved durable confirmations live in this Register.
+
+#### Implementation sequence (default)
+
+A. Product Foundation architecture
+B. Bot Factory v0.1
+C. First synthetic autonomous order
+D. Web Factory
+E. Business App / Mini-CRM Factory
+F. AI Office Factory
+G. Document & Workflow Factory
+H. Cross-factory Night Build testing
+
+Do not skip A→C. Rationale is in the P-002 brief.
+
+### Success metrics
+
+Two-week pre-FOP criteria are those listed in the P-002 brief §9. This DR is not itself those factories existing.
+
+### Review date
+
+2026-08-27 (end of the approximate two-week window), or sooner if Step C reaches `READY_FOR_REVIEW`.
+
+### Related documents / precedent
+
+- DR-2026-010 — refined, not superseded
+- DR-2026-011 — Pre-FOP freeze
+- [P-002 PROJECT_BRIEF.md](../01_Projects/P-002_ATLAS_BUILD_FACTORY/PROJECT_BRIEF.md)
+- [`IDEA_BACKLOG.md`](IDEA_BACKLOG.md)
+- [`05_CURRENT_STATE.md`](05_CURRENT_STATE.md)
 
 ---
 
@@ -3359,6 +3596,7 @@ Some terms used loosely throughout this document await formal Glossary treatment
 |---|---|---|
 | 1.0 | 2026-08-08 | Initial release — full decision framework: authority mapping, decision levels and classes, eleven-stage pipeline, gates, templates, evidence requirements, risk/opportunity scoring, capital allocation process, AI participation rules, human override rules, escalation mechanics, reversibility doctrine, delegation and ownership rules, logging mechanics and live Register, quality metrics, bias detection, failure analysis, postmortem process, quarterly review and annual audit cadences, anti-patterns, worked examples, and appendices |
 | 1.1 | 2026-08-12 | Added live Register entry **DR-2026-010** (Atlas Capital Engine + Atlas Foundry direction; Strategic / DL-4 / One-way; **Approved (provisional)** pending unmet mandatory DL-4 Financial, Market, Operational, and Stakeholder evidence). Current State instance-count sync is handled separately in `05_CURRENT_STATE.md`. |
+| 1.2 | 2026-08-13 | Logged **DR-2026-011** (Pre-FOP commercial freeze) and **DR-2026-012** (Product Foundation / five factories / P-002). Added Idea vs Approved Decision logging rule pointing at `IDEA_BACKLOG.md`. DR-2026-010 remains Approved (provisional) and is refined, not superseded. |
 
 ### This document versus a decision itself
 

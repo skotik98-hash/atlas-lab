@@ -2,11 +2,15 @@
 
 **Opportunity ID:** OP-022  
 **Project:** P-001 Atlas Operating System  
-**State:** Research  
+**State:** Research — **external commercial contact frozen until FOP** ([DR-2026-011](../../02_Brain/06_DECISIONS.md#dr-2026-011-pre-fop-period-no-external-commercial-contact))
 **Experiment:** 001  
 **Capital committed:** $0  
 **Revenue:** $0  
 **Owner:** Антон
+
+> **Pre-FOP freeze.** Do not contact prospects, send proposals, or create OUT records intended for sending until FOP is registered.
+>
+> **TASK-0002:** produced a realistic **benchmark / synthetic-order candidate** only (Daniel Cobb — potential internal AI Property Management / Lettings Inbox Copilot). **Do not create OUT-0002. Do not contact Daniel Cobb.** Gosselin remains an enterprise internal benchmark only. Synthetic-order work belongs to [P-002](../P-002_ATLAS_BUILD_FACTORY/PROJECT_BRIEF.md), not to this opportunity's outreach loop.
 
 ---
 

@@ -2,10 +2,12 @@
 
 **Document ID:** customer_acquisition_engine.md  
 **Project:** P-001 Atlas Operating System  
-**Status:** Active  
+**Status:** Active — **external execution frozen until FOP**
 **Version:** 1.0  
 **Owner:** Антон  
 **Purpose:** Convert validated market opportunities into real prospects, customers, revenue and repeatable acquisition systems.
+
+> **Pre-FOP freeze ([DR-2026-011](../../02_Brain/06_DECISIONS.md#dr-2026-011-pre-fop-period-no-external-commercial-contact)):** this document remains the acquisition *design*. It is **not** permission to email, LinkedIn-message, Telegram-message, submit contact forms, send real proposals, create OUT records intended for sending, or collect payment until the Founder has registered FOP. Public research and internal synthetic orders are allowed under [P-002](../P-002_ATLAS_BUILD_FACTORY/PROJECT_BRIEF.md).
 
 ---
 
