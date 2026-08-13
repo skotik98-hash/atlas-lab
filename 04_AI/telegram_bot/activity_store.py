@@ -3,6 +3,8 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from sqlite_lifecycle import managed_connection
+
 
 DB_PATH = Path(__file__).with_name("data") / "activity.db"
 
@@ -19,12 +21,14 @@ def connect():
         timeout=5,
     )
 
-    db.row_factory = sqlite3.Row
-
-    db.execute("PRAGMA journal_mode=WAL")
-    db.execute("PRAGMA busy_timeout=5000")
-
-    return db
+    try:
+        db.row_factory = sqlite3.Row
+        db.execute("PRAGMA journal_mode=WAL")
+        db.execute("PRAGMA busy_timeout=5000")
+        return managed_connection(db)
+    except Exception:
+        db.close()
+        raise
 
 
 def initialize():

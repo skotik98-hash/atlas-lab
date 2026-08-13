@@ -3,6 +3,8 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from sqlite_lifecycle import managed_connection
+
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "data" / "tasks.db"
@@ -34,7 +36,7 @@ def connect():
     db = sqlite3.connect(DB_PATH)
     db.row_factory = sqlite3.Row
 
-    return db
+    return managed_connection(db)
 
 
 def initialize():

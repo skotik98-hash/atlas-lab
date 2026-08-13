@@ -3,6 +3,8 @@ import os
 import sqlite3
 from datetime import datetime, timezone
 
+from sqlite_lifecycle import managed_connection
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -29,7 +31,7 @@ def connect():
 
     db = sqlite3.connect(DB_PATH)
     db.row_factory = sqlite3.Row
-    return db
+    return managed_connection(db)
 
 
 def initialize():

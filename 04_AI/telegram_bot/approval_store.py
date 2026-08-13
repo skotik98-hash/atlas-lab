@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from activity_store import log_event
+from sqlite_lifecycle import managed_connection
 
 
 DB_PATH = Path(__file__).with_name("data") / "approvals.db"
@@ -18,7 +19,7 @@ def connect():
     connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row
 
-    return connection
+    return managed_connection(connection)
 
 
 def initialize():
