@@ -18,6 +18,18 @@ STATUSES = {
     "CANCELLED",
 }
 
+TERMINAL_STATUSES = {
+    "DONE",
+    "CANCELLED",
+}
+
+# dest -> allowed current statuses. Store is authoritative.
+TASK_TRANSITIONS = {
+    "IN_PROGRESS": frozenset({"NEW", "WAITING_APPROVAL"}),
+    "DONE": frozenset({"IN_PROGRESS"}),
+    "BLOCKED": frozenset({"NEW", "IN_PROGRESS", "WAITING_APPROVAL"}),
+}
+
 PRIORITIES = {
     "LOW",
     "NORMAL",
@@ -33,7 +45,7 @@ def utc_now():
 def connect():
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    db = sqlite3.connect(DB_PATH)
+    db = sqlite3.connect(DB_PATH, timeout=5)
     db.row_factory = sqlite3.Row
 
     return managed_connection(db)
@@ -224,12 +236,18 @@ def list_tasks(limit=20, status=None):
     return [_decode(row) for row in rows]
 
 
-def update_task_status(
+def transition_task_status(
     task_id,
     status,
     result=None,
     approval_id=None,
+    expected_status=None,
 ):
+    """Atomically move a task to status from an allowed source state.
+
+    Returns {"ok", "reason", "task"} where reason is OK, NOT_FOUND,
+    or INVALID_TRANSITION.
+    """
     initialize()
 
     status = str(status).upper().strip()
@@ -239,17 +257,34 @@ def update_task_status(
             f"Некорректный статус: {status}"
         )
 
+    allowed = TASK_TRANSITIONS.get(status)
+
+    if not allowed:
+        return {
+            "ok": False,
+            "reason": "INVALID_TRANSITION",
+            "task": get_task(task_id),
+        }
+
+    if expected_status is not None:
+        expected_status = str(expected_status).upper().strip()
+
+        if expected_status not in allowed:
+            return {
+                "ok": False,
+                "reason": "INVALID_TRANSITION",
+                "task": get_task(task_id),
+            }
+
+        sources = (expected_status,)
+    else:
+        sources = tuple(sorted(allowed))
+
     now = utc_now()
+    placeholders = ",".join(["?"] * len(sources))
 
-    completed_at = (
-        now
-        if status in {"DONE", "CANCELLED"}
-        else None
-    )
-
-    with connect() as db:
-        cursor = db.execute(
-            """
+    if status in TERMINAL_STATUSES:
+        sql = f"""
             UPDATE tasks
             SET
                 status = ?,
@@ -258,23 +293,102 @@ def update_task_status(
                 updated_at = ?,
                 completed_at = ?
             WHERE task_id = ?
-            """,
-            (
-                status,
-                result,
-                approval_id,
-                now,
-                completed_at,
-                task_id,
-            ),
+              AND status IN ({placeholders})
+        """
+        params = (
+            status,
+            result,
+            approval_id,
+            now,
+            now,
+            task_id,
+            *sources,
+        )
+    else:
+        sql = f"""
+            UPDATE tasks
+            SET
+                status = ?,
+                result = COALESCE(?, result),
+                approval_id = COALESCE(?, approval_id),
+                updated_at = ?
+            WHERE task_id = ?
+              AND status IN ({placeholders})
+        """
+        params = (
+            status,
+            result,
+            approval_id,
+            now,
+            task_id,
+            *sources,
         )
 
+    with connect() as db:
+        cursor = db.execute(sql, params)
         db.commit()
+        changed = cursor.rowcount == 1
 
-        if cursor.rowcount == 0:
-            return None
+    current = get_task(task_id)
 
-    return get_task(task_id)
+    if changed:
+        return {
+            "ok": True,
+            "reason": "OK",
+            "task": current,
+        }
+
+    return {
+        "ok": False,
+        "reason": (
+            "NOT_FOUND"
+            if current is None
+            else "INVALID_TRANSITION"
+        ),
+        "task": current,
+    }
+
+
+def update_task_status(
+    task_id,
+    status,
+    result=None,
+    approval_id=None,
+    expected_status=None,
+):
+    outcome = transition_task_status(
+        task_id,
+        status,
+        result=result,
+        approval_id=approval_id,
+        expected_status=expected_status,
+    )
+
+    return outcome["task"] if outcome["ok"] else None
+
+
+def apply_task_approval_decision(
+    task_id,
+    decision,
+    approval_id=None,
+):
+    """Propagate an approval decision onto the linked task.
+
+    APPROVED -> IN_PROGRESS, REJECTED -> BLOCKED.
+    Terminal and otherwise incompatible tasks are left unchanged.
+    """
+    if decision == "APPROVED":
+        dest = "IN_PROGRESS"
+    elif decision == "REJECTED":
+        dest = "BLOCKED"
+    else:
+        raise ValueError("Некорректное решение")
+
+    return transition_task_status(
+        task_id,
+        dest,
+        approval_id=approval_id,
+    )
 
 
 def count_tasks():

@@ -32,6 +32,7 @@ from task_store import (
     get_task,
     update_task_status,
     create_task,
+    apply_task_approval_decision,
 )
 from telegram.ext import MessageHandler, filters
 import datetime as dt
@@ -917,8 +918,17 @@ async def task_callback(
         )
 
         if not updated:
+            current = get_task(task_id)
+            current_status = (
+                current["status"]
+                if current
+                else "не найдена"
+            )
             await query.answer(
-                "❌ Не удалось сохранить IN_PROGRESS",
+                (
+                    "Задача уже в статусе "
+                    f"{current_status}"
+                ),
                 show_alert=True,
             )
             return
@@ -1043,8 +1053,17 @@ async def task_callback(
         )
 
         if not updated:
+            current = get_task(task_id)
+            current_status = (
+                current["status"]
+                if current
+                else "не найдена"
+            )
             await query.answer(
-                "❌ Не удалось сохранить DONE",
+                (
+                    "Задача уже в статусе "
+                    f"{current_status}"
+                ),
                 show_alert=True,
             )
             return
@@ -2824,16 +2843,16 @@ async def approval_callback(
                 f"{approval_parts[1]}"
             )
 
-            next_status = (
-                "IN_PROGRESS"
-                if result == "APPROVED"
-                else "BLOCKED"
+            task_updated = apply_task_approval_decision(
+                task_id,
+                result,
+                approval_id=approval_id,
             )
 
-            update_task_status(
-                task_id,
-                next_status,
-            )
+            if not task_updated["ok"]:
+                # Store rejected incompatible/stale task mutation.
+                # Approval decision is already persisted.
+                pass
 
     if result == "APPROVED":
         await query.answer("✅ Решение подтверждено")

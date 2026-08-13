@@ -21,6 +21,17 @@ VALID_STAGES = {
     "LOST",
 }
 
+# dest -> allowed current stages. Store is authoritative.
+STAGE_TRANSITIONS = {
+    "SENT": frozenset({"READY_TO_SEND"}),
+    "WAITING_REPLY": frozenset({"SENT"}),
+    "REPLIED": frozenset({"WAITING_REPLY", "SENT"}),
+    "MEETING": frozenset({"REPLIED"}),
+    "PROPOSAL": frozenset({"MEETING"}),
+    "WON": frozenset({"PROPOSAL"}),
+    "LOST": frozenset({"MEETING", "PROPOSAL"}),
+}
+
 
 def utc_now():
     return datetime.now(timezone.utc).isoformat()
@@ -29,7 +40,7 @@ def utc_now():
 def connect():
     os.makedirs(DATA_DIR, exist_ok=True)
 
-    db = sqlite3.connect(DB_PATH)
+    db = sqlite3.connect(DB_PATH, timeout=5)
     db.row_factory = sqlite3.Row
     return managed_connection(db)
 
@@ -225,27 +236,50 @@ def count_stages():
     return counts
 
 
-def update_stage(outreach_id, stage):
+def transition_stage(outreach_id, stage, expected_stage=None):
+    """Atomically move outreach to stage from an allowed source stage.
+
+    Returns {"ok", "reason"}.
+    """
     initialize()
 
     if stage not in VALID_STAGES:
         raise ValueError(f"Invalid stage: {stage}")
 
-    now = utc_now()
+    allowed = STAGE_TRANSITIONS.get(stage)
 
-    sent_at_sql = ""
-    replied_at_sql = ""
+    if not allowed:
+        return {
+            "ok": False,
+            "reason": "INVALID_TRANSITION",
+        }
+
+    if expected_stage is not None:
+        if expected_stage not in allowed:
+            return {
+                "ok": False,
+                "reason": "INVALID_TRANSITION",
+            }
+
+        sources = (expected_stage,)
+    else:
+        sources = tuple(sorted(allowed))
+
+    now = utc_now()
+    placeholders = ",".join(["?"] * len(sources))
+    extra_sql = ""
     params = [stage, now]
 
     if stage == "SENT":
-        sent_at_sql = ", sent_at = COALESCE(sent_at, ?)"
+        extra_sql += ", sent_at = COALESCE(sent_at, ?)"
         params.append(now)
 
     if stage == "REPLIED":
-        replied_at_sql = ", replied_at = COALESCE(replied_at, ?)"
+        extra_sql += ", replied_at = COALESCE(replied_at, ?)"
         params.append(now)
 
     params.append(outreach_id)
+    params.extend(sources)
 
     with connect() as db:
         result = db.execute(
@@ -253,16 +287,40 @@ def update_stage(outreach_id, stage):
             UPDATE sales_outreach
             SET stage = ?,
                 updated_at = ?
-                {sent_at_sql}
-                {replied_at_sql}
+                {extra_sql}
             WHERE outreach_id = ?
+              AND stage IN ({placeholders})
             """,
             params,
         )
 
         db.commit()
+        changed = result.rowcount == 1
 
-        return result.rowcount > 0
+    if changed:
+        return {
+            "ok": True,
+            "reason": "OK",
+        }
+
+    item = get_outreach(outreach_id)
+
+    return {
+        "ok": False,
+        "reason": (
+            "NOT_FOUND"
+            if item is None
+            else "INVALID_TRANSITION"
+        ),
+    }
+
+
+def update_stage(outreach_id, stage, expected_stage=None):
+    return transition_stage(
+        outreach_id,
+        stage,
+        expected_stage=expected_stage,
+    )["ok"]
 
 
 def record_inbound_reply(outreach_id, reply_text):
@@ -309,9 +367,12 @@ def record_inbound_reply(outreach_id, reply_text):
     metadata["last_reply_text"] = reply_text
     metadata["last_reply_at"] = now
 
+    sources = tuple(sorted(STAGE_TRANSITIONS["REPLIED"]))
+    placeholders = ",".join(["?"] * len(sources))
+
     with connect() as db:
         result = db.execute(
-            """
+            f"""
             UPDATE sales_outreach
             SET
                 stage = ?,
@@ -319,6 +380,7 @@ def record_inbound_reply(outreach_id, reply_text):
                 replied_at = COALESCE(replied_at, ?),
                 metadata_json = ?
             WHERE outreach_id = ?
+              AND stage IN ({placeholders})
             """,
             (
                 "REPLIED",
@@ -329,12 +391,13 @@ def record_inbound_reply(outreach_id, reply_text):
                     ensure_ascii=False,
                 ),
                 outreach_id,
+                *sources,
             ),
         )
 
         db.commit()
 
-        return result.rowcount > 0
+        return result.rowcount == 1
 
 
 if __name__ == "__main__":
