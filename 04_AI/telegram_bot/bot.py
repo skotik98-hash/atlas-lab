@@ -36,6 +36,12 @@ from task_store import (
 from telegram.ext import MessageHandler, filters
 import datetime as dt
 
+# Task statuses that may be owner-started via /tasks.
+# First version: only NEW -> IN_PROGRESS.
+TASK_STARTABLE_STATUSES = {
+    "NEW",
+}
+
 # Task statuses that may be owner-completed via /tasks.
 # First version: only IN_PROGRESS -> DONE.
 TASK_COMPLETABLE_STATUSES = {
@@ -676,6 +682,22 @@ async def tasks_command(
 
             parts.append("")
 
+            if task["status"] in TASK_STARTABLE_STATUSES:
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            (
+                                "▶️ В работу "
+                                f"{task['task_id']}"
+                            ),
+                            callback_data=(
+                                "task:start:"
+                                f"{task['task_id']}"
+                            ),
+                        )
+                    ]
+                )
+
             if task["status"] in TASK_COMPLETABLE_STATUSES:
                 keyboard.append(
                     [
@@ -836,7 +858,7 @@ async def newtask_command(
 
 
 # ============================================================
-# TASK CALLBACK — OWNER COMPLETE (CONFIRMATION REQUIRED)
+# TASK CALLBACK — OWNER START + COMPLETE
 # ============================================================
 
 
@@ -874,6 +896,53 @@ async def task_callback(
         await query.answer(
             "❌ Задача не найдена",
             show_alert=True,
+        )
+        return
+
+    # Start: NEW -> IN_PROGRESS only (no confirmation)
+    if action == "start":
+        if task["status"] not in TASK_STARTABLE_STATUSES:
+            await query.answer(
+                (
+                    "Задача уже в статусе "
+                    f"{task['status']}"
+                ),
+                show_alert=True,
+            )
+            return
+
+        updated = update_task_status(
+            task_id,
+            "IN_PROGRESS",
+        )
+
+        if not updated:
+            await query.answer(
+                "❌ Не удалось сохранить IN_PROGRESS",
+                show_alert=True,
+            )
+            return
+
+        await query.answer("▶️ Задача в работе")
+
+        await query.message.reply_text(
+            (
+                "▶️ <b>ATLAS · ЗАДАЧА "
+                "В РАБОТЕ</b>\n\n"
+                "━━━━━━━━━━━━━━━━━━\n\n"
+                "🆔 "
+                f"<code>{html.escape(task_id)}</code>"
+                "\n"
+                "📌 "
+                f"{html.escape(updated['title'])}"
+                "\n"
+                "Статус: 🔵 <b>В РАБОТЕ</b> "
+                "(IN_PROGRESS)\n\n"
+                "Обнови список: /tasks\n\n"
+                "━━━━━━━━━━━━━━━━━━\n"
+                "<i>Atlas Work Engine · v0.1</i>"
+            ),
+            parse_mode=ParseMode.HTML,
         )
         return
 
