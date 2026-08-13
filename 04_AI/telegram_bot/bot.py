@@ -14,7 +14,8 @@ from sales_outreach_store import list_outreach, count_stages, get_outreach, upda
 
 from approval_store import (
     get_approval,
-    decide_approval,
+    apply_approval_decision,
+    recover_pending_propagations,
     list_approvals,
     count_approvals,
     list_pending,
@@ -32,7 +33,6 @@ from task_store import (
     get_task,
     update_task_status,
     create_task,
-    apply_task_approval_decision,
 )
 from telegram.ext import MessageHandler, filters
 import datetime as dt
@@ -2797,11 +2797,14 @@ async def approval_callback(
 
     decision = "APPROVED" if action == "approve" else "REJECTED"
 
-    result = decide_approval(
+    outcome = apply_approval_decision(
         approval_id=approval_id,
         decision=decision,
         decided_by=user.id,
     )
+
+    result = outcome["reason"]
+    propagation = outcome.get("propagation") or "NONE"
 
     if result == "NOT_FOUND":
         await query.answer(
@@ -2811,7 +2814,7 @@ async def approval_callback(
         return
 
     if result == "ALREADY_DECIDED":
-        current = get_approval(approval_id)
+        current = outcome.get("approval") or get_approval(approval_id)
 
         status_text = (
             "🟢 уже подтверждено"
@@ -2827,32 +2830,17 @@ async def approval_callback(
 
     await query.edit_message_reply_markup(reply_markup=None)
 
-
-    # TASK-LINKED APPROVAL
-    # Формат approval_id:
-    # TASK-0001-YYYYMMDD-HHMMSS
-    if (
-        approval_id.startswith("TASK-")
-        and result in {"APPROVED", "REJECTED"}
-    ):
-        approval_parts = approval_id.split("-")
-
-        if len(approval_parts) >= 2:
-            task_id = (
-                f"{approval_parts[0]}-"
-                f"{approval_parts[1]}"
-            )
-
-            task_updated = apply_task_approval_decision(
-                task_id,
-                result,
-                approval_id=approval_id,
-            )
-
-            if not task_updated["ok"]:
-                # Store rejected incompatible/stale task mutation.
-                # Approval decision is already persisted.
-                pass
+    task_note = ""
+    if propagation == "INCOMPATIBLE":
+        task_note = (
+            "⚠️ Связанная задача не изменена — "
+            "текущий статус не допускает переход.\n\n"
+        )
+    elif propagation == "PENDING":
+        task_note = (
+            "⚠️ Решение сохранено, но связанная "
+            "задача ещё не синхронизирована.\n\n"
+        )
 
     if result == "APPROVED":
         await query.answer("✅ Решение подтверждено")
@@ -2863,6 +2851,7 @@ async def approval_callback(
             f"🔖 ID: <code>{html.escape(approval_id)}</code>\n"
             "Статус: 🟢 <b>ПОДТВЕРЖДЕНО</b>\n\n"
             "👤 Решение владельца сохранено в Approval Store.\n\n"
+            f"{task_note}"
             "⚠️ Само внешнее действие пока автоматически "
             "не выполняется.\n\n"
             "━━━━━━━━━━━━━━━━━━\n"
@@ -2879,6 +2868,7 @@ async def approval_callback(
         f"🔖 ID: <code>{html.escape(approval_id)}</code>\n"
         "Статус: 🔴 <b>ОТКЛОНЕНО</b>\n\n"
         "👤 Решение владельца сохранено в Approval Store.\n\n"
+        f"{task_note}"
         "🛑 Atlas не будет выполнять это действие.\n\n"
         "━━━━━━━━━━━━━━━━━━\n"
         "<i>Atlas Approval Inbox · v0.2</i>",
@@ -2905,6 +2895,13 @@ async def post_init(application: Application):
             BotCommand("help", "❓ Команды"),
         ]
     )
+
+    try:
+        recover_pending_propagations()
+    except Exception:
+        logger.exception(
+            "Approval task-propagation recovery failed"
+        )
 
 
 # ─────────────────────────────────────────────
